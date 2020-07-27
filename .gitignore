@@ -1,0 +1,10 @@
+/.classpath
+/.gradle/
+/.project
+/.settings/
+/.idea/
+/.vscode/
+/bin/
+/build/
+
+.DS_Store

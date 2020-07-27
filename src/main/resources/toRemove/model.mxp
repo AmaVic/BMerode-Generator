@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxp:mermaidmodel xmlns:mxp="http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5" mxp.version="1.6" jmermaid.version="1.0" timestamp="1595401307914">
+  <mxp:metamodel lastid="71">
+    <mxp:datatypes/>
+    <mxp:metaobjects>
+      <mxp:metaobject id="1" name="Product" abstract="false">
+        <mxp:metadescription/>
+        <mxp:metaconstraints/>
+        <mxp:metamultiplepropagationconstraints/>
+        <mxp:metaattributes>
+          <mxp:metaattribute id="2" name="name" type="String">
+            <mxp:description/>
+            <mxp:validation/>
+            <mxp:implementation/>
+          </mxp:metaattribute>
+          <mxp:metaattribute id="3" name="purchaseDate" type="Date/Time">
+            <mxp:description/>
+            <mxp:validation/>
+            <mxp:implementation/>
+          </mxp:metaattribute>
+        </mxp:metaattributes>
+        <mxp:metafsms>
+          <mxp:metafsm id="4" name="DEFAULT" type="DEFAULT" codegeneration="true">
+            <mxp:metastates>
+              <mxp:metastate id="5" name="initial" type="INITIAL_STATE"/>
+              <mxp:metastate id="6" name="exists" type="STATE"/>
+              <mxp:metastate id="7" name="ended" type="FINAL_STATE"/>
+            </mxp:metastates>
+            <mxp:metatransitions>
+              <mxp:metatransition id="8" name="initial_exists" sourcestateid="5" targetstateid="6">
+                <mxp:metatransitionmethods>
+                  <mxp:metatransitionmethod safeid="9" methodid="10" methodname="ME_cr_Product"/>
+                </mxp:metatransitionmethods>
+              </mxp:metatransition>
+              <mxp:metatransition id="11" name="exists_ended" sourcestateid="6" targetstateid="7">
+                <mxp:metatransitionmethods>
+                  <mxp:metatransitionmethod safeid="12" methodid="13" methodname="ME_end_Product"/>
+                </mxp:metatransitionmethods>
+              </mxp:metatransition>
+              <mxp:metatransition id="14" name="exists_exists" sourcestateid="6" targetstateid="6">
+                <mxp:metatransitionmethods>
+                  <mxp:metatransitionmethod safeid="15" methodid="16" methodname="ME_cr_Ownership"/>
+                  <mxp:metatransitionmethod safeid="17" methodid="18" methodname="ME_end_Ownership"/>
+                </mxp:metatransitionmethods>
+              </mxp:metatransition>
+            </mxp:metatransitions>
+          </mxp:metafsm>
+        </mxp:metafsms>
+      </mxp:metaobject>
+      <mxp:metaobject id="19" name="Member" abstract="false">
+        <mxp:metadescription>Participant</mxp:metadescription>
+        <mxp:metaconstraints/>
+        <mxp:metamultiplepropagationconstraints/>
+        <mxp:metaattributes>
+          <mxp:metaattribute id="20" name="email" type="String">
+            <mxp:description/>
+            <mxp:validation/>
+            <mxp:implementation/>
+          </mxp:metaattribute>
+        </mxp:metaattributes>
+        <mxp:metafsms>
+          <mxp:metafsm id="21" name="DEFAULT" type="DEFAULT" codegeneration="true">
+            <mxp:metastates>
+              <mxp:metastate id="22" name="initial" type="INITIAL_STATE"/>
+              <mxp:metastate id="23" name="exists" type="STATE"/>
+              <mxp:metastate id="24" name="ended" type="FINAL_STATE"/>
+            </mxp:metastates>
+            <mxp:metatransitions>
+              <mxp:metatransition id="25" name="initial_exists" sourcestateid="22" targetstateid="23">
+                <mxp:metatransitionmethods>
+                  <mxp:metatransitionmethod safeid="26" methodid="27" methodname="ME_cr_Member"/>
+                </mxp:metatransitionmethods>
+              </mxp:metatransition>
+              <mxp:metatransition id="28" name="exists_ended" sourcestateid="23" targetstateid="24">
+                <mxp:metatransitionmethods>
+                  <mxp:metatransitionmethod safeid="29" methodid="30" methodname="ME_end_Member"/>
+                </mxp:metatransitionmethods>
+              </mxp:metatransition>
+              <mxp:metatransition id="31" name="exists_exists" sourcestateid="23" targetstateid="23">
+                <mxp:metatransitionmethods>
+                  <mxp:metatransitionmethod safeid="32" methodid="33" methodname="ME_cr_Ownership"/>
+                  <mxp:metatransitionmethod safeid="34" methodid="35" methodname="ME_end_Ownership"/>
+                </mxp:metatransitionmethods>
+              </mxp:metatransition>
+            </mxp:metatransitions>
+          </mxp:metafsm>
+          <mxp:metafsm id="36" name="MemberFSM" type="USER_DEFINED" codegeneration="false">
+            <mxp:metastates>
+              <mxp:metastate id="37" name="initial" type="INITIAL_STATE"/>
+              <mxp:metastate id="38" name="exists" type="STATE"/>
+              <mxp:metastate id="39" name="owner" type="STATE"/>
+              <mxp:metastate id="40" name="ended" type="FINAL_STATE"/>
+            </mxp:metastates>
+            <mxp:metatransitions>
+              <mxp:metatransition id="41" name="initial_exists" sourcestateid="37" targetstateid="38">
+                <mxp:metatransitionmethods>
+                  <mxp:metatransitionmethod safeid="42" methodid="27" methodname="ME_cr_Member"/>
+                </mxp:metatransitionmethods>
+              </mxp:metatransition>
+              <mxp:metatransition id="43" name="exists_OwningMember" sourcestateid="38" targetstateid="39">
+                <mxp:metatransitionmethods>
+                  <mxp:metatransitionmethod safeid="44" methodid="33" methodname="ME_cr_Ownership"/>
+                </mxp:metatransitionmethods>
+              </mxp:metatransition>
+              <mxp:metatransition id="45" name="OwningMember_OwningMember" sourcestateid="39" targetstateid="39">
+                <mxp:metatransitionmethods>
+                  <mxp:metatransitionmethod safeid="46" methodid="33" methodname="ME_cr_Ownership"/>
+                  <mxp:metatransitionmethod safeid="47" methodid="35" methodname="ME_end_Ownership"/>
+                </mxp:metatransitionmethods>
+              </mxp:metatransition>
+              <mxp:metatransition id="48" name="OwningMember_ended" sourcestateid="39" targetstateid="40">
+                <mxp:metatransitionmethods>
+                  <mxp:metatransitionmethod safeid="49" methodid="30" methodname="ME_end_Member"/>
+                </mxp:metatransitionmethods>
+              </mxp:metatransition>
+              <mxp:metatransition id="50" name="exists_ended" sourcestateid="38" targetstateid="40">
+                <mxp:metatransitionmethods>
+                  <mxp:metatransitionmethod safeid="51" methodid="30" methodname="ME_end_Member"/>
+                </mxp:metatransitionmethods>
+              </mxp:metatransition>
+            </mxp:metatransitions>
+          </mxp:metafsm>
+        </mxp:metafsms>
+      </mxp:metaobject>
+      <mxp:metaobject id="52" name="Ownership" abstract="false">
+        <mxp:metadescription/>
+        <mxp:metaconstraints/>
+        <mxp:metamultiplepropagationconstraints/>
+        <mxp:metaattributes>
+          <mxp:metaattribute id="53" name="acquisitionPrice" type="Float">
+            <mxp:description/>
+            <mxp:validation/>
+            <mxp:implementation/>
+          </mxp:metaattribute>
+        </mxp:metaattributes>
+        <mxp:metafsms>
+          <mxp:metafsm id="54" name="DEFAULT" type="DEFAULT" codegeneration="true">
+            <mxp:metastates>
+              <mxp:metastate id="55" name="initial" type="INITIAL_STATE"/>
+              <mxp:metastate id="56" name="exists" type="STATE"/>
+              <mxp:metastate id="57" name="ended" type="FINAL_STATE"/>
+            </mxp:metastates>
+            <mxp:metatransitions>
+              <mxp:metatransition id="58" name="initial_exists" sourcestateid="55" targetstateid="56">
+                <mxp:metatransitionmethods>
+                  <mxp:metatransitionmethod safeid="59" methodid="60" methodname="ME_cr_Announce"/>
+                </mxp:metatransitionmethods>
+              </mxp:metatransition>
+              <mxp:metatransition id="61" name="exists_ended" sourcestateid="56" targetstateid="57">
+                <mxp:metatransitionmethods>
+                  <mxp:metatransitionmethod safeid="62" methodid="63" methodname="ME_end_Announce"/>
+                </mxp:metatransitionmethods>
+              </mxp:metatransition>
+            </mxp:metatransitions>
+          </mxp:metafsm>
+        </mxp:metafsms>
+      </mxp:metaobject>
+    </mxp:metaobjects>
+    <mxp:metaevents>
+      <mxp:metaevent id="64" name="EV_cr_Product">
+        <mxp:metadescription/>
+        <mxp:metaattributes/>
+      </mxp:metaevent>
+      <mxp:metaevent id="65" name="EV_end_Product">
+        <mxp:metadescription/>
+        <mxp:metaattributes/>
+      </mxp:metaevent>
+      <mxp:metaevent id="66" name="EV_cr_Member">
+        <mxp:metadescription/>
+        <mxp:metaattributes/>
+      </mxp:metaevent>
+      <mxp:metaevent id="67" name="EV_end_Member">
+        <mxp:metadescription/>
+        <mxp:metaattributes/>
+      </mxp:metaevent>
+      <mxp:metaevent id="68" name="EV_cr_Ownership">
+        <mxp:metadescription/>
+        <mxp:metaattributes/>
+      </mxp:metaevent>
+      <mxp:metaevent id="69" name="EV_end_Ownership">
+        <mxp:metadescription/>
+        <mxp:metaattributes/>
+      </mxp:metaevent>
+    </mxp:metaevents>
+    <mxp:metaspecialisedevents/>
+    <mxp:metadependencies>
+      <mxp:metadependency id="70" name="Member_Ownership" type="OPTIONAL_N" master="19" dependent="52"/>
+      <mxp:metadependency id="71" name="Product_Ownership" type="OPTIONAL_N" master="1" dependent="52"/>
+    </mxp:metadependencies>
+    <mxp:metainheritances/>
+    <mxp:metamethods>
+      <mxp:metamethod id="10" name="ME_cr_Product" provenance="OWNED" type="CREATE" ownerobjectid="1" ownereventid="64">
+        <mxp:metaprecondition/>
+        <mxp:metaimplementation/>
+        <mxp:metapostcondition/>
+        <mxp:metaattributes/>
+      </mxp:metamethod>
+      <mxp:metamethod id="13" name="ME_end_Product" provenance="OWNED" type="END" ownerobjectid="1" ownereventid="65">
+        <mxp:metaprecondition/>
+        <mxp:metaimplementation/>
+        <mxp:metapostcondition/>
+        <mxp:metaattributes/>
+      </mxp:metamethod>
+      <mxp:metamethod id="27" name="ME_cr_Member" provenance="OWNED" type="CREATE" ownerobjectid="19" ownereventid="66">
+        <mxp:metaprecondition/>
+        <mxp:metaimplementation/>
+        <mxp:metapostcondition/>
+        <mxp:metaattributes/>
+      </mxp:metamethod>
+      <mxp:metamethod id="30" name="ME_end_Member" provenance="OWNED" type="END" ownerobjectid="19" ownereventid="67">
+        <mxp:metaprecondition/>
+        <mxp:metaimplementation/>
+        <mxp:metapostcondition/>
+        <mxp:metaattributes/>
+      </mxp:metamethod>
+      <mxp:metamethod id="60" name="ME_cr_Ownership" provenance="OWNED" type="CREATE" ownerobjectid="52" ownereventid="68">
+        <mxp:metaprecondition/>
+        <mxp:metaimplementation/>
+        <mxp:metapostcondition/>
+        <mxp:metaattributes/>
+      </mxp:metamethod>
+      <mxp:metamethod id="63" name="ME_end_Ownership" provenance="OWNED" type="END" ownerobjectid="52" ownereventid="69">
+        <mxp:metaprecondition/>
+        <mxp:metaimplementation/>
+        <mxp:metapostcondition/>
+        <mxp:metaattributes/>
+      </mxp:metamethod>
+      <mxp:metamethod id="33" name="ME_cr_Ownership" provenance="ACQUIRED" type="MODIFY" ownerobjectid="19" ownereventid="68" viamethod="60" viadependency="70">
+        <mxp:metaprecondition/>
+        <mxp:metaimplementation/>
+        <mxp:metapostcondition/>
+        <mxp:metaattributes/>
+      </mxp:metamethod>
+      <mxp:metamethod id="35" name="ME_end_Ownership" provenance="ACQUIRED" type="MODIFY" ownerobjectid="19" ownereventid="69" viamethod="63" viadependency="70">
+        <mxp:metaprecondition/>
+        <mxp:metaimplementation/>
+        <mxp:metapostcondition/>
+        <mxp:metaattributes/>
+      </mxp:metamethod>
+      <mxp:metamethod id="16" name="ME_cr_Ownership" provenance="ACQUIRED" type="MODIFY" ownerobjectid="1" ownereventid="68" viamethod="60" viadependency="71">
+        <mxp:metaprecondition/>
+        <mxp:metaimplementation/>
+        <mxp:metapostcondition/>
+        <mxp:metaattributes/>
+      </mxp:metamethod>
+      <mxp:metamethod id="18" name="ME_end_Ownership" provenance="ACQUIRED" type="MODIFY" ownerobjectid="1" ownereventid="69" viamethod="63" viadependency="71">
+        <mxp:metaprecondition/>
+        <mxp:metaimplementation/>
+        <mxp:metapostcondition/>
+        <mxp:metaattributes/>
+      </mxp:metamethod>
+    </mxp:metamethods>
+  </mxp:metamodel>
+  <mxp:guimodel currentview="1" topview.lastid="1">
+    <mxp:view id="1" name="Main" isdefault="true">
+      <mxp:guidescription>The main view</mxp:guidescription>
+      <mxp:guiobjects>
+        <mxp:guiobject refid="1" location="119.00!153.00" size="100.00!50.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="255-255-255" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guiobject refid="19" location="118.00!29.00" size="100.00!50.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="255-255-255" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guiobject refid="52" location="280.00!95.00" size="100.00!50.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="255-255-255" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+      </mxp:guiobjects>
+      <mxp:guidependencies>
+        <mxp:guidependency refid="70" linewidth="1" linecolor="0-0-0" labelvisible="false" labelposition="-0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:dependencylabels>
+            <mxp:dependencyumllabel masterside="true" position="0.00!0.00"/>
+            <mxp:dependencyumllabel masterside="false" position="0.00!0.00"/>
+          </mxp:dependencylabels>
+          <mxp:edgecontrolpoints/>
+        </mxp:guidependency>
+        <mxp:guidependency refid="71" linewidth="1" linecolor="0-0-0" labelvisible="false" labelposition="-0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:dependencylabels>
+            <mxp:dependencyumllabel masterside="true" position="0.00!0.00"/>
+            <mxp:dependencyumllabel masterside="false" position="0.00!0.00"/>
+          </mxp:dependencylabels>
+          <mxp:edgecontrolpoints/>
+        </mxp:guidependency>
+      </mxp:guidependencies>
+      <mxp:guiinheritances/>
+      <mxp:guievents>
+        <mxp:guievent refid="64" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guievent refid="65" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guievent refid="66" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guievent refid="67" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guievent refid="68" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guievent refid="69" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+      </mxp:guievents>
+      <mxp:guiownedmethods>
+        <mxp:guiownedmethod refid="10" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guiownedmethod refid="13" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guiownedmethod refid="27" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guiownedmethod refid="30" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guiownedmethod refid="60" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guiownedmethod refid="63" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+      </mxp:guiownedmethods>
+      <mxp:guiacquiredmethods>
+        <mxp:guiacquiredmethod refid="33" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guiacquiredmethod refid="35" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guiacquiredmethod refid="16" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guiacquiredmethod refid="18" backgroundcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+      </mxp:guiacquiredmethods>
+      <mxp:guiinheritedmethods/>
+      <mxp:guispecialisedmethods/>
+      <mxp:guifsms>
+        <mxp:guifsm refid="4"/>
+        <mxp:guifsm refid="21"/>
+        <mxp:guifsm refid="54"/>
+        <mxp:guifsm refid="36"/>
+      </mxp:guifsms>
+      <mxp:guistates>
+        <mxp:guistate refid="5" location="30.00!30.00" size="15.00!15.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="null" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guistate refid="6" location="250.00!200.00" size="70.00!35.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="null" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guistate refid="7" location="500.00!30.00" size="60.00!35.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="null" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guistate refid="22" location="30.00!30.00" size="15.00!15.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="null" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guistate refid="23" location="250.00!200.00" size="70.00!35.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="null" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guistate refid="24" location="500.00!30.00" size="60.00!35.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="null" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guistate refid="55" location="30.00!30.00" size="15.00!15.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="null" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guistate refid="56" location="250.00!200.00" size="70.00!35.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="null" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guistate refid="57" location="500.00!30.00" size="60.00!35.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="null" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guistate refid="37" location="73.00!164.00" size="15.00!15.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="null" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guistate refid="38" location="209.00!155.00" size="70.00!35.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="null" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guistate refid="39" location="417.00!155.00" size="129.00!35.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="null" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+        <mxp:guistate refid="40" location="667.00!154.00" size="60.00!35.00" borderthickness="1" bordercolor="0-0-0" backgroundcolor="null" gradientcolor="null" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false"/>
+      </mxp:guistates>
+      <mxp:guitransitions>
+        <mxp:guitransition refid="8" linewidth="1" linecolor="0-0-0" labelvisible="true" labelposition="0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:edgecontrolpoints/>
+        </mxp:guitransition>
+        <mxp:guitransition refid="11" linewidth="1" linecolor="0-0-0" labelvisible="true" labelposition="0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:edgecontrolpoints/>
+        </mxp:guitransition>
+        <mxp:guitransition refid="14" linewidth="1" linecolor="0-0-0" labelvisible="true" labelposition="0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:edgecontrolpoints>
+            <mxp:edgecontrolpoint value="15.00!65.00"/>
+            <mxp:edgecontrolpoint value="55.00!65.00"/>
+          </mxp:edgecontrolpoints>
+        </mxp:guitransition>
+        <mxp:guitransition refid="25" linewidth="1" linecolor="0-0-0" labelvisible="true" labelposition="0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:edgecontrolpoints/>
+        </mxp:guitransition>
+        <mxp:guitransition refid="28" linewidth="1" linecolor="0-0-0" labelvisible="true" labelposition="0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:edgecontrolpoints/>
+        </mxp:guitransition>
+        <mxp:guitransition refid="31" linewidth="1" linecolor="0-0-0" labelvisible="true" labelposition="0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:edgecontrolpoints>
+            <mxp:edgecontrolpoint value="15.00!65.00"/>
+            <mxp:edgecontrolpoint value="55.00!65.00"/>
+          </mxp:edgecontrolpoints>
+        </mxp:guitransition>
+        <mxp:guitransition refid="58" linewidth="1" linecolor="0-0-0" labelvisible="true" labelposition="0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:edgecontrolpoints/>
+        </mxp:guitransition>
+        <mxp:guitransition refid="61" linewidth="1" linecolor="0-0-0" labelvisible="true" labelposition="0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:edgecontrolpoints/>
+        </mxp:guitransition>
+        <mxp:guitransition refid="41" linewidth="1" linecolor="0-0-0" labelvisible="true" labelposition="0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:edgecontrolpoints/>
+        </mxp:guitransition>
+        <mxp:guitransition refid="43" linewidth="1" linecolor="0-0-0" labelvisible="true" labelposition="0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:edgecontrolpoints/>
+        </mxp:guitransition>
+        <mxp:guitransition refid="45" linewidth="1" linecolor="0-0-0" labelvisible="true" labelposition="0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:edgecontrolpoints>
+            <mxp:edgecontrolpoint value="44.50!65.00"/>
+            <mxp:edgecontrolpoint value="84.50!65.00"/>
+          </mxp:edgecontrolpoints>
+        </mxp:guitransition>
+        <mxp:guitransition refid="48" linewidth="1" linecolor="0-0-0" labelvisible="true" labelposition="0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:edgecontrolpoints/>
+        </mxp:guitransition>
+        <mxp:guitransition refid="50" linewidth="1" linecolor="0-0-0" labelvisible="true" labelposition="0.00!0.00" textcolor="0-0-0" fontfamily="Arial" fontsize="12" fontbold="false" fontitalic="false">
+          <mxp:edgecontrolpoints>
+            <mxp:edgecontrolpoint value="44.00!-60.50"/>
+          </mxp:edgecontrolpoints>
+        </mxp:guitransition>
+      </mxp:guitransitions>
+      <mxp:edgview gridcolor="128-128-128" backgroundcolor="255-255-255" gridenabled="false" gridvisible="false" gridmode="0" gridsize="16" scale="1.0"/>
+      <mxp:oetview highlightercolor="255-200-0" linecolor="122-138-153" backgroundcolor="255-255-255" headerrotation="90" hidedisabledmethods="false" scale="1.0">
+        <mxp:oetobjects>
+          <mxp:oetobject refid="1"/>
+          <mxp:oetobject refid="19"/>
+          <mxp:oetobject refid="52"/>
+        </mxp:oetobjects>
+        <mxp:oetevents>
+          <mxp:oetevent refid="64"/>
+          <mxp:oetevent refid="65"/>
+          <mxp:oetevent refid="66"/>
+          <mxp:oetevent refid="67"/>
+          <mxp:oetevent refid="68"/>
+          <mxp:oetevent refid="69"/>
+        </mxp:oetevents>
+      </mxp:oetview>
+      <mxp:fsmview gridcolor="128-128-128" backgroundcolor="255-255-255" gridenabled="false" gridvisible="false" gridmode="0" gridsize="10" scale="1.0"/>
+    </mxp:view>
+  </mxp:guimodel>
+</mxp:mermaidmodel>
