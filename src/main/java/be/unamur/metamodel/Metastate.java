@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "")
 @XmlRootElement(name = "metastate", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
 @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-07-27T11:53:17+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
-public class Metastate {
+public class Metastate implements Identifiable {
 
     @XmlAttribute(name = "id", required = true)
     @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-07-27T11:53:17+02:00", comments = "JAXB RI v2.2.8-b130911.1802")

@@ -5,7 +5,10 @@ import be.unamur.metamodel.Metaobject;
 import java.util.ArrayList;
 
 public class SpecificStateContext extends StateContext {
-  public SpecificStateContext() { super(); }
+  public SpecificStateContext() {
+    super();
+    this.put("masters", new ArrayList<String>());
+  }
 
 
   public void setStateName(String stateName) {
@@ -21,11 +24,11 @@ public class SpecificStateContext extends StateContext {
   }
 
   @SuppressWarnings("unchecked")
-  private void addMasterBotRef(Metaobject master) {
-    ArrayList<String> masterRefs = this.get("masterRefs") == null ? new ArrayList<>() : (ArrayList<String>)this.get("masterRefs");
-    masterRefs.add(Util.getStringWithFirstLowerCap(master.getName())+"Id");
+  public void addMasterBotRef(Metaobject master) {
+    ArrayList<String> masterRefs = this.get("masters") == null ? new ArrayList<>() : (ArrayList<String>)this.get("masters");
+    masterRefs.add(Util.getStringWithFirstLowerCap(master.getName()));
 
-    this.put("masterRefs",  masterRefs);
+    this.put("masters",  masterRefs);
   }
 
 }
