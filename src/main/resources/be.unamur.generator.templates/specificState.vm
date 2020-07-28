@@ -1,1 +1,21 @@
-Generated code for $stateName;
+package state.${util.getStringWithFirstLowerCap($BOTName)};
+
+import entity.$BOTName;
+
+import runtime.exception.FailedEventHandlingException;
+
+import org.hyperledger.fabric.contract.Context;
+
+public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $name {
+  //========== Constructor ===========
+  public $BOTName${util.getStringWithFirstCap($stateName)}State() {
+    super("$stateName", $stateType);
+  }
+
+  //========= Event Handling =========
+#foreach($method in $methods)
+  public void $method.getName()($BOTName object, Context ctx) throws FailedEventHandlingException {
+    System.out.println("Event is Handled");
+  }
+#end
+}

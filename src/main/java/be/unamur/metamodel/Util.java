@@ -28,6 +28,16 @@ public class Util {
     return objectMethods;
   }
 
+  public static Metastate getStateFromName(Metaobject object, String stateName) {
+    Metafsm fsm = Util.getActiveFSM(object);
+    for(Metastate state : fsm.getMetastates().getMetastate()) {
+      if(state.getName().equals(stateName))
+        return state;
+    }
+
+    return null;
+  }
+
   public static Metafsm getActiveFSM(Metaobject o) {
     for(Metafsm fsm : o.getMetafsms().getMetafsm()) {
       if(fsm.isCodegeneration())

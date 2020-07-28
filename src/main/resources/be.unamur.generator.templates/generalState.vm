@@ -15,6 +15,6 @@ public abstract class $name extends State {
 
   //========= Event Handling =========
 #foreach($method in $handlingMethods)
-  public void $method($BOTName object, Context ctx) throws FailedEventHandlingException { throw new FailedEventHandlingException("["+this.getClass().getSimpleName()+".$method($BOTName, Context)]: Transition not allowed from the current state");
+  public void $method($BOTName object, Context ctx) throws FailedEventHandlingException { throw new FailedEventHandlingException("["+this.getClass().getSimpleName()+".$method($BOTName, Context)]: Transition not allowed from the current state"); }
 #end
 }

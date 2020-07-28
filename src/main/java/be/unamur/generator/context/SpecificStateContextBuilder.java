@@ -33,6 +33,9 @@ public class SpecificStateContextBuilder extends GeneralStateContextBuilder {
       this.specificCtx.addMethod(m);
     }
 
+    Metastate state = Util.getStateFromName(this.object, (String)this.specificCtx.get("stateName"));
+    this.specificCtx.setType(state.getType());
+
     if(this.specificCtx.get("stateName").equals("initial"))
       this.specificCtx.put("stateName", "allocated");
 

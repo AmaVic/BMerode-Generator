@@ -59,7 +59,7 @@
           </mxp:metaattribute>
         </mxp:metaattributes>
         <mxp:metafsms>
-          <mxp:metafsm id="21" name="DEFAULT" type="DEFAULT" codegeneration="true">
+          <mxp:metafsm id="21" name="DEFAULT" type="DEFAULT" codegeneration="false">
             <mxp:metastates>
               <mxp:metastate id="22" name="initial" type="INITIAL_STATE"/>
               <mxp:metastate id="23" name="exists" type="STATE"/>
@@ -84,7 +84,7 @@
               </mxp:metatransition>
             </mxp:metatransitions>
           </mxp:metafsm>
-          <mxp:metafsm id="36" name="MemberFSM" type="USER_DEFINED" codegeneration="false">
+          <mxp:metafsm id="36" name="MemberFSM" type="USER_DEFINED" codegeneration="true">
             <mxp:metastates>
               <mxp:metastate id="37" name="initial" type="INITIAL_STATE"/>
               <mxp:metastate id="38" name="exists" type="STATE"/>
