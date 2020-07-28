@@ -33,6 +33,9 @@ public class SpecificStateContextBuilder extends GeneralStateContextBuilder {
       this.specificCtx.addMethod(m);
     }
 
+    if(this.specificCtx.get("stateName").equals("initial"))
+      this.specificCtx.put("stateName", "allocated");
+
     return this.specificCtx;
   }
 }

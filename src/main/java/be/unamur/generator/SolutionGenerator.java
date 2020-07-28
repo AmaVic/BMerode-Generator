@@ -83,6 +83,9 @@ public class SolutionGenerator {
   private void generateBOTSpecificState(Metaobject bot, Mermaidmodel model, String stateName) throws SolutionGenerationException {
     SpecificStateContext ctx = new SpecificStateContextBuilder(model, bot, stateName).build();
 
+    if(stateName.equals("initial"))
+      stateName = "allocated";
+
     String outputFileName = this.outputDirectory + File.separator + STATE_FOLDER + File.separator + be.unamur.generator.context.Util.getStringWithFirstLowerCap(bot.getName()) + File.separator + bot.getName() + be.unamur.generator.context.Util.getStringWithFirstCap(stateName) + "State.java";
     generateFile("specificState.vm", ctx, outputFileName);
   }
