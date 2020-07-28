@@ -1,0 +1,20 @@
+package state.${util.getStringWithFirstLowerCap($BOTName)};
+
+import entity.$BOTName;
+
+import runtime.State;
+import runtime.exception.FailedEventHandlingException;
+
+import org.hyperledger.fabric.contract.Context;
+
+public abstract class $name extends State {
+  //========== Constructor ===========
+  public $name(String name, StateType stateType) {
+    super(name, stateType);
+  }
+
+  //========= Event Handling =========
+#foreach($method in $handlingMethods)
+  public void $method($BOTName object, Context ctx) throws FailedEventHandlingException { throw new FailedEventHandlingException("["+this.getClass().getSimpleName()+".$method($BOTName, Context)]: Transition not allowed from the current state");
+#end
+}

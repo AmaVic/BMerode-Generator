@@ -1,10 +1,9 @@
 package be.unamur.generator;
 
-import be.unamur.generator.context.BusinessObjectTypeContext;
-import be.unamur.generator.context.BusinessObjectTypeContextBuilder;
+import be.unamur.generator.context.*;
 import be.unamur.generator.exception.SolutionGenerationException;
-import be.unamur.metamodel.Mermaidmodel;
-import be.unamur.metamodel.Metaobject;
+import be.unamur.metamodel.*;
+import be.unamur.metamodel.Util;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -21,6 +20,7 @@ public class SolutionGenerator {
   private final VelocityEngine templateEngine;
 
   private final String ENTITY_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "entity" + File.separator;
+  private final String STATE_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "state" + File.separator;
 
   public SolutionGenerator(String outputDirectoryPath) {
     this.outputDirectory = outputDirectoryPath;
@@ -34,20 +34,57 @@ public class SolutionGenerator {
     System.out.println("===== Starting Generation =====");
     System.out.println("--- Generating Entities Classes ---");
     generateBOTEntities(model);
+    System.out.println("--- Generating General State Classes ---");
+    generateBOTGeneralStates(model);
+    System.out.println("--- Generating Specific State Classes ---");
+    generateAllSpecificStates(model);
   }
 
   private void generateBOTEntities(Mermaidmodel model) throws SolutionGenerationException {
     for(Metaobject mo : model.getMetamodel().getMetaobjects().getMetaobject()) {
-      generateBOTEntity(mo);
+      generateBOTEntity(mo, model);
       System.out.println(">> Generated Entity for " + mo.getName());
     }
   }
 
-  private void generateBOTEntity(Metaobject bot) throws SolutionGenerationException {
-    BusinessObjectTypeContext ctx = new BusinessObjectTypeContextBuilder(bot).build();
+  private void generateBOTEntity(Metaobject bot, Mermaidmodel model) throws SolutionGenerationException {
+    BusinessObjectTypeContext ctx = new BusinessObjectTypeContextBuilder(bot, model).build();
 
     String outputFileName = this.outputDirectory + File.separator + ENTITY_FOLDER + bot.getName() + ".java";
     generateFile("entity.vm", ctx, outputFileName);
+  }
+
+  private void generateBOTGeneralStates(Mermaidmodel model) throws SolutionGenerationException {
+    for(Metaobject mo : model.getMetamodel().getMetaobjects().getMetaobject()) {
+      generateBOTGeneralState(mo, model);
+      System.out.println(">> Generated General State for " + mo.getName());
+    }
+  }
+
+  private void generateBOTGeneralState(Metaobject bot, Mermaidmodel model) throws SolutionGenerationException {
+    StateContext ctx = new GeneralStateContextBuilder(model, bot).build();
+
+    String outputFileName = this.outputDirectory + File.separator + STATE_FOLDER + File.separator + be.unamur.generator.context.Util.getStringWithFirstLowerCap(bot.getName()) + File.separator + bot.getName() + "State.java";
+    generateFile("generalState.vm", ctx, outputFileName);
+  }
+
+  private void generateAllSpecificStates(Mermaidmodel model) throws SolutionGenerationException {
+    for(Metaobject o : model.getMetamodel().getMetaobjects().getMetaobject())
+      generateBOTSpecificStates(o, model);
+  }
+
+  private void generateBOTSpecificStates(Metaobject bot, Mermaidmodel model) throws SolutionGenerationException {
+    Metafsm fsm = Util.getActiveFSM(bot);
+    for(Metastate state : fsm.getMetastates().getMetastate())
+      generateBOTSpecificState(bot, model, state.getName());
+    System.out.println(">> Generated Specific States for " + bot.getName());
+  }
+
+  private void generateBOTSpecificState(Metaobject bot, Mermaidmodel model, String stateName) throws SolutionGenerationException {
+    SpecificStateContext ctx = new SpecificStateContextBuilder(model, bot, stateName).build();
+
+    String outputFileName = this.outputDirectory + File.separator + STATE_FOLDER + File.separator + be.unamur.generator.context.Util.getStringWithFirstLowerCap(bot.getName()) + File.separator + bot.getName() + be.unamur.generator.context.Util.getStringWithFirstCap(stateName) + "State.java";
+    generateFile("specificState.vm", ctx, outputFileName);
   }
 
   private void generateFile(String templateName, VelocityContext ctx, String outputFilePath) throws SolutionGenerationException {

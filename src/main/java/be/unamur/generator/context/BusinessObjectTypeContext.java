@@ -1,5 +1,6 @@
 package be.unamur.generator.context;
 
+import be.unamur.metamodel.Metaobject;
 import org.apache.velocity.VelocityContext;
 
 import java.util.ArrayList;
@@ -20,6 +21,11 @@ public class BusinessObjectTypeContext extends VelocityContext {
     attributes.add(attribute);
 
     this.put("attributes", attributes);
+  }
+
+  public void addMasterIdAttribute(Metaobject master) {
+    MasterRefAttribute masterRef = new MasterRefAttribute(master);
+    this.addAttribute(masterRef);
   }
 
 }

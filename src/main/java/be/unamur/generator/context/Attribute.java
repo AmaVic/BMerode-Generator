@@ -30,8 +30,7 @@ public class Attribute {
   public String getType() { return this.type; }
   public String getName() { return this.name; }
   public boolean isAddedByDefault() { return this.addedByDefault; }
-  public String getIdType() { return "String"; }
-  public String getIdName() { return this.getName()+"Id"; }
+  public boolean isMasterRef() { return false; }
 
   public String getNameWithFirstCap() {
     return this.getName().substring(0, 1).toUpperCase() + this.getName().substring(1);
@@ -54,6 +53,10 @@ public class Attribute {
     if(!(this.getType().equals(attr.getType())))
       return false;
     if(!(this.getName().equals(attr.getName())))
+      return false;
+    if(this.isAddedByDefault() != attr.isAddedByDefault())
+      return false;
+    if(this.isMasterRef() != attr.isMasterRef())
       return false;
 
     return true;

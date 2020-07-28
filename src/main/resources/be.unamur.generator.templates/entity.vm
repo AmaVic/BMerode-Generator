@@ -1,24 +1,30 @@
 package entity;
 
+#foreach($attribute in $attributes)
+#if($attribute.getType().equals("LocalDateTime"))
+import java.time.LocalDateTime;
+#end
+#end
+
 import com.owlike.genson.annotation.JsonCreator;
 import com.owlike.genson.annotation.JsonProperty;
 
 import runtime.BusinessObject;
 
-import state.$util.getStringWithFirstCap($name)State;
-import state.$util.getStringWithFirstCap($name)AllocatedState;
+import state.$util.getStringWithFirstLowerCap($name).$util.getStringWithFirstCap($name)State;
+import state.$util.getStringWithFirstLowerCap($name).$util.getStringWithFirstCap($name)AllocatedState;
 
 public class $name extends BusinessObject {
-## ========== Generate Private Variables ==========
-   //========= Representation =========
+   //=========== Attributes ===========
 #foreach($attribute in $attributes)
+#if($attribute.isMasterRef())
+  private final $attribute.getType() $attribute.getName();
+#else
   private $attribute.getType() $attribute.getName();
 #end
+#end
 
-## ================================================
-## ============ Generate Constructors =============
   //========== Constructors ==========
-## Base Constructor (only specific attributes)
   /**
    * Creates a new $name with a Generated ID and Default State: Allocated
    */
@@ -33,7 +39,6 @@ public class $name extends BusinessObject {
 #end
   }
 
-## Full Constructor
 #set($fullConstructorParamString = "@JsonProperty(""id"") String id")
 #set($paramStringWithoutId = $util.buildParamString($attributes, true, true))
 #if($paramStringWithoutId.length() > 0)
@@ -46,18 +51,16 @@ public class $name extends BusinessObject {
 #end
   }
 
-## ================================================
-## =================== Getters ====================
   //============ Getters =============
 #foreach($attribute in $attributes)
   public $attribute.getType() get$attribute.getNameWithFirstCap()() { return this.$attribute.getName(); }
 #end
 
-## ================================================
-## =================== Setters ====================
   //============ Setters =============
 #foreach($attribute in $attributes)
+#if(!$attribute.isMasterRef())
   public void set$attribute.getNameWithFirstCap()($attribute.getType() $attribute.getName()) { this.$attribute.getName() = $attribute.getName(); }
+#end
 #end
 
 ## ================================================
