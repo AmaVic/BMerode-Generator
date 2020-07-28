@@ -38,6 +38,7 @@ public class SolutionGenerator {
     generateBOTGeneralStates(model);
     System.out.println("--- Generating Specific State Classes ---");
     generateAllSpecificStates(model);
+    System.out.println("===== Generation Completed =====");
   }
 
   private void generateBOTEntities(Mermaidmodel model) throws SolutionGenerationException {

@@ -27,7 +27,6 @@ public class SpecificStateContextBuilder extends GeneralStateContextBuilder {
     //Get List of allowed Methods (i.e. methods having "fromState" = the Current State)
     ArrayList<Metatransition> allowedTransitions = Util.getAllowedTransitions(this.object, (String)this.specificCtx.get("stateName"));
     for(Metatransition transition : allowedTransitions) {
-      System.out.println("Transition of " + this.object.getName() + ": " + transition.getName());
       ArrayList<Metamethod> relatedMethods = new ArrayList<Metamethod>();
       for(Metatransitionmethod mtm : transition.getMetatransitionmethods().getMetatransitionmethod())
         relatedMethods.add(Util.findById(this.model.getMetamodel().getMetamethods().getMetamethod(), mtm.getMethodid()));
