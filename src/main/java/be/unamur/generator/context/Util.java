@@ -1,8 +1,11 @@
 package be.unamur.generator.context;
 
+import be.unamur.metamodel.Metaobject;
+
 import java.util.ArrayList;
 
 public class Util {
+
   public static String getStringWithFirstCap(String str) {
     return str.substring(0, 1).toUpperCase() + str.substring(1);
   }

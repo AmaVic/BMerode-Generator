@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class SpecificStateContext extends StateContext {
   public SpecificStateContext() {
     super();
-    this.put("masters", new ArrayList<String>());
+    this.put("masters", new ArrayList<Master>());
   }
 
 
@@ -24,9 +24,9 @@ public class SpecificStateContext extends StateContext {
   }
 
   @SuppressWarnings("unchecked")
-  public void addMasterBotRef(Metaobject master) {
-    ArrayList<String> masterRefs = this.get("masters") == null ? new ArrayList<>() : (ArrayList<String>)this.get("masters");
-    masterRefs.add(Util.getStringWithFirstLowerCap(master.getName()));
+  public void addMasterBotRef(Metaobject master, boolean limitedToOne) {
+    ArrayList<Master> masterRefs = this.get("masters") == null ? new ArrayList<>() : (ArrayList<Master>)this.get("masters");
+    masterRefs.add(new Master(Util.getStringWithFirstLowerCap(master.getName()), limitedToOne));
 
     this.put("masters",  masterRefs);
   }

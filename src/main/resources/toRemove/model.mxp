@@ -197,7 +197,7 @@
     <mxp:metaspecialisedevents/>
     <mxp:metadependencies>
       <mxp:metadependency id="79" name="Member_Ownership" type="OPTIONAL_N" master="21" dependent="57"/>
-      <mxp:metadependency id="80" name="Product_Ownership" type="OPTIONAL_N" master="1" dependent="57"/>
+      <mxp:metadependency id="80" name="Product_Ownership" type="OPTIONAL_1" master="1" dependent="57"/>
     </mxp:metadependencies>
     <mxp:metainheritances/>
     <mxp:metamethods>

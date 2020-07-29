@@ -39,4 +39,12 @@ public class StubHelper {
   public static void save(Context ctx, BusinessObject bo) {
     ctx.getStub().putStringState(bo.getId(), bo.toJsonString());
   }
+
+  public static boolean hasLivingDependentsOfType(Context ctx, BusinessObject master, BusinessObject dependent) {
+    String classAsRef = master.getClass().getSimpleName().substring(0, 1).toLowerCase() + master.getClass().getSimpleName().substring(1) + "Id";
+    String query = "{\"selector\":{\"@class\":\""+dependent.getClass().getName()+"\", \""+classAsRef+"\":\""+master.getId()+"\", \"currentState\": {\"stateType\": \"ONGOING\"}}}";
+
+    QueryResultsIterator<KeyValue> results = ctx.getStub().getQueryResult(query);
+    return results.iterator().hasNext();
+  }
 }

@@ -30,5 +30,6 @@ public class Main {
     } catch(SolutionGenerationException e) {
       e.printStackTrace();
     }
+
   }
 }

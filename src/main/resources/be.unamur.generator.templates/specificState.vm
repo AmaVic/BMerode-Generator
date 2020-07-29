@@ -2,7 +2,8 @@ package state.${util.getStringWithFirstLowerCap($BOTName)};
 
 import entity.$BOTName;
 #foreach($master in $masters)
-import entity.$util.getStringWithFirstCap($master);
+#set($masterName = $master.getName())
+import entity.$util.getStringWithFirstCap($masterName);
 #end
 
 import runtime.StubHelper;
@@ -22,22 +23,34 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
 #if($method.getEffectType().equals("CREATE"))
   @Override
   public void $method.getName()($BOTName object, Context ctx) throws FailedEventHandlingException {
+#if($masters.size() > 0)
+    //Check if the referenced masters exist
+#foreach($master in $masters)
+#set($masterName = $master.getName())
+    //$util.getStringWithFirstCap($masterName)
+    if(!StubHelper.exists(ctx, object.get${util.getStringWithFirstCap($masterName)}Id()))
+      throw new FailedEventHandlingException("Master with id " + object.get$util.getStringWithFirstCap($masterName)Id() + " does not exist");
+
+    //Retrieve Master ($master.getName())
+    $util.getStringWithFirstCap($masterName) $util.getStringWithFirstLowerCap($masterName) = ($util.getStringWithFirstCap($masterName))StubHelper.findBusinessObject(ctx, object.get$util.getStringWithFirstCap($masterName)Id());
+
+#if($master.isLimitedToOne())
+    //Master $master.getName() can only have one dependent of type $BOTName. Checking if one already exists
+    if(StubHelper.hasLivingDependentsOfType(ctx, $util.getStringWithFirstLowerCap($masterName), object))
+      throw new FailedEventHandlingException("Master with id " + object.get$util.getStringWithFirstCap($masterName)Id() + " already has a living dependent of type $BOTName (limited to one)");
+#end
+#end
+#end
     //Changes the state of the current $BOTName (object)
     $BOTName$util.getStringWithFirstCap($method.getTargetStateName())State newState = new $BOTName$util.getStringWithFirstCap($method.getTargetStateName())State();
     object.setCurrentState(newState);
     StubHelper.save(ctx, object);
 #if($masters.size() > 0)
-    //Check if the references masters exist
-#foreach($masterName in $masters)
-    //$util.getStringWithFirstCap($masterName)
-    if(!StubHelper.exists(ctx, object.get${util.getStringWithFirstCap($masterName)}Id()))
-      throw new FailedEventHandlingException("Master with id " + object.get$util.getStringWithFirstCap($masterName)Id() + " does not exist");
-#end
-
     //Trigger Event Handling for Each Master
-#foreach($masterName in $masters)
+#foreach($master in $masters)
+#set($masterName = $master.getName())
     //$util.getStringWithFirstCap($masterName)
-    $util.getStringWithFirstCap($masterName) $util.getStringWithFirstLowerCap($masterName) = ($util.getStringWithFirstCap($masterName))StubHelper.findBusinessObject(ctx, object.get$util.getStringWithFirstCap($masterName)Id());
+##    $util.getStringWithFirstCap($masterName) $util.getStringWithFirstLowerCap($masterName) = ($util.getStringWithFirstCap($masterName))StubHelper.findBusinessObject(ctx, object.get$util.getStringWithFirstCap($masterName)Id());
     ${util.getStringWithFirstLowerCap($masterName)}.getCurrentState().$method.getName()($util.getStringWithFirstLowerCap($masterName), ctx);
 #end
 #end
@@ -53,7 +66,8 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
     //The $BOTName object will be saved with its current properties
     //Before changing state and (possibly) attributes, we check there was no change to the masters
     $BOTName currentLedgerObject = ($BOTName)StubHelper.findBusinessObject(ctx, object.getId());
-#foreach($masterName in $masters)
+#foreach($master in $masters)
+#set($masterName = $master.getName())
     if(!object.get$util.getStringWithFirstCap($masterName)Id().equals(currentLedgerObject.get$util.getStringWithFirstCap($masterName)Id()))
       throw new FailedEventHandlingException("The master of a Business Object (" + object.getId() + ") cannot be changed");
 #end
@@ -64,7 +78,8 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
     StubHelper.save(ctx, object);
 #if($masters.size() > 0)
     //Trigger Event Handling for Each Master
-#foreach($masterName in $masters)
+#foreach($master in $masters)
+#set($masterName = $master.getName())
     //$util.getStringWithFirstCap($masterName)
     $util.getStringWithFirstCap($masterName) $util.getStringWithFirstLowerCap($masterName) = ($util.getStringWithFirstCap($masterName))StubHelper.findBusinessObject(ctx, object.get$util.getStringWithFirstCap($masterName)Id());
     ${util.getStringWithFirstLowerCap($masterName)}.getCurrentState().$method.getName()($util.getStringWithFirstLowerCap($masterName), ctx);
@@ -89,7 +104,8 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
     StubHelper.save(ctx, object);
 #if($masters.size() > 0)
     //Trigger Event Handling for Each Master
-#foreach($masterName in $masters)
+#foreach($master in $masters)
+#set($masterName = $master.getName())
     //$util.getStringWithFirstCap($masterName)
     $util.getStringWithFirstCap($masterName) $util.getStringWithFirstLowerCap($masterName) = ($util.getStringWithFirstCap($masterName))StubHelper.findBusinessObject(ctx, object.get$util.getStringWithFirstCap($masterName)Id());
     ${util.getStringWithFirstLowerCap($masterName)}.getCurrentState().$method.getName()($util.getStringWithFirstLowerCap($masterName), ctx);

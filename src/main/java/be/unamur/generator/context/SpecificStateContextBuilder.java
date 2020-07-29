@@ -51,7 +51,11 @@ public class SpecificStateContextBuilder extends GeneralStateContextBuilder {
 
       Metaobject master = Util.findById(model.getMetamodel().getMetaobjects().getMetaobject(), dependency.getMaster());
 
-      this.specificCtx.addMasterBotRef(master);
+      String dependencyType = dependency.getType();
+      //@TODO: For now: no difference between mandatory/optional
+      boolean limitedToOne = dependencyType.substring(dependencyType.indexOf("_")+1, dependencyType.length()).equals("1");
+
+      this.specificCtx.addMasterBotRef(master, limitedToOne);
     }
 
 

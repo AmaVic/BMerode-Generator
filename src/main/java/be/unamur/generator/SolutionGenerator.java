@@ -40,7 +40,7 @@ public class SolutionGenerator {
     generateAllSpecificStates(model);
     System.out.println("--- Generating Events Mapping ---");
     generateEventsMapping(model);
-    System.out.println("===== Generation Completed =====");
+    System.out.println("===== Generation Complete =====");
   }
 
   private void generateBOTEntities(Mermaidmodel model) throws SolutionGenerationException {
