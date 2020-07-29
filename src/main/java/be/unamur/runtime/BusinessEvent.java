@@ -2,7 +2,6 @@ package be.unamur.runtime;
 
 import org.hyperledger.fabric.contract.Context;
 import be.unamur.runtime.exception.FailedEventHandlingException;
-import be.unamur.runtime.BusinessObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -51,9 +50,11 @@ public class BusinessEvent {
     System.out.println("=====> Method to Execute Retrieved: " + handlingMethod.getName());
     try {
       handlingMethod.invoke(builtFromJson.getCurrentState(), builtFromJson, ctx);
-    } catch (IllegalAccessException | InvocationTargetException e) {
+    } catch (IllegalAccessException e) {
       System.out.println("=====> Failed to Execute Method " + handlingMethod.getName() + "; Reason: \n " + e.getMessage());
       throw new FailedEventHandlingException("[BusinessEvent.handleCreatingEvent(Context, String)]: Could not invoke event handling method: \n" + e.getMessage());
+    } catch(InvocationTargetException e) {
+      throw new FailedEventHandlingException(e.getCause().getMessage());
     }
 
     System.out.println("=====> Method " + handlingMethod.getName() + " Successfully Executed");
@@ -82,7 +83,7 @@ public class BusinessEvent {
       System.out.println("=====> Failed to Execute Method " + handlingMethod.getName() + "; Reason: \n " + e.getMessage());
       throw new FailedEventHandlingException("[BusinessEvent.handleEndingEvent(Context, String)]: Could not invoke event handling method: \n" + e.getMessage());
     } catch(InvocationTargetException e) {
-      throw new FailedEventHandlingException("Failed because of failed invocation of " + handlingMethod.getName() + " --> " + e.getTargetException().getMessage());
+      throw new FailedEventHandlingException(e.getCause().getMessage());
     }
 
     System.out.println("=====> Method " + handlingMethod.getName() + " Successfully Executed");
@@ -104,9 +105,10 @@ public class BusinessEvent {
     System.out.println("=====> Method to Execute Retrieved: " + handlingMethod.getName());
     try {
       handlingMethod.invoke(builtFromJson.getCurrentState(), builtFromJson, ctx);
-    } catch (IllegalAccessException | InvocationTargetException e) {
-      System.out.println("=====> Failed to Execute Method " + handlingMethod.getName() + "; Reason: \n " + e.getMessage());
-      throw new FailedEventHandlingException("[BusinessEvent.handleCreatingEvent(Context, String)]: Could not invoke event handling method: \n" + e.getMessage());
+    } catch (IllegalAccessException e) {
+      throw new FailedEventHandlingException(e.getMessage());
+    } catch(InvocationTargetException e) {
+      throw new FailedEventHandlingException(e.getCause().getMessage());
     }
 
     System.out.println("=====> Method " + handlingMethod.getName() + " Successfully Executed");
