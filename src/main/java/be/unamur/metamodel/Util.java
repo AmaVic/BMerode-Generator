@@ -8,6 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Util {
+  public static Metamethod getOwnedMethodFromEvent(Mermaidmodel model, Metaevent event) {
+    for(Metamethod method : model.getMetamodel().getMetamethods().getMetamethod()) {
+      if(!method.getOwnereventid().equals(event.getId()))
+        continue;
+
+      if(!method.getProvenance().equals("OWNED"))
+        continue;
+
+      return method;
+    }
+
+    return null;
+  }
+
   public static <ObjectType extends Identifiable> ObjectType findById(List<ObjectType> collection, BigInteger id) {
     for (ObjectType element : collection) {
       if (element.getId().equals(id))
