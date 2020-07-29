@@ -21,7 +21,7 @@ public class SolutionGenerator {
 
   private final String ENTITY_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "entity" + File.separator;
   private final String STATE_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "state" + File.separator;
-
+  private final String EVENT_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "event" + File.separator;
   public SolutionGenerator(String outputDirectoryPath) {
     this.outputDirectory = outputDirectoryPath;
 
@@ -38,6 +38,8 @@ public class SolutionGenerator {
     generateBOTGeneralStates(model);
     System.out.println("--- Generating Specific State Classes ---");
     generateAllSpecificStates(model);
+    System.out.println("--- Generating Events Mapping ---");
+    generateEventsMapping(model);
     System.out.println("===== Generation Completed =====");
   }
 
@@ -89,6 +91,13 @@ public class SolutionGenerator {
 
     String outputFileName = this.outputDirectory + File.separator + STATE_FOLDER + File.separator + be.unamur.generator.context.Util.getStringWithFirstLowerCap(bot.getName()) + File.separator + bot.getName() + be.unamur.generator.context.Util.getStringWithFirstCap(stateName) + "State.java";
     generateFile("specificState.vm", ctx, outputFileName);
+  }
+
+  private void generateEventsMapping(Mermaidmodel model) throws SolutionGenerationException {
+    EventsMappingContext ctx = new EventsMappingContextBuilder(model).build();
+
+    String outputFileName = this.outputDirectory + File.separator + EVENT_FOLDER + File.separator + "EventsMapping.java";
+    generateFile("eventsMapping.vm", ctx, outputFileName);
   }
 
   private void generateFile(String templateName, VelocityContext ctx, String outputFilePath) throws SolutionGenerationException {

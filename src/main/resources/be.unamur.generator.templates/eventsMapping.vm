@@ -1,9 +1,8 @@
 package event;
 
-##ALL Entities
-import entity.Member;
-import entity.Ownership;
-import entity.Product;
+#foreach($bot in $bots)
+import entity.$bot;
+#end
 
 import be.unamur.runtime.BusinessEvent;
 import be.unamur.runtime.exception.BusinessEventNotFoundException;
@@ -32,21 +31,11 @@ return this.events.containsKey(eventName);
   }
 
   private void loadEvents() {
-    BusinessEvent EV_cr_Product = new BusinessEvent("EV_cr_Product", BusinessEvent.BusinessEventType.CREATE, Product.class);
-    BusinessEvent EV_end_Product = new BusinessEvent("EV_end_Product", BusinessEvent.BusinessEventType.END, Product.class);
-    BusinessEvent EV_cr_Member = new BusinessEvent("EV_cr_Member", BusinessEvent.BusinessEventType.CREATE, Member.class);
-    BusinessEvent EV_end_Member = new BusinessEvent("EV_end_Member", BusinessEvent.BusinessEventType.END, Member.class);
-    BusinessEvent EV_cr_Ownership = new BusinessEvent("EV_cr_Ownership", BusinessEvent.BusinessEventType.CREATE, Ownership.class);
-    BusinessEvent EV_end_Ownership = new BusinessEvent("EV_end_Ownership",  BusinessEvent.BusinessEventType.END, Ownership.class);
-    BusinessEvent EV_mod_Ownership = new BusinessEvent("EV_mod_Ownership", BusinessEvent.BusinessEventType.MODIFY, Ownership.class);
+#foreach($event in $events)
+    BusinessEvent $event.getName() = new BusinessEvent("${event.getName()}", $event.getEffectType(), $event.getOwnerBOTClass());
+    this.events.put(${event.getName()}.getName(), $event.getName());
 
-    this.events.put(EV_cr_Product.getName(), EV_cr_Product);
-    this.events.put(EV_end_Product.getName(), EV_end_Product);
-    this.events.put(EV_cr_Member.getName(), EV_cr_Member);
-    this.events.put(EV_end_Member.getName(), EV_end_Member);
-    this.events.put(EV_cr_Ownership.getName(), EV_cr_Ownership);
-    this.events.put(EV_end_Ownership.getName(), EV_end_Ownership);
-    this.events.put(EV_mod_Ownership.getName(), EV_mod_Ownership);
+#end
   }
 
 public static EventsMapping instance() { return instance; }
