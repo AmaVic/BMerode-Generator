@@ -17,10 +17,12 @@ public class StubHelper {
       throw new BusinessObjectNotFoundException("[StubHelper.findBusinessObject(Context, String)]: Business Object with ID " + key + " was not Found in the Ledger");
 
     String boState = ctx.getStub().getStringState(key);
+    System.out.println("Record Json: " + boState);
+    String fullBoState = JsonConverter.fromRecordJsonToFullJson(key, boState);
 
     BusinessObject boToReturn = null;
     try {
-      boToReturn = BusinessObject.fromJson(boState);
+      boToReturn = BusinessObject.fromJson(fullBoState);
     } catch(Exception e) {
       throw new RuntimeException("[StubHelper.findBusinessObject(Context, String)]: Could not load Business Object (" + key + ") from JSON");
     }
@@ -37,7 +39,7 @@ public class StubHelper {
   }
 
   public static void save(Context ctx, BusinessObject bo) {
-    ctx.getStub().putStringState(bo.getId(), bo.toJsonString());
+    ctx.getStub().putStringState(bo.getId(), JsonConverter.toRecordJsonData(bo));
   }
 
   public static boolean hasLivingDependentsOfType(Context ctx, BusinessObject master, BusinessObject dependent) {

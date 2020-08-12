@@ -71,7 +71,7 @@ public class BusinessEvent {
     if(objectJson == null || objectJson.length() == 0)
       throw new FailedEventHandlingException("Business Object with ID " + id + " does not exist");
 
-    BusinessObject builtFromJson = this.buildObjectFromJson(objectJson);
+    BusinessObject builtFromJson = this.buildObjectFromJson(JsonConverter.fromRecordJsonToFullJson(id,objectJson));
 
     System.out.println("----> Object to Remove: " + builtFromJson.toJsonString());
 
@@ -100,7 +100,7 @@ public class BusinessEvent {
     if(objectJson == null || objectJson.length() == 0)
       throw new FailedEventHandlingException("Business Object with ID " + id + " does not exist");
 
-    BusinessObject builtFromJson = this.buildObjectFromJson(objectJson);
+    BusinessObject builtFromJson = this.buildObjectFromJson(JsonConverter.fromRecordJsonToFullJson(id, objectJson));
     Method handlingMethod = this.getHandlingMethod(builtFromJson);
     System.out.println("=====> Method to Execute Retrieved: " + handlingMethod.getName());
     try {

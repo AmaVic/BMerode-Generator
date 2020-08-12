@@ -48,7 +48,7 @@ public class ModelParser {
     try {
       model = (Mermaidmodel) jaxbUnmarshaller.unmarshal(new File(filePath));
     } catch (JAXBException e) {
-      throw new ModelParsingException("[ModelParser.parseModel(String)]: Could not Load Model based on Model File: " + filePath);
+      throw new ModelParsingException("[ModelParser.parseModel(String)]: Could not Load Model based on Model File: " + filePath + "\n" + e.toString());
     }
 
     System.out.println(">> Model Successfully Parsed");

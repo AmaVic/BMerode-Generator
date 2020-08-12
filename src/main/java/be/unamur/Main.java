@@ -13,7 +13,7 @@ public class Main {
    * @param args
    */
   public static void main(String[] args) {
-    String marketPlaceModelPath = Main.class.getClassLoader().getResource("toRemove/model.mxp").getFile();
+    String marketPlaceModelPath = Main.class.getClassLoader().getResource("toRemove/industrialCertif.mxp").getFile();
     System.out.println(marketPlaceModelPath);
 
     Mermaidmodel model = null;
@@ -21,14 +21,16 @@ public class Main {
       model = ModelParser.parseModel(marketPlaceModelPath);
     } catch(ModelParsingException e) {
       e.printStackTrace();
+      return;
     }
 
 
-    SolutionGenerator gen = new SolutionGenerator("/Users/vamarald/Documents/Temp/BM-Gen/");
+    SolutionGenerator gen = new SolutionGenerator("/Users/vamarald/Documents/Temp/IndustrialCertif/");
     try {
       gen.generate(model);
     } catch(SolutionGenerationException e) {
       e.printStackTrace();
+      return;
     }
 
   }
