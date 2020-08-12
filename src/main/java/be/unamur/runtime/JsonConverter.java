@@ -12,6 +12,19 @@ public class JsonConverter {
     private final static Genson recordGenson = new GensonBuilder().withBundle(new JavaDateTimeBundle()).create();
 
     @SuppressWarnings("unchecked")
+    public static String enrichWithClassAttribute(String json) {
+        HashMap<String, Object> jsonObject = (HashMap<String, Object>) genson.deserialize(json, Map.class);
+        String className = (String)jsonObject.get("businessObjectType");
+        String fullClassName = "entity."+className;
+
+        jsonObject.remove("businessObjectType");
+        jsonObject.put("@class", fullClassName);
+
+        System.out.println("JsonConverter.enrichWithClassAttribute: \n Base Json: " + json + "\n Enriched: " + genson.serialize(jsonObject));
+        return genson.serialize(jsonObject);
+    }
+
+    @SuppressWarnings("unchecked")
     public static String toRecordJsonData(BusinessObject bo) {
         String fullJson = bo.toJsonString();
         HashMap<String, Object> jsonObject = (HashMap<String, Object>) genson.deserialize(fullJson, Map.class);
@@ -36,14 +49,14 @@ public class JsonConverter {
     }
 
     @SuppressWarnings("unchecked")
-    public static String fromRecordJsonToFullJson(String json) {
+    public static String fromRecordJsonToFullJson(String key, String json) {
         //Replace businessObjectType with @class and add id
         HashMap<String, Object> jsonObject = (HashMap<String, Object>) genson.deserialize(json, Map.class);
 
         String boType = (String)jsonObject.get("businessObjectType");
         jsonObject.put("@class", "entity."+boType);
         jsonObject.remove("businessObjectType");
-        jsonObject.put("id", jsonObject.get("_id"));
+        jsonObject.put("id", key);
 
         HashMap<String, Object> currentStateObject = (HashMap<String, Object>)jsonObject.get("currentState");
 
