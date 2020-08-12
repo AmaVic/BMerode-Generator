@@ -1,0 +1,26 @@
+package inputValidator;
+
+import com.owlike.genson.Genson;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ${botName}InputValidator {
+  private static final Genson genson = new Genson();
+
+  @SuppressWarnings("unchecked")
+  public static boolean isValidForCreation(String json) {
+    HashMap<String, Object> jsonObject = (HashMap<String, Object>)genson.deserialize(json, Map.class);
+
+#foreach($field in $fields)
+    if(!jsonObject.containsKey("${field.getName()}"))
+       return false;
+
+    if(!(jsonObject.get("${field.getName()}") instanceof ${field.getType()}))
+       return false;
+
+#end
+    return true;
+  }
+
+}

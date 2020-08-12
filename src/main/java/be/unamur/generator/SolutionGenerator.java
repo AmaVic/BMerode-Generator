@@ -4,6 +4,7 @@ import be.unamur.generator.context.*;
 import be.unamur.generator.exception.SolutionGenerationException;
 import be.unamur.metamodel.*;
 import be.unamur.metamodel.Util;
+import be.unamur.runtime.BusinessObject;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -22,6 +23,8 @@ public class SolutionGenerator {
   private final String ENTITY_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "entity" + File.separator;
   private final String STATE_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "state" + File.separator;
   private final String EVENT_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "event" + File.separator;
+  private final String INPUT_VALIDATOR_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "inputValidator" + File.separator;
+
   public SolutionGenerator(String outputDirectoryPath) {
     this.outputDirectory = outputDirectoryPath;
 
@@ -40,7 +43,21 @@ public class SolutionGenerator {
     generateAllSpecificStates(model);
     System.out.println("--- Generating Events Mapping ---");
     generateEventsMapping(model);
+    System.out.println("--- Generating Input Validators ---");
+    generateInputValidators(model);
     System.out.println("===== Generation Complete =====");
+  }
+
+  private void generateInputValidators(Mermaidmodel model) throws SolutionGenerationException {
+    for(Metaobject mo: model.getMetamodel().getMetaobjects().getMetaobject())
+      generateInputValidators(model.getMetamodel(), mo);
+  }
+
+  private void generateInputValidators(Metamodel model, Metaobject mo) throws SolutionGenerationException {
+    InputValidatorContext ctx = new InputValidatorContextBuilder(model, mo).build();
+
+    String outputFileName = this.outputDirectory + File.separator + INPUT_VALIDATOR_FOLDER + mo.getName() + "InputValidator.java";
+    generateFile("inputValidator.vm", ctx, outputFileName);
   }
 
   private void generateBOTEntities(Mermaidmodel model) throws SolutionGenerationException {
