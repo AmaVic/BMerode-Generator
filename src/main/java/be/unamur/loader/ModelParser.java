@@ -17,7 +17,7 @@ import be.unamur.metamodel.Mermaidmodel;
 
 
 public class ModelParser {
-  private static final String METAMODEL_DEFINITION = ModelParser.class.getClassLoader().getResource("be.unamur.metamodel/mxp-schema.xsd").getFile();
+  private static final String METAMODEL_DEFINITION = ModelParser.class.getClassLoader().getResource("be.unamur.metamodel/mxp-schema-1-6.xsd").getFile();
 
   public static Mermaidmodel parseModel(String filePath) throws ModelParsingException {
     System.out.println(">> Parsing Model From File: " + filePath);

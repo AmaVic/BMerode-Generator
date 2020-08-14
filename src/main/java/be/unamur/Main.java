@@ -13,7 +13,7 @@ public class Main {
    * @param args
    */
   public static void main(String[] args) {
-    String marketPlaceModelPath = Main.class.getClassLoader().getResource("toRemove/industrialCertif.mxp").getFile();
+    String marketPlaceModelPath = Main.class.getClassLoader().getResource("toRemove/IndustrialCertif.mxp").getFile();
     System.out.println(marketPlaceModelPath);
 
     Mermaidmodel model = null;
@@ -25,7 +25,7 @@ public class Main {
     }
 
 
-    SolutionGenerator gen = new SolutionGenerator("/Users/vamarald/Documents/Temp/IndustrialCertif/");
+    SolutionGenerator gen = new SolutionGenerator("/Users/vamarald/Documents/Temp/BmerodeOutput/");
     try {
       gen.generate(model);
     } catch(SolutionGenerationException e) {

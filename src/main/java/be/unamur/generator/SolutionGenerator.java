@@ -4,7 +4,6 @@ import be.unamur.generator.context.*;
 import be.unamur.generator.exception.SolutionGenerationException;
 import be.unamur.metamodel.*;
 import be.unamur.metamodel.Util;
-import be.unamur.runtime.BusinessObject;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -15,6 +14,12 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SolutionGenerator {
   private final String outputDirectory;
@@ -35,6 +40,8 @@ public class SolutionGenerator {
 
   public void generate(Mermaidmodel model) throws SolutionGenerationException {
     System.out.println("===== Starting Generation =====");
+    System.out.println("--- Preparing Boilerplate Code  ---");
+    copyBoilerplateCode();
     System.out.println("--- Generating Entities Classes ---");
     generateBOTEntities(model);
     System.out.println("--- Generating General State Classes ---");
@@ -46,6 +53,35 @@ public class SolutionGenerator {
     System.out.println("--- Generating Input Validators ---");
     generateInputValidators(model);
     System.out.println("===== Generation Complete =====");
+  }
+
+  private void copyBoilerplateCode() throws SolutionGenerationException {
+    Path sourceDir = Paths.get(this.getClass().getClassLoader().getResource("BMerodeChaincodeStructure").getPath());
+    File outputDir = new File(this.outputDirectory);
+
+    recurisevelyDelete(outputDir);
+
+    outputDir.mkdir();
+
+
+    AtomicBoolean success = new AtomicBoolean(true);
+    try {
+      Files.walk(sourceDir)
+              .forEach(sourcePath -> {
+                try {
+                  Path targetPath = Paths.get(this.outputDirectory).resolve(sourceDir.relativize(sourcePath));
+                  Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+                } catch (IOException e) {
+                  success.set(false);
+                }
+              });
+    } catch (IOException e) {
+      throw new SolutionGenerationException("SolutionGenerator.copyBoilerplateCode(): " + e.toString());
+    }
+
+    if(!success.get()) {
+      throw new SolutionGenerationException("SolutionGenerator.copyBoilerplateCode(): failed");
+    }
   }
 
   private void generateInputValidators(Mermaidmodel model) throws SolutionGenerationException {
@@ -161,5 +197,16 @@ public class SolutionGenerator {
     }
 
     return outputFile;
+  }
+
+  private void recurisevelyDelete(File f) {
+    if (!f.exists())
+      return;
+
+    if (f.isDirectory())
+      for (File file : Objects.requireNonNull(f.listFiles()))
+        recurisevelyDelete(file);
+
+    f.delete();
   }
 }
