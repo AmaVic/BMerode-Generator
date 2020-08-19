@@ -8,16 +8,16 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
+import be.unamur.metamodel.Mermaidmodel;
 import org.xml.sax.SAXException;
 
 import java.io.File;
 
 import be.unamur.loader.exception.ModelParsingException;
-import be.unamur.metamodel.Mermaidmodel;
 
 
 public class ModelParser {
-  private static final String METAMODEL_DEFINITION = ModelParser.class.getClassLoader().getResource("be.unamur.metamodel/mxp-schema-1-6.xsd").getFile();
+  private static final String METAMODEL_DEFINITION = ModelParser.class.getClassLoader().getResource("be.unamur.metamodel/mxp_1_6_schema.xsd").getFile();
 
   public static Mermaidmodel parseModel(String filePath) throws ModelParsingException {
     System.out.println(">> Parsing Model From File: " + filePath);

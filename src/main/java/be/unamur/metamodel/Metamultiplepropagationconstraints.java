@@ -6,7 +6,6 @@ import java.util.List;
 import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -34,12 +33,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "metamultiplepropagationconstraint"
 })
-@XmlRootElement(name = "metamultiplepropagationconstraints", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-07-27T11:53:17+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@XmlRootElement(name = "metamultiplepropagationconstraints")
+@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
 public class Metamultiplepropagationconstraints {
 
-    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-07-27T11:53:17+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected List<Metamultiplepropagationconstraint> metamultiplepropagationconstraint;
 
     /**
@@ -64,7 +62,7 @@ public class Metamultiplepropagationconstraints {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-07-27T11:53:17+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Metamultiplepropagationconstraint> getMetamultiplepropagationconstraint() {
         if (metamultiplepropagationconstraint == null) {
             metamultiplepropagationconstraint = new ArrayList<Metamultiplepropagationconstraint>();

@@ -1,6 +1,5 @@
 package be.unamur.generator.context;
 
-import be.unamur.metamodel.Metaobject;
 import org.apache.velocity.VelocityContext;
 
 import java.util.ArrayList;

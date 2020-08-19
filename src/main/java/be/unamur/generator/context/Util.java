@@ -1,7 +1,5 @@
 package be.unamur.generator.context;
 
-import be.unamur.metamodel.Metaobject;
-
 import java.util.ArrayList;
 
 public class Util {

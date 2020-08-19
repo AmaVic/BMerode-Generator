@@ -5,7 +5,6 @@ import be.unamur.generator.exception.SolutionGenerationException;
 import be.unamur.loader.ModelParser;
 import be.unamur.loader.exception.ModelParsingException;
 import be.unamur.metamodel.Mermaidmodel;
-import org.apache.velocity.VelocityContext;
 
 public class Main {
   /**
@@ -13,7 +12,7 @@ public class Main {
    * @param args
    */
   public static void main(String[] args) {
-    String marketPlaceModelPath = Main.class.getClassLoader().getResource("toRemove/IndustrialCertif.mxp").getFile();
+    String marketPlaceModelPath = Main.class.getClassLoader().getResource("toRemove/MPCTest.mxp").getFile();
     System.out.println(marketPlaceModelPath);
 
     Mermaidmodel model = null;

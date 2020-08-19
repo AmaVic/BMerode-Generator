@@ -1,6 +1,9 @@
 package be.unamur.generator.context;
 
-import be.unamur.metamodel.*;
+import be.unamur.metamodel.Mermaidmodel;
+import be.unamur.metamodel.Metaevent;
+import be.unamur.metamodel.Metamethod;
+import be.unamur.metamodel.Metaobject;
 import be.unamur.metamodel.Util;
 
 import java.util.ArrayList;

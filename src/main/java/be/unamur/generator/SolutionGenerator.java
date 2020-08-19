@@ -1,9 +1,10 @@
 package be.unamur.generator;
 
 import be.unamur.generator.context.*;
+import be.unamur.generator.context.Util;
 import be.unamur.generator.exception.SolutionGenerationException;
 import be.unamur.metamodel.*;
-import be.unamur.metamodel.Util;
+
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -130,7 +131,7 @@ public class SolutionGenerator {
   }
 
   private void generateBOTSpecificStates(Metaobject bot, Mermaidmodel model) throws SolutionGenerationException {
-    Metafsm fsm = Util.getActiveFSM(bot);
+    Metafsm fsm = be.unamur.metamodel.Util.getActiveFSM(bot);
     for(Metastate state : fsm.getMetastates().getMetastate())
       generateBOTSpecificState(bot, model, state.getName());
     System.out.println(">> Generated Specific States for " + bot.getName());
