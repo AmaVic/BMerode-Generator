@@ -1,15 +1,22 @@
 package state.${util.getStringWithFirstLowerCap($BOTName)};
 
 import entity.$BOTName;
-#foreach($master in $masters)
-#set($masterName = $master.getName())
-import entity.$util.getStringWithFirstCap($masterName);
+##foreach($master in $masters)
+##set($masterName = $master.getName())
+##import entity.$util.getStringWithFirstCap($masterName);
+##end
+#foreach($mi in $mastersImports)
+import entity.$util.getStringWithFirstCap($mi);
 #end
 
 import runtime.StubHelper;
+import runtime.BusinessObject;
 import runtime.exception.FailedEventHandlingException;
+import runtime.exception.BusinessObjectNotFoundException;
 
 import org.hyperledger.fabric.contract.Context;
+
+import java.util.function.Supplier;
 
 public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $name {
   //========== Constructor ===========
@@ -40,6 +47,14 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
       throw new FailedEventHandlingException("Master with id " + object.get$util.getStringWithFirstCap($masterName)Id() + " already has a living dependent of type $BOTName (limited to one)");
 #end
 #end
+#end
+
+#if($mpcPresent)
+    //Checking Multiple Propagation Constraints
+#foreach($mpcCheck in $mpcChecks)
+    $mpcCheck
+#end
+
 #end
     //Changes the state of the current $BOTName (object)
     $BOTName$util.getStringWithFirstCap($method.getTargetStateName())State newState = new $BOTName$util.getStringWithFirstCap($method.getTargetStateName())State();

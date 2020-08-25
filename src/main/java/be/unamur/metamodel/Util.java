@@ -89,4 +89,59 @@ public class Util {
 
     return transitions;
   }
+
+  //@ToDo: Fix / Remove: Make sure filtering on duplicates in context building is enough to prevent double event exec
+  public static boolean isEnabled(Mermaidmodel model, Metamethod method) {
+    return true;
+    /*System.out.println("Checking if method " + method.getId() + "(" + method.getName() + ") should be enabled");
+    if(method.getViadependency() == null) {
+      System.out.println("--------> Method not Acquired via Dependency => Enabled");
+      return true;
+    }
+    //Check if there exists a dependencyInPath with the same viaDependechy as the Method
+    for(Metaobject mo: model.getMetamodel().getMetaobjects().getMetaobject()) {
+      for(Metamultiplepropagationconstraints mpcs : mo.getMetamultiplepropagationconstraints()) {
+        for(Metamultiplepropagationconstraint mpc : mpcs.getMetamultiplepropagationconstraint()) {
+          for(Metapath path : mpc.getMetapath()) {
+            for(Metadependencyinpath inpath : path.getMetadependencyinpath()) {
+              //System.out.println("--------> MetaDependencyInPath ID = " + inpath.getId());
+              //System.out.println("--------> Method.viaDependency ID = " + method.getViadependency());
+              if(!inpath.getId().equals(method.getViadependency()))
+                continue;
+
+              if(path.isIsenabled()) {
+                //System.out.println("-------> Enabled");
+                return true;
+              } else {
+                //System.out.println("-------> Disabled");
+                return false;
+              }
+            }
+          }
+        }
+      }
+    }
+    return true;
+
+    /*List<Metamultiplepropagationconstraints> mpcsList = object.getMetamultiplepropagationconstraints();
+    for(Metamultiplepropagationconstraints mpcs : mpcsList) {
+      if(mpcs.getMetamultiplepropagationconstraint().size() == 0)
+        return true;
+
+      for(Metamultiplepropagationconstraint singleMp : mpcs.getMetamultiplepropagationconstraint()) {
+        List<Metapath> paths = singleMp.metapath;
+        for(Metapath path : paths) {
+          List<Metadependencyinpath> inpaths = path.getMetadependencyinpath();
+          for(Metadependencyinpath inpath : inpaths) {
+            if(!inpath.getId().equals(method.getViadependency()))
+              continue;
+
+            return path.isIsenabled();
+          }
+        }
+      }
+    }
+
+    return true;*/
+  }
 }

@@ -6,6 +6,7 @@ import be.unamur.metamodel.Metamethod;
 import be.unamur.metamodel.Metaobject;
 import be.unamur.metamodel.Util;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class GeneralStateContextBuilder implements ContextBuilder {
@@ -26,6 +27,9 @@ public class GeneralStateContextBuilder implements ContextBuilder {
 
     ArrayList<Metamethod> objectMethods = Util.getBOTMethods(this.model, this.object);
     for(Metamethod method : objectMethods) {
+      if(!Util.isEnabled(this.model, method))
+        continue;
+
       //Retrieve Business Event Name
       Metaevent event = Util.findById(model.getMetamodel().getMetaevents().getMetaevent(), method.getOwnereventid());
       this.ctx.addEventHandlingMethod(event.getName());
