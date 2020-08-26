@@ -3,6 +3,7 @@ package be.unamur.generator.context;
 import org.apache.velocity.VelocityContext;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class StateContext extends VelocityContext {
   public StateContext() {
@@ -32,7 +33,7 @@ public class StateContext extends VelocityContext {
 
   @SuppressWarnings("unchecked")
   public void addEventHandlingMethod(String businessEventName) {
-    ArrayList<String> handlingMethods = this.get("handlingMethods") != null ? (ArrayList<String>)this.get("handlingMethods") : new ArrayList<String>();
+    HashSet<String> handlingMethods = this.get("handlingMethods") != null ? (HashSet<String>)this.get("handlingMethods") : new HashSet<String>();
     String handlingMethodName = "handle_"+businessEventName;
     handlingMethods.add(handlingMethodName);
 

@@ -28,10 +28,7 @@ public class EventsMappingContext extends VelocityContext {
   @SuppressWarnings("unchecked")
   public void addBusinessEvent(Mermaidmodel model, Metaevent event) {
     String name = event.getName();
-    System.out.println(name == null ? "NAME IS NULL" : "Retrieving Method for " + name);
     Metamethod relatedMethod = Util.getOwnedMethodFromEvent(model, event);
-    //@TOREMOVE
-    System.out.println(relatedMethod == null ? "NULL" : relatedMethod.getName());
     String baseEffect = relatedMethod.getType();
     Metaobject owner = Util.findById(model.getMetamodel().getMetaobjects().getMetaobject(), relatedMethod.getOwnerobjectid());
     String ownerClass = owner.getName()+".class";
