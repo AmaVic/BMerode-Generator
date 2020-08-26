@@ -22,7 +22,7 @@ public class Main {
    * @param args
    */
   public static void main(String[] args) {
-    String marketPlaceModelPath = Main.class.getClassLoader().getResource("toRemove/MPCTest.mxp").getFile();
+    String marketPlaceModelPath = Main.class.getClassLoader().getResource("toRemove/MPCTestExpanded.mxp").getFile();
     System.out.println(marketPlaceModelPath);
 
     Mermaidmodel model = null;
@@ -33,23 +33,17 @@ public class Main {
       return;
     }
 
+    /*
     for(Metaobject mo: model.getMetamodel().getMetaobjects().getMetaobject()) {
       if(!mo.getName().equals("InvoiceLine"))
         continue;
 
-      //System.out.println(mo.getName());
-      for(Metamultiplepropagationconstraints mpcs: mo.getMetamultiplepropagationconstraints()) {
-        Metamultiplepropagationconstraint mpc = null;
-        try {
-          mpc = mpcs.getMetamultiplepropagationconstraint().get(0);
-        } catch(IndexOutOfBoundsException e) {
-          continue;
-        }
+      for(Metamultiplepropagationconstraints mpcs : mo.getMetamultiplepropagationconstraints())
+        for(Metamultiplepropagationconstraint mpc : mpcs.getMetamultiplepropagationconstraint())
+          System.out.println(mpc.getId());
 
-        /*System.out.println("----");
-        System.out.println(MPCStringGenerator.generateMPCCheckCode(model.getMetamodel(), mo, mpc));*/
-      }
-    }
+
+    }*/
 
     SolutionGenerator gen = new SolutionGenerator("/Users/vamarald/Documents/Temp/BmerodeOutput/");
     try {

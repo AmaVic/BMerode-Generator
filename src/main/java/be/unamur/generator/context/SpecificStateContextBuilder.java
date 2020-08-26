@@ -80,31 +80,34 @@ public class SpecificStateContextBuilder extends GeneralStateContextBuilder {
     this.specificCtx.setMPCPresent(mpc);
 
     if(mpc) {
-      this.specificCtx.addMPCCheckCode(MPCStringGenerator.generateMPCCheckCode(this.model.getMetamodel(), this.object, constraint));
-      DependencyNodeBuilder dnb = new DependencyNodeBuilder(this.model.getMetamodel(), constraint, this.object, true);
-      DependencyNodeBuilder dnbDis = new DependencyNodeBuilder(this.model.getMetamodel(), constraint, this.object, false);
+      for(Metamultiplepropagationconstraints mpcs : this.object.getMetamultiplepropagationconstraints()) {
+        for(Metamultiplepropagationconstraint cstr : mpcs.getMetamultiplepropagationconstraint()) {
+          this.specificCtx.addMPCCheckCode(MPCStringGenerator.generateMPCCheckCode(this.model.getMetamodel(), this.object, cstr));
+          DependencyNodeBuilder dnb = new DependencyNodeBuilder(this.model.getMetamodel(), cstr, this.object, true);
+          DependencyNodeBuilder dnbDis = new DependencyNodeBuilder(this.model.getMetamodel(), cstr, this.object, false);
 
-      DependencyNode startingEnabledNode = dnb.getDependencyRootNode();
-      DependencyNode startingDisabledNode = dnbDis.getDependencyRootNode();
+          DependencyNode startingEnabledNode = dnb.getDependencyRootNode();
+          DependencyNode startingDisabledNode = dnbDis.getDependencyRootNode();
 
-      if(!startingEnabledNode.isLast()) {
-        DependencyNode next = startingEnabledNode.next();
-        while(!next.isLast()) {
-          this.specificCtx.addMasterImport(next.getBOT());
-          next = next.next();
+          if (!startingEnabledNode.isLast()) {
+            DependencyNode next = startingEnabledNode.next();
+            while (!next.isLast()) {
+              this.specificCtx.addMasterImport(next.getBOT());
+              next = next.next();
+            }
+            this.specificCtx.addMasterImport(next.getBOT());
+          }
+
+          if (!startingDisabledNode.isLast()) {
+            DependencyNode next = startingDisabledNode.next();
+            while (!next.isLast()) {
+              this.specificCtx.addMasterImport(next.getBOT());
+              next = next.next();
+            }
+            this.specificCtx.addMasterImport(next.getBOT());
+          }
         }
-        this.specificCtx.addMasterImport(next.getBOT());
       }
-
-      if(!startingDisabledNode.isLast()) {
-        DependencyNode next = startingDisabledNode.next();
-        while(!next.isLast()) {
-          this.specificCtx.addMasterImport(next.getBOT());
-          next = next.next();
-        }
-        this.specificCtx.addMasterImport(next.getBOT());
-      }
-
     }
 
     return this.specificCtx;
