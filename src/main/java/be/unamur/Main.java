@@ -35,17 +35,11 @@ public class Main {
 
     /*
     for(Metaobject mo: model.getMetamodel().getMetaobjects().getMetaobject()) {
-      if(!mo.getName().equals("InvoiceLine"))
-        continue;
-
-      for(Metamultiplepropagationconstraints mpcs : mo.getMetamultiplepropagationconstraints())
-        for(Metamultiplepropagationconstraint mpc : mpcs.getMetamultiplepropagationconstraint())
-          System.out.println(mpc.getId());
-
-
+      System.out.println("MO: " + mo.getName());
+      System.out.println("> isPtcp? " + mo.isIsParticipant());
     }*/
 
-    SolutionGenerator gen = new SolutionGenerator("/Users/vamarald/Documents/Temp/BmerodeOutput/");
+    SolutionGenerator gen = new SolutionGenerator("/Users/vamarald/Documents/Temp/BMO/");
     try {
       gen.generate(model);
     } catch(SolutionGenerationException e) {

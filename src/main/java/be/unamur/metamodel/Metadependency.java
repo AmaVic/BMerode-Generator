@@ -2,7 +2,6 @@
 package be.unamur.metamodel;
 
 import java.math.BigInteger;
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -33,24 +32,18 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-@XmlRootElement(name = "metadependency")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@XmlRootElement(name = "metadependency", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
 public class Metadependency implements Identifiable {
 
     @XmlAttribute(name = "id", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected BigInteger id;
     @XmlAttribute(name = "name", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String name;
     @XmlAttribute(name = "type", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String type;
     @XmlAttribute(name = "master", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected BigInteger master;
     @XmlAttribute(name = "dependent", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected BigInteger dependent;
 
     /**
@@ -61,7 +54,6 @@ public class Metadependency implements Identifiable {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public BigInteger getId() {
         return id;
     }
@@ -74,7 +66,6 @@ public class Metadependency implements Identifiable {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setId(BigInteger value) {
         this.id = value;
     }
@@ -87,7 +78,6 @@ public class Metadependency implements Identifiable {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getName() {
         return name;
     }
@@ -100,7 +90,6 @@ public class Metadependency implements Identifiable {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setName(String value) {
         this.name = value;
     }
@@ -113,7 +102,6 @@ public class Metadependency implements Identifiable {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getType() {
         return type;
     }
@@ -126,7 +114,6 @@ public class Metadependency implements Identifiable {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setType(String value) {
         this.type = value;
     }
@@ -139,7 +126,6 @@ public class Metadependency implements Identifiable {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public BigInteger getMaster() {
         return master;
     }
@@ -152,7 +138,6 @@ public class Metadependency implements Identifiable {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setMaster(BigInteger value) {
         this.master = value;
     }
@@ -165,7 +150,6 @@ public class Metadependency implements Identifiable {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public BigInteger getDependent() {
         return dependent;
     }
@@ -178,7 +162,6 @@ public class Metadependency implements Identifiable {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setDependent(BigInteger value) {
         this.dependent = value;
     }

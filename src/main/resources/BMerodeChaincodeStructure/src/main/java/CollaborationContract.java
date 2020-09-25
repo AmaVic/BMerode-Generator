@@ -2,7 +2,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import runtime.BusinessEvent;
+import runtime.*;
 import event.EventsMapping;
 import org.hyperledger.fabric.contract.Context;
 import org.hyperledger.fabric.contract.ContractInterface;
@@ -33,6 +33,12 @@ public class CollaborationContract implements ContractInterface {
 
   public  CollaborationContract() {
 
+  }
+
+  @Transaction(intent = Transaction.TYPE.SUBMIT)
+  public void init(Context ctx, String participantsHandlerPK) {
+    CollaborationSetup setup = new CollaborationSetup(false, participantsHandlerPK);
+    ctx.getStub().putStringState("BMERODE.COLLABORATION_SETUP", setup.toJsonString());
   }
 
   @Transaction(intent = Transaction.TYPE.EVALUATE)

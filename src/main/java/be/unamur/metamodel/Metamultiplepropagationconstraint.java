@@ -4,7 +4,6 @@ package be.unamur.metamodel;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -40,20 +39,16 @@ import javax.xml.bind.annotation.XmlType;
     "metapath",
     "metaMPCkind"
 })
-@XmlRootElement(name = "metamultiplepropagationconstraint")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@XmlRootElement(name = "metamultiplepropagationconstraint", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
 public class Metamultiplepropagationconstraint implements Identifiable {
 
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
     protected List<Metapath> metapath;
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5", required = true)
     protected MetaMPCkind metaMPCkind;
     @XmlAttribute(name = "id", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected BigInteger id;
     @XmlAttribute(name = "type")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String type;
 
     /**
@@ -78,7 +73,6 @@ public class Metamultiplepropagationconstraint implements Identifiable {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Metapath> getMetapath() {
         if (metapath == null) {
             metapath = new ArrayList<Metapath>();
@@ -94,7 +88,6 @@ public class Metamultiplepropagationconstraint implements Identifiable {
      *     {@link MetaMPCkind }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public MetaMPCkind getMetaMPCkind() {
         return metaMPCkind;
     }
@@ -107,7 +100,6 @@ public class Metamultiplepropagationconstraint implements Identifiable {
      *     {@link MetaMPCkind }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setMetaMPCkind(MetaMPCkind value) {
         this.metaMPCkind = value;
     }
@@ -120,7 +112,6 @@ public class Metamultiplepropagationconstraint implements Identifiable {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public BigInteger getId() {
         return id;
     }
@@ -133,7 +124,6 @@ public class Metamultiplepropagationconstraint implements Identifiable {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setId(BigInteger value) {
         this.id = value;
     }
@@ -146,7 +136,6 @@ public class Metamultiplepropagationconstraint implements Identifiable {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getType() {
         if (type == null) {
             return "EQUAL_TO";
@@ -163,7 +152,6 @@ public class Metamultiplepropagationconstraint implements Identifiable {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setType(String value) {
         this.type = value;
     }

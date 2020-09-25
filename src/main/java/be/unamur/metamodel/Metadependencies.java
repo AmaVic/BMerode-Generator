@@ -3,9 +3,9 @@ package be.unamur.metamodel;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -33,11 +33,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "metadependency"
 })
-@XmlRootElement(name = "metadependencies")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@XmlRootElement(name = "metadependencies", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
 public class Metadependencies {
 
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
     protected List<Metadependency> metadependency;
 
     /**
@@ -62,7 +61,6 @@ public class Metadependencies {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Metadependency> getMetadependency() {
         if (metadependency == null) {
             metadependency = new ArrayList<Metadependency>();

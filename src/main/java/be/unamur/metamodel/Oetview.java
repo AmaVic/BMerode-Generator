@@ -2,7 +2,6 @@
 package be.unamur.metamodel;
 
 import java.math.BigInteger;
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -42,33 +41,24 @@ import javax.xml.bind.annotation.XmlType;
     "oetobjects",
     "oetevents"
 })
-@XmlRootElement(name = "oetview")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@XmlRootElement(name = "oetview", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
 public class Oetview {
 
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5", required = true)
     protected Oetobjects oetobjects;
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5", required = true)
     protected Oetevents oetevents;
     @XmlAttribute(name = "highlightercolor", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String highlightercolor;
     @XmlAttribute(name = "linecolor", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String linecolor;
     @XmlAttribute(name = "backgroundcolor", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String backgroundcolor;
     @XmlAttribute(name = "hidedisabledmethods", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected boolean hidedisabledmethods;
     @XmlAttribute(name = "headerrotation", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected BigInteger headerrotation;
     @XmlAttribute(name = "scale", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected double scale;
 
     /**
@@ -79,7 +69,6 @@ public class Oetview {
      *     {@link Oetobjects }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Oetobjects getOetobjects() {
         return oetobjects;
     }
@@ -92,7 +81,6 @@ public class Oetview {
      *     {@link Oetobjects }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setOetobjects(Oetobjects value) {
         this.oetobjects = value;
     }
@@ -105,7 +93,6 @@ public class Oetview {
      *     {@link Oetevents }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Oetevents getOetevents() {
         return oetevents;
     }
@@ -118,7 +105,6 @@ public class Oetview {
      *     {@link Oetevents }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setOetevents(Oetevents value) {
         this.oetevents = value;
     }
@@ -131,7 +117,6 @@ public class Oetview {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getHighlightercolor() {
         return highlightercolor;
     }
@@ -144,7 +129,6 @@ public class Oetview {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setHighlightercolor(String value) {
         this.highlightercolor = value;
     }
@@ -157,7 +141,6 @@ public class Oetview {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getLinecolor() {
         return linecolor;
     }
@@ -170,7 +153,6 @@ public class Oetview {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setLinecolor(String value) {
         this.linecolor = value;
     }
@@ -183,7 +165,6 @@ public class Oetview {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getBackgroundcolor() {
         return backgroundcolor;
     }
@@ -196,7 +177,6 @@ public class Oetview {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setBackgroundcolor(String value) {
         this.backgroundcolor = value;
     }
@@ -205,7 +185,6 @@ public class Oetview {
      * Obtient la valeur de la propriété hidedisabledmethods.
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public boolean isHidedisabledmethods() {
         return hidedisabledmethods;
     }
@@ -214,7 +193,6 @@ public class Oetview {
      * Définit la valeur de la propriété hidedisabledmethods.
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setHidedisabledmethods(boolean value) {
         this.hidedisabledmethods = value;
     }
@@ -227,7 +205,6 @@ public class Oetview {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public BigInteger getHeaderrotation() {
         return headerrotation;
     }
@@ -240,7 +217,6 @@ public class Oetview {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setHeaderrotation(BigInteger value) {
         this.headerrotation = value;
     }
@@ -249,7 +225,6 @@ public class Oetview {
      * Obtient la valeur de la propriété scale.
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public double getScale() {
         return scale;
     }
@@ -258,7 +233,6 @@ public class Oetview {
      * Définit la valeur de la propriété scale.
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setScale(double value) {
         this.scale = value;
     }

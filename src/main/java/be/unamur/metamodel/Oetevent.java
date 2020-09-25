@@ -2,7 +2,6 @@
 package be.unamur.metamodel;
 
 import java.math.BigInteger;
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -29,12 +28,10 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-@XmlRootElement(name = "oetevent")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@XmlRootElement(name = "oetevent", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
 public class Oetevent {
 
     @XmlAttribute(name = "refid", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected BigInteger refid;
 
     /**
@@ -45,7 +42,6 @@ public class Oetevent {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public BigInteger getRefid() {
         return refid;
     }
@@ -58,7 +54,6 @@ public class Oetevent {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setRefid(BigInteger value) {
         this.refid = value;
     }

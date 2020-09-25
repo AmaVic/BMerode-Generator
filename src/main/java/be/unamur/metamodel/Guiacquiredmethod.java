@@ -2,7 +2,6 @@
 package be.unamur.metamodel;
 
 import java.math.BigInteger;
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -35,30 +34,22 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-@XmlRootElement(name = "guiacquiredmethod")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@XmlRootElement(name = "guiacquiredmethod", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
 public class Guiacquiredmethod {
 
     @XmlAttribute(name = "refid", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected BigInteger refid;
     @XmlAttribute(name = "backgroundcolor", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String backgroundcolor;
     @XmlAttribute(name = "textcolor", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String textcolor;
     @XmlAttribute(name = "fontfamily", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String fontfamily;
     @XmlAttribute(name = "fontsize", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected BigInteger fontsize;
     @XmlAttribute(name = "fontbold", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected boolean fontbold;
     @XmlAttribute(name = "fontitalic", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected boolean fontitalic;
 
     /**
@@ -69,7 +60,6 @@ public class Guiacquiredmethod {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public BigInteger getRefid() {
         return refid;
     }
@@ -82,7 +72,6 @@ public class Guiacquiredmethod {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setRefid(BigInteger value) {
         this.refid = value;
     }
@@ -95,7 +84,6 @@ public class Guiacquiredmethod {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getBackgroundcolor() {
         return backgroundcolor;
     }
@@ -108,7 +96,6 @@ public class Guiacquiredmethod {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setBackgroundcolor(String value) {
         this.backgroundcolor = value;
     }
@@ -121,7 +108,6 @@ public class Guiacquiredmethod {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getTextcolor() {
         return textcolor;
     }
@@ -134,7 +120,6 @@ public class Guiacquiredmethod {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setTextcolor(String value) {
         this.textcolor = value;
     }
@@ -147,7 +132,6 @@ public class Guiacquiredmethod {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getFontfamily() {
         return fontfamily;
     }
@@ -160,7 +144,6 @@ public class Guiacquiredmethod {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setFontfamily(String value) {
         this.fontfamily = value;
     }
@@ -173,7 +156,6 @@ public class Guiacquiredmethod {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public BigInteger getFontsize() {
         return fontsize;
     }
@@ -186,7 +168,6 @@ public class Guiacquiredmethod {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setFontsize(BigInteger value) {
         this.fontsize = value;
     }
@@ -195,7 +176,6 @@ public class Guiacquiredmethod {
      * Obtient la valeur de la propriété fontbold.
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public boolean isFontbold() {
         return fontbold;
     }
@@ -204,7 +184,6 @@ public class Guiacquiredmethod {
      * Définit la valeur de la propriété fontbold.
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setFontbold(boolean value) {
         this.fontbold = value;
     }
@@ -213,7 +192,6 @@ public class Guiacquiredmethod {
      * Obtient la valeur de la propriété fontitalic.
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public boolean isFontitalic() {
         return fontitalic;
     }
@@ -222,7 +200,6 @@ public class Guiacquiredmethod {
      * Définit la valeur de la propriété fontitalic.
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setFontitalic(boolean value) {
         this.fontitalic = value;
     }

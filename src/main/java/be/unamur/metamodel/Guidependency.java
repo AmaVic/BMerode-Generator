@@ -2,7 +2,6 @@
 package be.unamur.metamodel;
 
 import java.math.BigInteger;
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -46,45 +45,32 @@ import javax.xml.bind.annotation.XmlType;
     "dependencylabels",
     "edgecontrolpoints"
 })
-@XmlRootElement(name = "guidependency")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@XmlRootElement(name = "guidependency", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
 public class Guidependency {
 
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5", required = true)
     protected Dependencylabels dependencylabels;
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5", required = true)
     protected Edgecontrolpoints edgecontrolpoints;
     @XmlAttribute(name = "refid", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected BigInteger refid;
     @XmlAttribute(name = "linewidth", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected BigInteger linewidth;
     @XmlAttribute(name = "linecolor", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String linecolor;
     @XmlAttribute(name = "textcolor", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String textcolor;
     @XmlAttribute(name = "fontfamily", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String fontfamily;
     @XmlAttribute(name = "fontsize", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected BigInteger fontsize;
     @XmlAttribute(name = "fontbold", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected boolean fontbold;
     @XmlAttribute(name = "fontitalic", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected boolean fontitalic;
     @XmlAttribute(name = "labelvisible", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected boolean labelvisible;
     @XmlAttribute(name = "labelposition", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String labelposition;
 
     /**
@@ -95,7 +81,6 @@ public class Guidependency {
      *     {@link Dependencylabels }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Dependencylabels getDependencylabels() {
         return dependencylabels;
     }
@@ -108,7 +93,6 @@ public class Guidependency {
      *     {@link Dependencylabels }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setDependencylabels(Dependencylabels value) {
         this.dependencylabels = value;
     }
@@ -121,7 +105,6 @@ public class Guidependency {
      *     {@link Edgecontrolpoints }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Edgecontrolpoints getEdgecontrolpoints() {
         return edgecontrolpoints;
     }
@@ -134,7 +117,6 @@ public class Guidependency {
      *     {@link Edgecontrolpoints }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setEdgecontrolpoints(Edgecontrolpoints value) {
         this.edgecontrolpoints = value;
     }
@@ -147,7 +129,6 @@ public class Guidependency {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public BigInteger getRefid() {
         return refid;
     }
@@ -160,7 +141,6 @@ public class Guidependency {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setRefid(BigInteger value) {
         this.refid = value;
     }
@@ -173,7 +153,6 @@ public class Guidependency {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public BigInteger getLinewidth() {
         return linewidth;
     }
@@ -186,7 +165,6 @@ public class Guidependency {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setLinewidth(BigInteger value) {
         this.linewidth = value;
     }
@@ -199,7 +177,6 @@ public class Guidependency {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getLinecolor() {
         return linecolor;
     }
@@ -212,7 +189,6 @@ public class Guidependency {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setLinecolor(String value) {
         this.linecolor = value;
     }
@@ -225,7 +201,6 @@ public class Guidependency {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getTextcolor() {
         return textcolor;
     }
@@ -238,7 +213,6 @@ public class Guidependency {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setTextcolor(String value) {
         this.textcolor = value;
     }
@@ -251,7 +225,6 @@ public class Guidependency {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getFontfamily() {
         return fontfamily;
     }
@@ -264,7 +237,6 @@ public class Guidependency {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setFontfamily(String value) {
         this.fontfamily = value;
     }
@@ -277,7 +249,6 @@ public class Guidependency {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public BigInteger getFontsize() {
         return fontsize;
     }
@@ -290,7 +261,6 @@ public class Guidependency {
      *     {@link BigInteger }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setFontsize(BigInteger value) {
         this.fontsize = value;
     }
@@ -299,7 +269,6 @@ public class Guidependency {
      * Obtient la valeur de la propriété fontbold.
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public boolean isFontbold() {
         return fontbold;
     }
@@ -308,7 +277,6 @@ public class Guidependency {
      * Définit la valeur de la propriété fontbold.
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setFontbold(boolean value) {
         this.fontbold = value;
     }
@@ -317,7 +285,6 @@ public class Guidependency {
      * Obtient la valeur de la propriété fontitalic.
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public boolean isFontitalic() {
         return fontitalic;
     }
@@ -326,7 +293,6 @@ public class Guidependency {
      * Définit la valeur de la propriété fontitalic.
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setFontitalic(boolean value) {
         this.fontitalic = value;
     }
@@ -335,7 +301,6 @@ public class Guidependency {
      * Obtient la valeur de la propriété labelvisible.
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public boolean isLabelvisible() {
         return labelvisible;
     }
@@ -344,7 +309,6 @@ public class Guidependency {
      * Définit la valeur de la propriété labelvisible.
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setLabelvisible(boolean value) {
         this.labelvisible = value;
     }
@@ -357,7 +321,6 @@ public class Guidependency {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getLabelposition() {
         return labelposition;
     }
@@ -370,7 +333,6 @@ public class Guidependency {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setLabelposition(String value) {
         this.labelposition = value;
     }

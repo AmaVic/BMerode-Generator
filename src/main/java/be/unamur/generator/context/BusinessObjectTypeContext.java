@@ -9,10 +9,14 @@ public class BusinessObjectTypeContext extends VelocityContext {
   public BusinessObjectTypeContext() {
     super();
     this.put("util", Util.class);
+    this.put("isParticipant", false);
   }
 
   public void setName(String name) {
     this.put("name", name);
+  }
+  public void setIsParticipant(boolean isParticipant) {
+    this.put("isParticipant", isParticipant);
   }
 
   @SuppressWarnings("unchecked")

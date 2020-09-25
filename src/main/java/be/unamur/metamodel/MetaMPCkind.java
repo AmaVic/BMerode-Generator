@@ -1,7 +1,6 @@
 
 package be.unamur.metamodel;
 
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -26,12 +25,10 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "metaMPCkind")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@XmlType(name = "metaMPCkind", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
 public class MetaMPCkind {
 
     @XmlAttribute(name = "pathsEqual")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected Boolean pathsEqual;
 
     /**
@@ -42,7 +39,6 @@ public class MetaMPCkind {
      *     {@link Boolean }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Boolean isPathsEqual() {
         return pathsEqual;
     }
@@ -55,7 +51,6 @@ public class MetaMPCkind {
      *     {@link Boolean }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setPathsEqual(Boolean value) {
         this.pathsEqual = value;
     }

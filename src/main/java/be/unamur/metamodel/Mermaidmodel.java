@@ -2,7 +2,6 @@
 package be.unamur.metamodel;
 
 import java.math.BigDecimal;
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -40,25 +39,19 @@ import javax.xml.bind.annotation.XmlType;
     "metamodel",
     "guimodel"
 })
-@XmlRootElement(name = "mermaidmodel")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@XmlRootElement(name = "mermaidmodel", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
 public class Mermaidmodel {
 
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5", required = true)
     protected Metamodel metamodel;
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5", required = true)
     protected Guimodel guimodel;
     @XmlAttribute(name = "mxp.version", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected BigDecimal mxpVersion;
     @XmlAttribute(name = "jmermaid.version", required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected BigDecimal jmermaidVersion;
     @XmlAttribute(name = "timestamp", required = true)
     @XmlSchemaType(name = "anySimpleType")
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     protected String timestamp;
 
     /**
@@ -69,7 +62,6 @@ public class Mermaidmodel {
      *     {@link Metamodel }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Metamodel getMetamodel() {
         return metamodel;
     }
@@ -82,7 +74,6 @@ public class Mermaidmodel {
      *     {@link Metamodel }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setMetamodel(Metamodel value) {
         this.metamodel = value;
     }
@@ -95,7 +86,6 @@ public class Mermaidmodel {
      *     {@link Guimodel }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public Guimodel getGuimodel() {
         return guimodel;
     }
@@ -108,7 +98,6 @@ public class Mermaidmodel {
      *     {@link Guimodel }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setGuimodel(Guimodel value) {
         this.guimodel = value;
     }
@@ -121,7 +110,6 @@ public class Mermaidmodel {
      *     {@link BigDecimal }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public BigDecimal getMxpVersion() {
         return mxpVersion;
     }
@@ -134,7 +122,6 @@ public class Mermaidmodel {
      *     {@link BigDecimal }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setMxpVersion(BigDecimal value) {
         this.mxpVersion = value;
     }
@@ -147,7 +134,6 @@ public class Mermaidmodel {
      *     {@link BigDecimal }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public BigDecimal getJmermaidVersion() {
         return jmermaidVersion;
     }
@@ -160,7 +146,6 @@ public class Mermaidmodel {
      *     {@link BigDecimal }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setJmermaidVersion(BigDecimal value) {
         this.jmermaidVersion = value;
     }
@@ -173,7 +158,6 @@ public class Mermaidmodel {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public String getTimestamp() {
         return timestamp;
     }
@@ -186,7 +170,6 @@ public class Mermaidmodel {
      *     {@link String }
      *     
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public void setTimestamp(String value) {
         this.timestamp = value;
     }

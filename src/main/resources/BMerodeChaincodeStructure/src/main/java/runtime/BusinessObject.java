@@ -1,5 +1,6 @@
 package runtime;
 
+import runtime.State;
 import com.owlike.genson.Genson;
 import com.owlike.genson.GensonBuilder;
 import com.owlike.genson.annotation.JsonIgnore;

@@ -3,7 +3,7 @@
   <mxp:metamodel lastid="33">
     <mxp:datatypes/>
     <mxp:metaobjects>
-      <mxp:metaobject id="1" name="Owner" abstract="false">
+      <mxp:metaobject id="1" name="Owner" abstract="false" isParticipant="true">
         <mxp:metadescription/>
         <mxp:metaconstraints/>
         <mxp:metamultiplepropagationconstraints/>
