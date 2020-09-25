@@ -35,14 +35,14 @@ public class CollaborationContract implements ContractInterface {
 
   }
 
-  @Transaction()
+  @Transaction(intent = Transaction.TYPE.EVALUATE)
   public String getBusinessObject(Context ctx, String id) {
     BusinessObject bo = StubHelper.findBusinessObject(ctx, id);
 
     return JsonConverter.toRecordJson(bo);
   }
 
-  @Transaction()
+  @Transaction(intent = Transaction.TYPE.SUBMIT)
   public String handleEvent(Context ctx, String eventName, String payloadJson) {
     //Based on event name, possible to retrieve all the  methods that it will invoke
     //It is also to find which BO is the owner

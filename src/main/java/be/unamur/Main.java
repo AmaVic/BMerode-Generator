@@ -22,7 +22,7 @@ public class Main {
    * @param args
    */
   public static void main(String[] args) {
-    String marketPlaceModelPath = Main.class.getClassLoader().getResource("toRemove/MPCTestExpanded.mxp").getFile();
+    String marketPlaceModelPath = Main.class.getClassLoader().getResource("toRemove/identity.mxp").getFile();
     System.out.println(marketPlaceModelPath);
 
     Mermaidmodel model = null;
