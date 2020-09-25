@@ -2,6 +2,8 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import runtime.CollaborationSetup;
+import runtime.exception.CollaborationSetupException;
 import runtime.*;
 import event.EventsMapping;
 import org.hyperledger.fabric.contract.Context;
@@ -37,6 +39,10 @@ public class CollaborationContract implements ContractInterface {
 
   @Transaction(intent = Transaction.TYPE.SUBMIT)
   public void init(Context ctx, String participantsHandlerPK) {
+    String currentSetup = ctx.getStub().getStringState("BMERODE.COLLABORATION_SETUP");
+    if(currentSetup != null && currentSetup.length() != 0)
+      throw new CollaborationSetupException("[CollaborationContract.init(String)]: Initial Setup already Exists");
+
     CollaborationSetup setup = new CollaborationSetup(false, participantsHandlerPK);
     ctx.getStub().putStringState("BMERODE.COLLABORATION_SETUP", setup.toJsonString());
   }
