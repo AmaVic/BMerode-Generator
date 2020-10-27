@@ -3,7 +3,6 @@ package be.unamur.metamodel;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -34,12 +33,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "metatransitionmethod"
 })
-@XmlRootElement(name = "metatransitionmethods")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@XmlRootElement(name = "metatransitionmethods", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
 public class Metatransitionmethods {
 
-    @XmlElement(required = true)
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5", required = true)
     protected List<Metatransitionmethod> metatransitionmethod;
 
     /**
@@ -64,7 +61,6 @@ public class Metatransitionmethods {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Metatransitionmethod> getMetatransitionmethod() {
         if (metatransitionmethod == null) {
             metatransitionmethod = new ArrayList<Metatransitionmethod>();

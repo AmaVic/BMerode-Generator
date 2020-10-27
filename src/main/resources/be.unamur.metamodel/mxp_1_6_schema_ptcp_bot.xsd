@@ -57,6 +57,7 @@
             <xs:attribute name="id" type="xs:integer" use="required"/>
             <xs:attribute name="name" type="xs:string" use="required"/>
             <xs:attribute name="abstract" type="xs:boolean" use="required"/>
+            <xs:attribute name="isParticipant" type = "xs:boolean" use="optional" default="false"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="metadescription" type="xs:string"/>

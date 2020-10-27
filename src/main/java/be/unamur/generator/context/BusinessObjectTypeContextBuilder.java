@@ -20,6 +20,7 @@ public class BusinessObjectTypeContextBuilder implements ContextBuilder {
   @Override
   public BusinessObjectTypeContext build() {
     this.ctx.setName(this.metaobject.getName());
+    this.ctx.setIsParticipant(this.metaobject.isIsParticipant());
 
     //Add Default Attributes on Top of Model Attributes
     Attribute currentState = new Attribute(this.getGeneralStateType(), "currentState", true);

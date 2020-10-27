@@ -3,9 +3,9 @@ package be.unamur.metamodel;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.Generated;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -33,11 +33,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "guiownedmethod"
 })
-@XmlRootElement(name = "guiownedmethods")
-@Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+@XmlRootElement(name = "guiownedmethods", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
 public class Guiownedmethods {
 
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
+    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
     protected List<Guiownedmethod> guiownedmethod;
 
     /**
@@ -62,7 +61,6 @@ public class Guiownedmethods {
      * 
      * 
      */
-    @Generated(value = "com.sun.tools.internal.xjc.Driver", date = "2020-08-19T07:41:58+02:00", comments = "JAXB RI v2.2.8-b130911.1802")
     public List<Guiownedmethod> getGuiownedmethod() {
         if (guiownedmethod == null) {
             guiownedmethod = new ArrayList<Guiownedmethod>();

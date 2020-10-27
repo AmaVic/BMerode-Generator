@@ -45,6 +45,7 @@ public class BusinessEvent {
 
   private BusinessObject handleCreatingEvent(Context ctx, String jsonPayload) throws FailedEventHandlingException {
     BusinessObject builtFromJson = this.buildObjectFromJson(jsonPayload);
+    rejectIfUnallowedInSetupPhase(ctx, builtFromJson);
     System.out.println("=====> Object Build from JSON: " + builtFromJson.toJsonString());
     Method handlingMethod = this.getHandlingMethod(builtFromJson);
     System.out.println("=====> Method to Execute Retrieved: " + handlingMethod.getName());
@@ -72,6 +73,7 @@ public class BusinessEvent {
       throw new FailedEventHandlingException("Business Object with ID " + id + " does not exist");
 
     BusinessObject builtFromJson = this.buildObjectFromJson(JsonConverter.fromRecordJsonToFullJson(id,objectJson));
+    rejectIfUnallowedInSetupPhase(ctx, builtFromJson);
 
     System.out.println("----> Object to Remove: " + builtFromJson.toJsonString());
 
@@ -101,6 +103,8 @@ public class BusinessEvent {
       throw new FailedEventHandlingException("Business Object with ID " + id + " does not exist");
 
     BusinessObject builtFromJson = this.buildObjectFromJson(JsonConverter.fromRecordJsonToFullJson(id, objectJson));
+    rejectIfUnallowedInSetupPhase(ctx, builtFromJson);
+
     Method handlingMethod = this.getHandlingMethod(builtFromJson);
     System.out.println("=====> Method to Execute Retrieved: " + handlingMethod.getName());
     try {
@@ -143,6 +147,21 @@ public class BusinessEvent {
       throw new FailedEventHandlingException("[BusinessEvent.buildObjectFromJson(String)]: Error Deserializing JSON String into " + this.getOwnerBOT().getSimpleName());
 
     return builtFromJson;
+  }
+
+  /**
+   * @throws FailedEventHandlingException if we currently are in the setup phase and either:
+   * - The client initiating the call is not the ParticipantsHandler
+   * - The executed operation is not about creating/modifying a Participant (i.e. BO for which participant is true)
+   */
+  private void rejectIfUnallowedInSetupPhase(Context ctx, BusinessObject loadedBO) throws FailedEventHandlingException {
+    CollaborationSetup setup = CollaborationSetup.fromJson(ctx.getStub().getStringState("BMERODE.COLLABORATION_SETUP"));
+    if(!setup.getSetupFinalized()) {
+      if(!ctx.getClientIdentity().getX509Certificate().getPublicKey().toString().equals(setup.getParticipantsHandlerPK()))
+        throw new FailedEventHandlingException("Event sent by another entity than the ParticipantsHandler during setup");
+      if(!loadedBO.isParticipant())
+        throw new FailedEventHandlingException("During setup, only participant BO can be created or modified");
+    }
   }
 
   public String getName() { return this.name; }

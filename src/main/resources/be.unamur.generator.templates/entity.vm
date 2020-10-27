@@ -16,6 +16,7 @@ import state.$util.getStringWithFirstLowerCap($name).$util.getStringWithFirstCap
 
 public class $name extends BusinessObject {
    //=========== Attributes ===========
+  private final boolean isParticipant = $isParticipant;
 #foreach($attribute in $attributes)
 #if($attribute.isMasterRef())
   private final $attribute.getType() $attribute.getName();
@@ -52,6 +53,8 @@ public class $name extends BusinessObject {
   }
 
   //============ Getters =============
+  @Override
+  public boolean isParticipant() { return this.isParticipant; }
 #foreach($attribute in $attributes)
   public $attribute.getType() get$attribute.getNameWithFirstCap()() { return this.$attribute.getName(); }
 #end

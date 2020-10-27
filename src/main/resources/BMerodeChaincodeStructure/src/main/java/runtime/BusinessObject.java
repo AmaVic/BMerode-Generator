@@ -1,5 +1,6 @@
 package runtime;
 
+import runtime.State;
 import com.owlike.genson.Genson;
 import com.owlike.genson.GensonBuilder;
 import com.owlike.genson.annotation.JsonIgnore;
@@ -42,4 +43,6 @@ public abstract class BusinessObject {
   }
 
   public abstract State getCurrentState();
+
+  public abstract boolean isParticipant();
 }
