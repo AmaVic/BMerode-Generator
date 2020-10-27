@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mxp:mermaidmodel xmlns:mxp="http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5" mxp.version="1.6" jmermaid.version="1.0" timestamp="1598420193633">
   <mxp:metamodel lastid="33">
+    <mxp:ept>
+        <mxp:permission ownerobjectid="10" ownereventid="20" allowed="true"/>
+        <mxp:permission ownerobjectid="11" ownereventid="11" allowed="false"/>
+    </mxp:ept>
     <mxp:datatypes/>
     <mxp:metaobjects>
       <mxp:metaobject id="1" name="Owner" abstract="false" isParticipant="true">

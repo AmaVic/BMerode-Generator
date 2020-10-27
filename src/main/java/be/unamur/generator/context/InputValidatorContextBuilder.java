@@ -1,9 +1,6 @@
 package be.unamur.generator.context;
 
-import be.unamur.metamodel.Metaattribute;
-import be.unamur.metamodel.Metadependency;
-import be.unamur.metamodel.Metamodel;
-import be.unamur.metamodel.Metaobject;
+import be.unamur.metamodel.*;
 import be.unamur.metamodel.Util;
 
 public class InputValidatorContextBuilder implements ContextBuilder {
