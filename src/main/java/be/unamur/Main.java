@@ -39,7 +39,7 @@ public class Main {
       System.out.println("> isPtcp? " + mo.isIsParticipant());
     }*/
 
-    SolutionGenerator gen = new SolutionGenerator("/Users/vamarald/Documents/Temp/BMO/");
+    SolutionGenerator gen = new SolutionGenerator("/Users/vamarald/Documents/Temp/BM-Output/");
     try {
       gen.generate(model);
     } catch(SolutionGenerationException e) {

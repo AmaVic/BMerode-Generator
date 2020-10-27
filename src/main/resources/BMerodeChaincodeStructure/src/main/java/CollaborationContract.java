@@ -2,6 +2,10 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import org.bouncycastle.util.encoders.Base64;
+import runtime.CollaborationSetup;
+import runtime.exception.CollaborationSetupException;
+import runtime.exception.FailedEventHandlingException;
 import runtime.CollaborationSetup;
 import runtime.exception.CollaborationSetupException;
 import runtime.*;
@@ -18,7 +22,9 @@ import runtime.BusinessObject;
 import runtime.JsonConverter;
 import runtime.StubHelper;
 import runtime.exception.BusinessEventNotFoundException;
-import runtime.exception.FailedEventHandlingException;
+
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 @Contract(name = "BMerodeCollaboration",
         info = @Info(title = "BMerodeCollaboration",
@@ -34,7 +40,6 @@ import runtime.exception.FailedEventHandlingException;
 public class CollaborationContract implements ContractInterface {
 
   public  CollaborationContract() {
-
   }
 
   @Transaction(intent = Transaction.TYPE.SUBMIT)
@@ -44,6 +49,17 @@ public class CollaborationContract implements ContractInterface {
       throw new CollaborationSetupException("[CollaborationContract.init(String)]: Initial Setup already Exists");
 
     CollaborationSetup setup = new CollaborationSetup(false, participantsHandlerPK);
+    ctx.getStub().putStringState("BMERODE.COLLABORATION_SETUP", setup.toJsonString());
+  }
+
+  @Transaction(intent = Transaction.TYPE.SUBMIT)
+  public void markCollaborationAsReady(Context ctx) {
+    if(!PermissionsHandler.setupAllowed(ctx))
+      throw new FailedEventHandlingException("CollaborationContract.markCollaborationAsReady(Context): Only the ParticipantsHandler can mark the collaboration as ready");
+
+
+    CollaborationSetup setup = CollaborationSetup.load(ctx);
+    setup.markAsReady();
     ctx.getStub().putStringState("BMERODE.COLLABORATION_SETUP", setup.toJsonString());
   }
 
