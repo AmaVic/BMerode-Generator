@@ -31,7 +31,7 @@ public class Main {
       System.out.println("> isPtcp? " + mo.isIsParticipant());
     }*/
 
-    SolutionGenerator gen = new SolutionGenerator("/Users/vamarald/Documents/Temp/BMO-EPT/");
+    SolutionGenerator gen = new SolutionGenerator("/Users/vamarald/Documents/Temp/BMO-PK/");
     try {
       gen.generate(model);
     } catch(SolutionGenerationException e) {

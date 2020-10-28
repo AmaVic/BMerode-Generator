@@ -20,8 +20,15 @@ public class Util {
     return BOTName + "AllocatedState";
   }
 
-  public static String buildParamString(ArrayList<Attribute> elems, boolean withJsonAnnotation, boolean withDefaultAttributes) {
-    if(elems == null || elems.size() == 0)
+  public static String buildParamString(ArrayList<Attribute> elems, boolean withJsonAnnotation, boolean withDefaultAttributes, boolean participantBOT) {
+
+    if(participantBOT) {
+      Attribute pk = new Attribute("String", "publicKey");
+      if(!elems.contains(pk))
+        elems.add(new Attribute("String", "publicKey"));
+    }
+
+    if((elems == null || elems.size() == 0))
       return "";
 
     if(elems.size() == 1) {

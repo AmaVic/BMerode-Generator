@@ -23,6 +23,9 @@ public class InputValidatorContextBuilder implements ContextBuilder {
             this.ctx.addInputParameter(attr);
         }
 
+        if(this.mo.isIsParticipant())
+            this.ctx.addInputParameter(new Attribute("String", "publicKey"));
+
         //Add Masters Ids
         for(Metadependency dependency : model.getMetadependencies().getMetadependency()) {
             if(!dependency.getDependent().equals(this.mo.getId()))

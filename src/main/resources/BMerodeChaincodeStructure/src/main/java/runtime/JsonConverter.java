@@ -35,6 +35,9 @@ public class JsonConverter {
         jsonObject.put("businessObjectType", bo.getClass().getSimpleName());
         //ID
         jsonObject.remove("id");
+        //Remove PK attribute for non participant business objects
+        if(!bo.isParticipant())
+            jsonObject.remove("publicKey");
 
         return recordGenson.serialize(jsonObject);
     }
