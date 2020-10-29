@@ -14,7 +14,7 @@ public class Main {
    * @param args
    */
   public static void main(String[] args) {
-    String marketPlaceModelPath = Main.class.getClassLoader().getResource("toRemove/identity.mxp").getFile();
+    String marketPlaceModelPath = Main.class.getClassLoader().getResource("toRemove/permtest.mxp").getFile();
     System.out.println(marketPlaceModelPath);
 
     Mermaidmodel model = null;
@@ -31,7 +31,7 @@ public class Main {
       System.out.println("> isPtcp? " + mo.isIsParticipant());
     }*/
 
-    SolutionGenerator gen = new SolutionGenerator("/Users/vamarald/Documents/Temp/BMO-PK/");
+    SolutionGenerator gen = new SolutionGenerator("/Users/vamarald/Documents/Temp/BMO-PTEST/");
     try {
       gen.generate(model);
     } catch(SolutionGenerationException e) {

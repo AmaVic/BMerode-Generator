@@ -49,4 +49,25 @@ public class StubHelper {
     QueryResultsIterator<KeyValue> results = ctx.getStub().getQueryResult(query);
     return results.iterator().hasNext();
   }
+
+  public static BusinessObject findParticipant(Context ctx, String publicKey) {
+    String query = "{\"selector\": {\"participant\": true, \"publicKey\": \"" + publicKey + "\"}}";
+
+    QueryResultsIterator<KeyValue> results = ctx.getStub().getQueryResult(query);
+    if(!results.iterator().hasNext())
+      throw new BusinessObjectNotFoundException("StubHelper.findParticipant: no participant business object with public key " + publicKey);
+
+    KeyValue recordKV = results.iterator().next();
+    String participantRecord = recordKV.getStringValue();
+    String enrichedParticipantRecord = JsonConverter.fromRecordJsonToFullJson(recordKV.getKey(), participantRecord);
+
+    BusinessObject participant = null;
+    try {
+      participant = BusinessObject.fromJson(enrichedParticipantRecord);
+    } catch(Exception e) {
+      throw new RuntimeException("[StubHelper.findParticipant(Context, String)]: Could not load Business Object participant from JSON");
+    }
+
+    return participant;
+  }
 }

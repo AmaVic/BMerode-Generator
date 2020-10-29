@@ -89,7 +89,8 @@ public class CollaborationContract implements ContractInterface {
     try {
       boToReturn = event.handle(ctx, payloadJson);
     } catch (FailedEventHandlingException e) {
-      throw new RuntimeException("--> Could Not Handle Event " + eventName + " (" + e.getMessage() + ")");
+      e.printStackTrace();
+      throw new RuntimeException("--> Could Not Handle Event " + eventName + " (" + e + ")");
     }
 
     System.out.println("=====> Event " + eventName + " Successfully Handled");

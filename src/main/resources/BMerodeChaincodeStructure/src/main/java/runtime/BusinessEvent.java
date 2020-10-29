@@ -1,5 +1,6 @@
 package runtime;
 
+import permissions.EPT;
 import runtime.BusinessObject;
 import runtime.CollaborationSetup;
 import runtime.JsonConverter;
@@ -51,6 +52,7 @@ public class BusinessEvent {
   private BusinessObject handleCreatingEvent(Context ctx, String jsonPayload) throws FailedEventHandlingException {
     BusinessObject builtFromJson = this.buildObjectFromJson(jsonPayload);
     rejectIfUnallowedInSetupPhase(ctx, builtFromJson);
+    PermissionsHandler.validateEPTPermissions(ctx, this.name, EPT.getInstance());
     System.out.println("=====> Object Build from JSON: " + builtFromJson.toJsonString());
     Method handlingMethod = this.getHandlingMethod(builtFromJson);
     System.out.println("=====> Method to Execute Retrieved: " + handlingMethod.getName());
@@ -79,6 +81,7 @@ public class BusinessEvent {
 
     BusinessObject builtFromJson = this.buildObjectFromJson(JsonConverter.fromRecordJsonToFullJson(id,objectJson));
     rejectIfUnallowedInSetupPhase(ctx, builtFromJson);
+    PermissionsHandler.validateEPTPermissions(ctx, this.name, EPT.getInstance());
 
     System.out.println("----> Object to Remove: " + builtFromJson.toJsonString());
 
@@ -109,6 +112,7 @@ public class BusinessEvent {
 
     BusinessObject builtFromJson = this.buildObjectFromJson(JsonConverter.fromRecordJsonToFullJson(id, objectJson));
     rejectIfUnallowedInSetupPhase(ctx, builtFromJson);
+    PermissionsHandler.validateEPTPermissions(ctx, this.name, EPT.getInstance());
 
     Method handlingMethod = this.getHandlingMethod(builtFromJson);
     System.out.println("=====> Method to Execute Retrieved: " + handlingMethod.getName());
@@ -161,8 +165,9 @@ public class BusinessEvent {
    */
   private void rejectIfUnallowedInSetupPhase(Context ctx, BusinessObject loadedBO) throws FailedEventHandlingException {
     CollaborationSetup setup = CollaborationSetup.fromJson(ctx.getStub().getStringState("BMERODE.COLLABORATION_SETUP"));
+
     if(!setup.getSetupFinalized()) {
-      if(!ctx.getClientIdentity().getX509Certificate().getPublicKey().toString().equals(setup.getParticipantsHandlerPK()))
+      if(!PermissionsHandler.setupAllowed(ctx))
         throw new FailedEventHandlingException("Event sent by another entity than the ParticipantsHandler during setup");
       if(!loadedBO.isParticipant())
         throw new FailedEventHandlingException("During setup, only participant BO can be created or modified");

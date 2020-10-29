@@ -14,7 +14,7 @@
     <xs:element name="metamodel">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="mxp:ept"/>
+                <xs:element ref="mxp:runtimeEpt"/>
                 <xs:element ref="mxp:datatypes" minOccurs="0"/>
                 <xs:element ref="mxp:metaobjects"/>
                 <xs:element ref="mxp:metaevents"/>
@@ -26,7 +26,7 @@
             <xs:attribute name="lastid" type="xs:integer" use="required"/>
         </xs:complexType>
     </xs:element>
-    <xs:element name="ept">
+    <xs:element name="runtimeEpt">
         <xs:complexType>
             <xs:sequence>
                 <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:permission"/>
