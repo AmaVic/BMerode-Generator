@@ -44,4 +44,6 @@ public abstract class BusinessObject {
   public abstract State getCurrentState();
 
   public abstract boolean isParticipant();
+
+  public abstract String getPublicKey();
 }

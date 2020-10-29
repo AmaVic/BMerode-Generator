@@ -17,6 +17,9 @@ import state.$util.getStringWithFirstLowerCap($name).$util.getStringWithFirstCap
 public class $name extends BusinessObject {
    //=========== Attributes ===========
   private final boolean isParticipant = $isParticipant;
+#if($isParticipant)
+  private String publicKey;
+#end
 #foreach($attribute in $attributes)
 #if($attribute.isMasterRef())
   private final $attribute.getType() $attribute.getName();
@@ -26,11 +29,12 @@ public class $name extends BusinessObject {
 #end
 
   //========== Constructors ==========
+#set($paramStringDef = $util.buildParamString($attributes, true, false, $isParticipant))
   /**
    * Creates a new $name with a Generated ID and Default State: Allocated
    */
   @JsonCreator
-  public $name($util.buildParamString($attributes, true, false)) {
+  public $name($paramStringDef) {
     super();
     this.currentState = new $util.getDefaultStateTypeName($name)();
 #foreach($attribute in $attributes)
@@ -38,10 +42,13 @@ public class $name extends BusinessObject {
     this.$attribute.getName() = $attribute.getName();
 #end
 #end
+##if($isParticipant)
+##    this.publicKey = publicKey;
+##end
   }
 
 #set($fullConstructorParamString = "@JsonProperty(""id"") String id")
-#set($paramStringWithoutId = $util.buildParamString($attributes, true, true))
+#set($paramStringWithoutId = $util.buildParamString($attributes, true, true, $isParticipant))
 #if($paramStringWithoutId.length() > 0)
     #set($fullConstructorParamString = $fullConstructorParamString + ", " + $paramStringWithoutId)
 #end
@@ -50,13 +57,20 @@ public class $name extends BusinessObject {
 #foreach($attribute in $attributes)
     this.$attribute.getName() = $attribute.getName();
 #end
+##if($isParticipant)
+##    this.publicKey = publicKey;
+##end
   }
 
   //============ Getters =============
   @Override
   public boolean isParticipant() { return this.isParticipant; }
+  @Override
+  public String getPublicKey() {#if($isParticipant) return this.publicKey;#else return null;#end }
 #foreach($attribute in $attributes)
+#if(!$attribute.getName().equals("publicKey"))
   public $attribute.getType() get$attribute.getNameWithFirstCap()() { return this.$attribute.getName(); }
+#end
 #end
 
   //============ Setters =============
@@ -65,6 +79,9 @@ public class $name extends BusinessObject {
   public void set$attribute.getNameWithFirstCap()($attribute.getType() $attribute.getName()) { this.$attribute.getName() = $attribute.getName(); }
 #end
 #end
+##if($isParticipant)
+##  public void setPublicKey(String publicKey) { this.publicKey = publicKey; }
+##end
 
 ## ================================================
 ## ==================== Json ======================

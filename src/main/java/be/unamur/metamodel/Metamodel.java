@@ -20,6 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element ref="{http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5}ept"/>
  *         &lt;element ref="{http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5}datatypes" minOccurs="0"/>
  *         &lt;element ref="{http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5}metaobjects"/>
  *         &lt;element ref="{http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5}metaevents"/>
@@ -38,6 +39,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
+    "ept",
     "datatypes",
     "metaobjects",
     "metaevents",
@@ -49,6 +51,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "metamodel", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
 public class Metamodel {
 
+    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5", required = true)
+    protected Ept ept;
     @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
     protected Datatypes datatypes;
     @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5", required = true)
@@ -65,6 +69,30 @@ public class Metamodel {
     protected Metamethods metamethods;
     @XmlAttribute(name = "lastid", required = true)
     protected BigInteger lastid;
+
+    /**
+     * Obtient la valeur de la propriété ept.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Ept }
+     *     
+     */
+    public Ept getEpt() {
+        return ept;
+    }
+
+    /**
+     * Définit la valeur de la propriété ept.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Ept }
+     *     
+     */
+    public void setEpt(Ept value) {
+        this.ept = value;
+    }
 
     /**
      * Obtient la valeur de la propriété datatypes.

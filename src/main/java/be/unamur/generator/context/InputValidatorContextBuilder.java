@@ -1,9 +1,6 @@
 package be.unamur.generator.context;
 
-import be.unamur.metamodel.Metaattribute;
-import be.unamur.metamodel.Metadependency;
-import be.unamur.metamodel.Metamodel;
-import be.unamur.metamodel.Metaobject;
+import be.unamur.metamodel.*;
 import be.unamur.metamodel.Util;
 
 public class InputValidatorContextBuilder implements ContextBuilder {
@@ -25,6 +22,9 @@ public class InputValidatorContextBuilder implements ContextBuilder {
             Attribute attr = new Attribute(ma.getType(), ma.getName());
             this.ctx.addInputParameter(attr);
         }
+
+        if(this.mo.isIsParticipant())
+            this.ctx.addInputParameter(new Attribute("String", "publicKey"));
 
         //Add Masters Ids
         for(Metadependency dependency : model.getMetadependencies().getMetadependency()) {

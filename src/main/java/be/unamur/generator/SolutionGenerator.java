@@ -32,6 +32,7 @@ public class SolutionGenerator {
   private final String STATE_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "state" + File.separator;
   private final String EVENT_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "event" + File.separator;
   private final String INPUT_VALIDATOR_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "inputValidator" + File.separator;
+  private final String PERMISSIONS_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "permissions" + File.separator;
 
   public SolutionGenerator(String outputDirectoryPath) {
     this.outputDirectory = outputDirectoryPath;
@@ -57,6 +58,8 @@ public class SolutionGenerator {
     generateEventsMapping(model);
     System.out.println("--- Generating Input Validators ---");
     generateInputValidators(model);
+    System.out.println("--- Generating Permissions Handlers ---");
+    generateEPT(model);
     System.out.println("===== Generation Complete =====");
   }
 
@@ -156,6 +159,13 @@ public class SolutionGenerator {
 
     String outputFileName = this.outputDirectory + File.separator + EVENT_FOLDER + File.separator + "EventsMapping.java";
     generateFile("eventsMapping.vm", ctx, outputFileName);
+  }
+
+  private void generateEPT(Mermaidmodel model) throws SolutionGenerationException {
+    EPTContext ctx = new EPTContextBuilder(model).build();
+    String outputFilePath = this.outputDirectory + File.separator + PERMISSIONS_FOLDER + File.separator + "EPT.java";
+
+    generateFile("ept.vm", ctx, outputFilePath);
   }
 
   private void generateFile(String templateName, VelocityContext ctx, String outputFilePath) throws SolutionGenerationException {

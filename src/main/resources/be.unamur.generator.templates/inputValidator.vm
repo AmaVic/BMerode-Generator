@@ -16,6 +16,9 @@ public class ${botName}InputValidator {
     if(!jsonObject.containsKey("${field.getName()}"))
        return false;
 
+    if(jsonObject.get("${field.getName()}") == null)
+       return false;
+
     if(!(jsonObject.get("${field.getName()}") instanceof ${field.getType()}))
        return false;
 
