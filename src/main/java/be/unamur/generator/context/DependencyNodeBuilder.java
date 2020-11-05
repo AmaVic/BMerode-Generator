@@ -49,12 +49,12 @@ public class DependencyNodeBuilder {
 
             for (int i = path.getMetadependencyinpath().size() - 1; i >= 0; i--) {
                 Metadependencyinpath inPath = path.getMetadependencyinpath().get(i);
-                Metadependency dependency = be.unamur.metamodel.Util.findById(this.metamodel.getMetadependencies().getMetadependency(), inPath.getId());
+                Metadependency dependency = Util.findById(this.metamodel.getMetadependencies().getMetadependency(), inPath.getId());
 
                 if (!dependency.getDependent().equals(this.BONode.getBOT().getId()))
                     continue;
                 //System.out.println(dependency.getName());
-                Metaobject master = be.unamur.metamodel.Util.findById(metamodel.getMetaobjects().getMetaobject(), dependency.getMaster());
+                Metaobject master = Util.findById(metamodel.getMetaobjects().getMetaobject(), dependency.getMaster());
                 Metaobject dpd = Util.findById(metamodel.getMetaobjects().getMetaobject(), dependency.getDependent());
 
 

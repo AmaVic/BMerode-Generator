@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -18,6 +19,9 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
+ *       &lt;sequence>
+ *         &lt;element ref="{http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5}iars" minOccurs="0"/>
+ *       &lt;/sequence>
  *       &lt;attribute name="methodid" use="required" type="{http://www.w3.org/2001/XMLSchema}integer" />
  *       &lt;attribute name="safeid" type="{http://www.w3.org/2001/XMLSchema}integer" />
  *       &lt;attribute name="methodname" type="{http://www.w3.org/2001/XMLSchema}string" />
@@ -29,16 +33,44 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
+@XmlType(name = "", propOrder = {
+    "iars"
+})
 @XmlRootElement(name = "metatransitionmethod", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
 public class Metatransitionmethod {
 
+    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
+    protected Iars iars;
     @XmlAttribute(name = "methodid", required = true)
     protected BigInteger methodid;
     @XmlAttribute(name = "safeid")
     protected BigInteger safeid;
     @XmlAttribute(name = "methodname")
     protected String methodname;
+
+    /**
+     * Obtient la valeur de la propriété iars.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Iars }
+     *     
+     */
+    public Iars getIars() {
+        return iars;
+    }
+
+    /**
+     * Définit la valeur de la propriété iars.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Iars }
+     *     
+     */
+    public void setIars(Iars value) {
+        this.iars = value;
+    }
 
     /**
      * Obtient la valeur de la propriété methodid.

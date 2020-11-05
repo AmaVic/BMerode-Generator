@@ -17,7 +17,7 @@ import be.unamur.loader.exception.ModelParsingException;
 
 
 public class ModelParser {
-  private static final String METAMODEL_DEFINITION = ModelParser.class.getClassLoader().getResource("be.unamur.metamodel/mxp_1_6_schema_ept.xsd").getFile();
+  private static final String METAMODEL_DEFINITION = ModelParser.class.getClassLoader().getResource("be.unamur.metamodel/mxp_1_6_schema_iar.xsd").getFile();
 
   public static Mermaidmodel parseModel(String filePath) throws ModelParsingException {
     System.out.println(">> Parsing Model From File: " + filePath);
@@ -25,6 +25,7 @@ public class ModelParser {
     try {
       context = JAXBContext.newInstance(Mermaidmodel.class);
     } catch (JAXBException e) {
+      e.printStackTrace();
       throw new ModelParsingException("[ModelParser.parseModel(String)]: Could not Create Loading Context");
     }
 

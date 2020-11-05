@@ -2,12 +2,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import org.bouncycastle.util.encoders.Base64;
 import runtime.CollaborationSetup;
 import runtime.exception.CollaborationSetupException;
 import runtime.exception.FailedEventHandlingException;
-import runtime.CollaborationSetup;
-import runtime.exception.CollaborationSetupException;
 import runtime.*;
 import event.EventsMapping;
 import org.hyperledger.fabric.contract.Context;
@@ -22,9 +19,6 @@ import runtime.BusinessObject;
 import runtime.JsonConverter;
 import runtime.StubHelper;
 import runtime.exception.BusinessEventNotFoundException;
-
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 @Contract(name = "BMerodeCollaboration",
         info = @Info(title = "BMerodeCollaboration",
