@@ -2,6 +2,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import com.owlike.genson.Genson;
 import runtime.CollaborationSetup;
 import runtime.exception.CollaborationSetupException;
 import runtime.exception.FailedEventHandlingException;
@@ -20,6 +21,8 @@ import runtime.JsonConverter;
 import runtime.StubHelper;
 import runtime.exception.BusinessEventNotFoundException;
 
+import java.util.ArrayList;
+
 @Contract(name = "BMerodeCollaboration",
         info = @Info(title = "BMerodeCollaboration",
                 description = "Runs a BMerode Collaboration",
@@ -34,6 +37,10 @@ import runtime.exception.BusinessEventNotFoundException;
 public class CollaborationContract implements ContractInterface {
 
   public  CollaborationContract() {
+  }
+
+  public static void main(String[] args) {
+    System.out.println("Hello There!");
   }
 
   @Transaction(intent = Transaction.TYPE.SUBMIT)
@@ -62,6 +69,13 @@ public class CollaborationContract implements ContractInterface {
     BusinessObject bo = StubHelper.findBusinessObject(ctx, id);
 
     return JsonConverter.toRecordJson(bo);
+  }
+
+  @Transaction(intent = Transaction.TYPE.EVALUATE)
+  public String getBusinessObjectHistory(Context ctx, String id) {
+    ArrayList<String> boVersions = StubHelper.findBusinessObjectHistory(ctx, id);
+    Genson g = new Genson();
+    return g.serialize(boVersions);
   }
 
   @Transaction(intent = Transaction.TYPE.SUBMIT)

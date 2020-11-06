@@ -1,15 +1,47 @@
 package runtime;
 
+import com.owlike.genson.Genson;
 import org.hyperledger.fabric.contract.Context;
+import org.hyperledger.fabric.shim.ledger.KeyModification;
 import org.hyperledger.fabric.shim.ledger.KeyValue;
 import org.hyperledger.fabric.shim.ledger.QueryResultsIterator;
 import runtime.exception.BusinessObjectNotFoundException;
+
+import java.util.ArrayList;
+import java.util.Map;
 
 public class StubHelper {
   public static boolean exists(Context ctx, String key) {
     byte[] buffer = ctx.getStub().getState(key);
 
     return buffer != null && buffer.length != 0;
+  }
+
+  public static ArrayList<String> findBusinessObjectHistory(Context ctx, String key) throws BusinessObjectNotFoundException {
+    if(!exists(ctx, key))
+      throw new BusinessObjectNotFoundException("[StubHelper.findBusinessObjectHistory(Context, String)]: Business Object with ID " + key + " was not Found in the Ledger");
+
+    Genson g = new Genson();
+    QueryResultsIterator<KeyModification> historyForKey = ctx.getStub().getHistoryForKey(key);
+    ArrayList<String> history = new ArrayList<>();
+    for(KeyModification modif: historyForKey) {
+      String fullState = JsonConverter.fromRecordJsonToFullJson(key, modif.getStringValue());
+      BusinessObject boToFetch = null;
+      try {
+        boToFetch = BusinessObject.fromJson(fullState);
+        String dataJson = JsonConverter.toRecordJsonData(boToFetch);
+        Map<String, Object> jsonObject = Util.getJsonObject(dataJson);
+        jsonObject.put("transactionId", modif.getTxId());
+        jsonObject.put("transactionTimestamp", modif.getTimestamp());
+        history.add(g.serialize(jsonObject));
+      } catch(Exception e) {
+        throw new RuntimeException("StubHelper.findBusinessObjectHistory: Could not load particula history version of the business object with key: " + key);
+      }
+
+    }
+
+    return history;
+
   }
 
   public static BusinessObject findBusinessObject(Context ctx, String key) throws BusinessObjectNotFoundException {
