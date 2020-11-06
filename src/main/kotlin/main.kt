@@ -27,7 +27,7 @@ object Main {
             return
         }
 
-        val gen = SolutionGenerator("/Users/vamarald/Documents/Temp/BMO-KTL-2/");
+        val gen = SolutionGenerator("/Users/vamarald/Documents/Temp/BMO-KTL-3/");
         try {
             gen.generate(model);
         } catch(e: SolutionGenerationException) {
