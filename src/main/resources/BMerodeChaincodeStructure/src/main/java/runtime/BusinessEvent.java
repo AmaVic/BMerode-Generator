@@ -7,7 +7,6 @@ import runtime.JsonConverter;
 import runtime.Util;
 import runtime.exception.FailedEventHandlingException;
 import org.hyperledger.fabric.contract.Context;
-import runtime.exception.FailedEventHandlingException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

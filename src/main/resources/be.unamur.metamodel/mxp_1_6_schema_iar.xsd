@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema xmlns:mxp="http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5">
+    <xs:element name="mermaidmodel">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mxp:metamodel"/>
+                <xs:element ref="mxp:guimodel"/>
+            </xs:sequence>
+            <xs:attribute name="mxp.version" type="xs:decimal" use="required"/>
+            <xs:attribute name="jmermaid.version" type="xs:decimal" use="required"/>
+            <xs:attribute name="timestamp" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metamodel">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mxp:ept"/>
+                <xs:element ref="mxp:datatypes" minOccurs="0"/>
+                <xs:element ref="mxp:metaobjects"/>
+                <xs:element ref="mxp:metaevents"/>
+                <xs:element ref="mxp:metaspecialisedevents"/>
+                <xs:element ref="mxp:metadependencies"/>
+                <xs:element ref="mxp:metainheritances"/>
+                <xs:element ref="mxp:metamethods"/>
+            </xs:sequence>
+            <xs:attribute name="lastid" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ept">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:permission"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="permission">
+        <xs:complexType>
+            <xs:attribute name="ownerobjectid" type="xs:integer" use="required" />
+            <xs:attribute name="ownereventid" type="xs:integer" use="required" />
+            <xs:attribute name="allowed" type="xs:boolean" use="optional" default="false" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="iars">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:iar"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="iar">
+        <xs:complexType>
+            <xs:attribute name="rule" type="xs:string" use="required" />
+            <xs:attribute name="allowed" type="xs:boolean" use="required" />
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="datatypes">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:datatype"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="datatype">
+        <xs:complexType>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metaobjects">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:metaobject"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metaobject">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mxp:metadescription"/>
+                <xs:element ref="mxp:metaconstraints"/>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:metamultiplepropagationconstraints"/>
+                <xs:element ref="mxp:metaattributes"/>
+                <xs:element ref="mxp:metafsms"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="abstract" type="xs:boolean" use="required"/>
+            <xs:attribute name="isParticipant" type = "xs:boolean" use="optional" default="false"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metadescription" type="xs:string"/>
+    <xs:element name="metaconstraints" type="xs:string"/>
+    <xs:element name="metamultiplepropagationconstraints">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:metamultiplepropagationconstraint"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metamultiplepropagationconstraint">
+        <xs:complexType>
+        	<xs:sequence>
+        		<xs:element maxOccurs="2" minOccurs="0"
+        			ref="mxp:metapath" />
+        		<xs:element name="metaMPCkind" type="mxp:metaMPCkind"></xs:element>
+        		
+        	</xs:sequence>
+        	<xs:attribute name="id" type="xs:integer" use="required" />
+        	<xs:attribute name="type" type="xs:string" use="optional" default="EQUAL_TO"></xs:attribute>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metapath">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:metadependencyinpath"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="isenabled" type="xs:boolean" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metadependencyinpath">
+        <xs:complexType>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metafsms">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:metafsm"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metafsm">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mxp:metastates"/>
+                <xs:element ref="mxp:metatransitions"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="type" type="xs:string" use="required"/>
+            <xs:attribute name="codegeneration" type="xs:boolean" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastates">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:metastate"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metastate">
+        <xs:complexType>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="type" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metainheritances">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:metainheritance"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metainheritance">
+        <xs:complexType>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+            <xs:attribute name="supertypeid" type="xs:integer" use="required"/>
+            <xs:attribute name="subtypeid" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metatransitions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:metatransition"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metatransition">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mxp:metatransitionmethods"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="legacy_name" type="xs:string" use="optional"/>
+            <xs:attribute name="sourcestateid" type="xs:integer" use="required"/>
+            <xs:attribute name="targetstateid" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metatransitionmethods">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="1" ref="mxp:metatransitionmethod"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metatransitionmethod">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mxp:iars" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="methodid" type="xs:integer" use="required"/>
+            <xs:attribute name="safeid" type="xs:integer" use="optional"/>
+            <xs:attribute name="methodname" type="xs:string" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metaevents">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:metaevent"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metaevent">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mxp:metadescription"/>
+                <xs:element ref="mxp:metaattributes"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metaspecialisedevents">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:metaspecialisedevent"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metaspecialisedevent">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mxp:metadescription"/>
+                <xs:element ref="mxp:metaattributes"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="ownereventid" type="xs:integer" use="required"/>
+            <xs:attribute name="inheritanceid" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metadependencies">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:metadependency"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metadependency">
+        <xs:complexType>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="type" type="xs:string" use="required"/>
+            <xs:attribute name="master" type="xs:integer" use="required"/>
+            <xs:attribute name="dependent" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metamethods">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:metamethod"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metamethod">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mxp:metaprecondition"/>
+                <xs:element ref="mxp:metaimplementation"/>
+                <xs:element ref="mxp:metapostcondition"/>
+                <xs:element ref="mxp:metaattributes"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="provenance" type="xs:string" use="required"/>
+            <xs:attribute name="type" type="xs:string" use="required"/>
+            <xs:attribute name="ownerobjectid" type="xs:integer" use="required"/>
+            <xs:attribute name="ownereventid" type="xs:integer" use="required"/>
+            <xs:attribute name="viamethod" type="xs:integer" use="optional"/>
+            <xs:attribute name="viadependency" type="xs:integer" use="optional"/>
+            <xs:attribute name="viainheritance" type="xs:integer" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metaprecondition" type="xs:string"/>
+    <xs:element name="metapostcondition" type="xs:string"/>
+    <xs:element name="metaimplementation" type="xs:string"/>
+    <xs:element name="metaattributes">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:metaattribute"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="metaattribute">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" name="description" type="xs:string"/>
+                <xs:element minOccurs="0" maxOccurs="1" name="validation" type="xs:string"/>
+                <xs:element minOccurs="0" maxOccurs="1" name="implementation" type="xs:string"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="type" type="xs:string" use="required"/>
+            <xs:attribute name="type-id" type="xs:integer" use="optional"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guimodel">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="1" ref="mxp:view"/>
+            </xs:sequence>
+            <xs:attribute name="currentview" type="xs:integer" use="required"/>
+            <xs:attribute name="topview.lastid" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="view">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mxp:guidescription"/>
+                <xs:element ref="mxp:guiobjects"/>
+                <xs:element ref="mxp:guidependencies"/>
+                <xs:element ref="mxp:guiinheritances"/>
+                <xs:element ref="mxp:guievents"/>
+                <xs:element ref="mxp:guiownedmethods"/>
+                <xs:element ref="mxp:guiacquiredmethods"/>
+                <xs:element ref="mxp:guiinheritedmethods"/>
+                <xs:element ref="mxp:guispecialisedmethods"/>
+                <xs:element ref="mxp:guifsms" minOccurs="0" />
+                <xs:element ref="mxp:guistates" minOccurs="0" />
+                <xs:element ref="mxp:guitransitions" minOccurs="0" />
+                <xs:element ref="mxp:edgview"/>
+                <xs:element ref="mxp:oetview"/>
+                <xs:element ref="mxp:fsmview"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:integer" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="isdefault" type="xs:boolean" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guidescription" type="xs:string"/>
+    <xs:element name="guiobjects">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:guiobject"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guiobject">
+        <xs:complexType>
+            <xs:attribute name="refid" type="xs:integer" use="required"/>
+            <xs:attribute name="location" type="xs:string" use="required"/>
+            <xs:attribute name="size" type="xs:string" use="required"/>
+            <xs:attribute name="borderthickness" type="xs:integer" use="required"/>
+            <xs:attribute name="bordercolor" type="xs:string" use="required"/>
+            <xs:attribute name="backgroundcolor" type="xs:string" use="required"/>
+            <xs:attribute name="gradientcolor" type="xs:string" use="required"/>
+            <xs:attribute name="textcolor" type="xs:string" use="required"/>
+            <xs:attribute name="fontfamily" type="xs:string" use="required"/>
+            <xs:attribute name="fontsize" type="xs:integer" use="required"/>
+            <xs:attribute name="fontbold" type="xs:boolean" use="required"/>
+            <xs:attribute name="fontitalic" type="xs:boolean" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guidependencies">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:guidependency"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guidependency">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="1" minOccurs="1" ref="mxp:dependencylabels"/>
+                <xs:element maxOccurs="1" minOccurs="1" ref="mxp:edgecontrolpoints"/>
+            </xs:sequence>
+            <xs:attribute name="refid" type="xs:integer" use="required"/>
+            <xs:attribute name="linewidth" type="xs:integer" use="required"/>
+            <xs:attribute name="linecolor" type="xs:string" use="required"/>
+            <xs:attribute name="textcolor" type="xs:string" use="required"/>
+            <xs:attribute name="fontfamily" type="xs:string" use="required"/>
+            <xs:attribute name="fontsize" type="xs:integer" use="required"/>
+            <xs:attribute name="fontbold" type="xs:boolean" use="required"/>
+            <xs:attribute name="fontitalic" type="xs:boolean" use="required"/>
+            <xs:attribute name="labelvisible" type="xs:boolean" use="required"/>
+            <xs:attribute name="labelposition" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="dependencylabels">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:dependencyumllabel"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="dependencyumllabel">
+        <xs:complexType>
+            <xs:attribute name="masterside" type="xs:boolean" use="required"/>
+            <xs:attribute name="position" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="edgecontrolpoints">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:edgecontrolpoint"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="edgecontrolpoint">
+        <xs:complexType>
+            <xs:attribute name="value" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="guiinheritances">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:guiinheritance"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guiinheritance">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="1" minOccurs="1" ref="mxp:edgecontrolpoints"/>
+            </xs:sequence>
+            <xs:attribute name="refid" type="xs:integer" use="required"/>
+            <xs:attribute name="linewidth" type="xs:integer" use="required"/>
+            <xs:attribute name="linecolor" type="xs:string" use="required"/>
+            <xs:attribute name="textcolor" type="xs:string" use="required"/>
+            <xs:attribute name="fontfamily" type="xs:string" use="required"/>
+            <xs:attribute name="fontsize" type="xs:integer" use="required"/>
+            <xs:attribute name="fontbold" type="xs:boolean" use="required"/>
+            <xs:attribute name="fontitalic" type="xs:boolean" use="required"/>
+            <xs:attribute name="labelvisible" type="xs:boolean" use="required"/>
+            <xs:attribute name="labelposition" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="guievents">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:guievent"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guievent">
+        <xs:complexType>
+            <xs:attribute name="refid" type="xs:integer" use="required"/>
+            <xs:attribute name="backgroundcolor" type="xs:string" use="required"/>
+            <xs:attribute name="textcolor" type="xs:string" use="required"/>
+            <xs:attribute name="fontfamily" type="xs:string" use="required"/>
+            <xs:attribute name="fontsize" type="xs:integer" use="required"/>
+            <xs:attribute name="fontbold" type="xs:boolean" use="required"/>
+            <xs:attribute name="fontitalic" type="xs:boolean" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guiownedmethods">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:guiownedmethod"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guiownedmethod">
+        <xs:complexType>
+            <xs:attribute name="refid" type="xs:integer" use="required"/>
+            <xs:attribute name="backgroundcolor" type="xs:string" use="required"/>
+            <xs:attribute name="textcolor" type="xs:string" use="required"/>
+            <xs:attribute name="fontfamily" type="xs:string" use="required"/>
+            <xs:attribute name="fontsize" type="xs:integer" use="required"/>
+            <xs:attribute name="fontbold" type="xs:boolean" use="required"/>
+            <xs:attribute name="fontitalic" type="xs:boolean" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guiacquiredmethods">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:guiacquiredmethod"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guiacquiredmethod">
+        <xs:complexType>
+            <xs:attribute name="refid" type="xs:integer" use="required"/>
+            <xs:attribute name="backgroundcolor" type="xs:string" use="required"/>
+            <xs:attribute name="textcolor" type="xs:string" use="required"/>
+            <xs:attribute name="fontfamily" type="xs:string" use="required"/>
+            <xs:attribute name="fontsize" type="xs:integer" use="required"/>
+            <xs:attribute name="fontbold" type="xs:boolean" use="required"/>
+            <xs:attribute name="fontitalic" type="xs:boolean" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guiinheritedmethods">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:guiinheritedmethod"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guiinheritedmethod">
+        <xs:complexType>
+            <xs:attribute name="refid" type="xs:integer" use="required"/>
+            <xs:attribute name="backgroundcolor" type="xs:string" use="required"/>
+            <xs:attribute name="textcolor" type="xs:string" use="required"/>
+            <xs:attribute name="fontfamily" type="xs:string" use="required"/>
+            <xs:attribute name="fontsize" type="xs:integer" use="required"/>
+            <xs:attribute name="fontbold" type="xs:boolean" use="required"/>
+            <xs:attribute name="fontitalic" type="xs:boolean" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guispecialisedmethods">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:guispecialisedmethod"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guispecialisedmethod">
+        <xs:complexType>
+            <xs:attribute name="refid" type="xs:integer" use="required"/>
+            <xs:attribute name="backgroundcolor" type="xs:string" use="required"/>
+            <xs:attribute name="textcolor" type="xs:string" use="required"/>
+            <xs:attribute name="fontfamily" type="xs:string" use="required"/>
+            <xs:attribute name="fontsize" type="xs:integer" use="required"/>
+            <xs:attribute name="fontbold" type="xs:boolean" use="required"/>
+            <xs:attribute name="fontitalic" type="xs:boolean" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guifsms">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:guifsm"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guifsm">
+        <xs:complexType>
+            <xs:attribute name="refid" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guistates">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:guistate"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guistate">
+        <xs:complexType>
+            <xs:attribute name="refid" type="xs:integer" use="required"/>
+            <xs:attribute name="location" type="xs:string" use="required"/>
+            <xs:attribute name="size" type="xs:string" use="required"/>
+            <xs:attribute name="borderthickness" type="xs:integer" use="required"/>
+            <xs:attribute name="bordercolor" type="xs:string" use="required"/>
+            <xs:attribute name="backgroundcolor" type="xs:string" use="required"/>
+            <xs:attribute name="gradientcolor" type="xs:string" use="required"/>
+            <xs:attribute name="textcolor" type="xs:string" use="required"/>
+            <xs:attribute name="fontfamily" type="xs:string" use="required"/>
+            <xs:attribute name="fontsize" type="xs:integer" use="required"/>
+            <xs:attribute name="fontbold" type="xs:boolean" use="required"/>
+            <xs:attribute name="fontitalic" type="xs:boolean" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guitransitions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:guitransition"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="guitransition">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="mxp:edgecontrolpoints"/>
+            </xs:sequence>
+            <xs:attribute name="refid" type="xs:integer" use="required"/>
+            <xs:attribute name="linewidth" type="xs:integer" use="required"/>
+            <xs:attribute name="linecolor" type="xs:string" use="required"/>
+            <xs:attribute name="textcolor" type="xs:string" use="required"/>
+            <xs:attribute name="fontfamily" type="xs:string" use="required"/>
+            <xs:attribute name="fontsize" type="xs:integer" use="required"/>
+            <xs:attribute name="fontbold" type="xs:boolean" use="required"/>
+            <xs:attribute name="fontitalic" type="xs:boolean" use="required"/>
+            <xs:attribute name="labelvisible" type="xs:boolean" use="required"/>
+            <xs:attribute name="labelposition" type="xs:string" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="edgview">
+        <xs:complexType>
+            <xs:attribute name="gridcolor" type="xs:string" use="required"/>
+            <xs:attribute name="backgroundcolor" type="xs:string" use="required"/>
+            <xs:attribute name="gridenabled" type="xs:boolean" use="required"/>
+            <xs:attribute name="gridvisible" type="xs:boolean" use="required"/>
+            <xs:attribute name="gridmode" type="xs:integer" use="required"/>
+            <xs:attribute name="gridsize" type="xs:integer" use="required"/>
+            <xs:attribute name="scale" type="xs:double" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="oetview">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="1" minOccurs="1" ref="mxp:oetobjects"/>
+                <xs:element maxOccurs="1" minOccurs="1" ref="mxp:oetevents"/>
+            </xs:sequence>
+            <xs:attribute name="highlightercolor" type="xs:string" use="required"/>
+            <xs:attribute name="linecolor" type="xs:string" use="required"/>
+            <xs:attribute name="backgroundcolor" type="xs:string" use="required"/>
+            <xs:attribute name="hidedisabledmethods" type="xs:boolean" use="required"/>
+            <xs:attribute name="headerrotation" type="xs:integer" use="required"/>
+            <xs:attribute name="scale" type="xs:double" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="fsmview">
+        <xs:complexType>
+            <xs:attribute name="gridcolor" type="xs:string" use="required"/>
+            <xs:attribute name="backgroundcolor" type="xs:string" use="required"/>
+            <xs:attribute name="gridenabled" type="xs:boolean" use="required"/>
+            <xs:attribute name="gridvisible" type="xs:boolean" use="required"/>
+            <xs:attribute name="gridmode" type="xs:integer" use="required"/>
+            <xs:attribute name="gridsize" type="xs:integer" use="required"/>
+            <xs:attribute name="scale" type="xs:double" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="oetobjects">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:oetobject"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="oetobject">
+        <xs:complexType>
+            <xs:attribute name="refid" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="oetevents">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:oetevent"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="oetevent">
+        <xs:complexType>
+            <xs:attribute name="refid" type="xs:integer" use="required"/>
+        </xs:complexType>
+    </xs:element>
+
+
+
+    <xs:element name="metaMPCkind" type="mxp:metaMPCkind"></xs:element>
+    
+    <xs:complexType name="metaMPCkind">
+    	<xs:attribute name="pathsEqual" type="xs:boolean"></xs:attribute>
+    </xs:complexType>
+</xs:schema>
