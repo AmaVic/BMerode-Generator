@@ -34,7 +34,11 @@
               </mxp:metatransition>
               <mxp:metatransition id="12" name="exists_exists" sourcestateid="4" targetstateid="4">
                 <mxp:metatransitionmethods>
-                  <mxp:metatransitionmethod safeid="13" methodid="14" methodname="ME_acc_Request"/>
+                  <mxp:metatransitionmethod safeid="13" methodid="14" methodname="ME_acc_Request">
+                    <mxp:iars>
+                      <mxp:iar rule="accredited === val:true" allowed="true" />
+                    </mxp:iars>
+                  </mxp:metatransitionmethod>
                   <mxp:metatransitionmethod safeid="15" methodid="16" methodname="ME_cr_IdentityRequest"/>
                   <mxp:metatransitionmethod safeid="17" methodid="18" methodname="ME_end_IdentityRequest"/>
                 </mxp:metatransitionmethods>
@@ -68,7 +72,8 @@
               </mxp:metatransition>
               <mxp:metatransition id="30" name="exists_exists" sourcestateid="22" targetstateid="22">
                 <mxp:metatransitionmethods>
-                  <mxp:metatransitionmethod safeid="31" methodid="32" methodname="ME_acc_Request"/>
+                  <mxp:metatransitionmethod safeid="31" methodid="32" methodname="ME_acc_Request">
+                  </mxp:metatransitionmethod>
                   <mxp:metatransitionmethod safeid="33" methodid="34" methodname="ME_cr_IdentityRequest"/>
                   <mxp:metatransitionmethod safeid="35" methodid="36" methodname="ME_end_IdentityRequest"/>
                 </mxp:metatransitionmethods>

@@ -30,61 +30,6 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
 #if($method.getEffectType().equals("CREATE"))
   @Override
   public void $method.getName()($BOTName object, Context ctx) throws FailedEventHandlingException {
-#if($method.getIARs().size() > 0)
-    //IARs Checks
-#foreach($iar in $method.getIARs())
-    //--- IAR: $iar ---
-    try {
-        //Resolving Left Hand Side
-#set($currentObjectType = $BOTName)
-          Object currentLHSObject = object;
-#foreach($lhsComponent in $method.getLeftHandSides($iar))
-#if($lhsComponent.getType().name().equals("BUSINESS_OBJECT"))
-          currentLHSObject = ($lhsComponent.getNameOnly())(StubHelper.findBusinessObject(ctx, (($currentObjectType)currentLHSObject).get$lhsComponent.getNameOnly()Id()));
-#set($currentObjectType = $lhsComponent.getNameOnly())
-#elseif($lhsComponent.getType().name().equals("ATTRIBUTE"))
-          currentLHSObject = (($currentObjectType)currentLHSObject).get$util.getStringWithFirstCap($lhsComponent.getNameOnly())();
-#elseif($lhsComponent.getType().name().equals("VALUE"))
-          curentLHSObject = $lhsComponent.getNameOnly();
-#end
-#end
-
-        //Resolving Right Hand Side
-#set($currentRHSObjectType = $BOTName)
-          Object currentRHSObject = object;
-#foreach($rhsComponent in $method.getRightHandSides($iar))
-#if($rhsComponent.getType().name().equals("BUSINESS_OBJECT"))
-          currentRHSObject = ($rhsComponent.getNameOnly())(StubHelper.findBusinessObject(ctx, (($currentRHSObjectType)currentRHSObject).get$rhsComponent.getNameOnly()Id()));
-#set($currentRHSObjectType = $rhsComponent.getNameOnly())
-#elseif($rhsComponent.getType().name().equals("ATTRIBUTE"))
-          currentRHSObject = (($currentRHSObjectType)currentRHSObject).get$util.getStringWithFirstCap($rhsComponent.getNameOnly())();
-#elseif($rhsComponent.getType().name().equals("VALUE"))
-          currentRHSObject = ${rhsComponent.getNameOnly()};
-#end
-#end
-
-        //Checking Condition
-#set($iarAllowed = $iar.getAllowed())
-#if($iarAllowed)
-#set($iarBooleanOperator = "")
-#set($iarOppositeBooleanOpeator = "!")
-#else
-#set($iarBooleanOperator = "!")
-#set($iarOppositeBooleanOpeator = "")
-#end
-        if(${iarBooleanOperator}currentLHSObject.equals(currentRHSObject))
-            System.out.println("IAR: OK");
-        else {
-            System.out.println("IAR: KO: " + currentLHSObject + " $iarOppositeBooleanOpeator= " + currentRHSObject);
-            throw new FailedEventHandlingException("IAR NOT OK");
-        }
-    } catch(FailedEventHandlingException e) {
-        throw e;
-    }
-
-#end
-#end
-
 #if($masters.size() > 0)
     //Check if the referenced masters exist
 #foreach($master in $masters)
@@ -108,9 +53,61 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
     //Checking Multiple Propagation Constraints
 #foreach($mpcCheck in $mpcChecks)
     $mpcCheck
-
+#end
+#end
+#if($method.getIARs().size() > 0)
+    //IARs Checks
+#foreach($iar in $method.getIARs())
+        //--- IAR: $iar ---
+        try {
+        //Resolving Left Hand Side
+#set($currentObjectType = $BOTName)
+        Object currentLHSObject = object;
+#foreach($lhsComponent in $method.getLeftHandSides($iar))
+#if($lhsComponent.getType().name().equals("BUSINESS_OBJECT"))
+                currentLHSObject = ($lhsComponent.getNameOnly())(StubHelper.findBusinessObject(ctx, (($currentObjectType)currentLHSObject).get$lhsComponent.getNameOnly()Id()));
+#set($currentObjectType = $lhsComponent.getNameOnly())
+#elseif($lhsComponent.getType().name().equals("ATTRIBUTE"))
+                currentLHSObject = (($currentObjectType)currentLHSObject).get$util.getStringWithFirstCap($lhsComponent.getNameOnly())();
+#elseif($lhsComponent.getType().name().equals("VALUE"))
+                curentLHSObject = $lhsComponent.getNameOnly();
+#end
 #end
 
+        //Resolving Right Hand Side
+#set($currentRHSObjectType = $BOTName)
+        Object currentRHSObject = object;
+#foreach($rhsComponent in $method.getRightHandSides($iar))
+#if($rhsComponent.getType().name().equals("BUSINESS_OBJECT"))
+                currentRHSObject = ($rhsComponent.getNameOnly())(StubHelper.findBusinessObject(ctx, (($currentRHSObjectType)currentRHSObject).get$rhsComponent.getNameOnly()Id()));
+#set($currentRHSObjectType = $rhsComponent.getNameOnly())
+#elseif($rhsComponent.getType().name().equals("ATTRIBUTE"))
+                currentRHSObject = (($currentRHSObjectType)currentRHSObject).get$util.getStringWithFirstCap($rhsComponent.getNameOnly())();
+#elseif($rhsComponent.getType().name().equals("VALUE"))
+                currentRHSObject = ${rhsComponent.getNameOnly()};
+#end
+#end
+
+        //Checking Condition
+#set($iarAllowed = $iar.getAllowed())
+#if($iarAllowed)
+#set($iarBooleanOperator = "")
+#set($iarOppositeBooleanOpeator = "!")
+#else
+#set($iarBooleanOperator = "!")
+#set($iarOppositeBooleanOpeator = "")
+#end
+        if(${iarBooleanOperator}currentLHSObject.equals(currentRHSObject))
+        System.out.println("IAR: OK");
+        else {
+        System.out.println("IAR: KO: " + currentLHSObject + " $iarOppositeBooleanOpeator= " + currentRHSObject);
+        throw new FailedEventHandlingException("IAR NOT OK");
+        }
+        } catch(FailedEventHandlingException e) {
+        throw e;
+        }
+
+#end
 #end
     //Changes the state of the current $BOTName (object)
     $BOTName$util.getStringWithFirstCap($method.getTargetStateName())State newState = new $BOTName$util.getStringWithFirstCap($method.getTargetStateName())State();
@@ -133,6 +130,61 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
 #if($method.getEffectType().equals("MODIFY"))
   @Override
   public void $method.getName()($BOTName object, Context ctx) throws FailedEventHandlingException {
+#if($method.getIARs().size() > 0)
+    //IARs Checks
+#foreach($iar in $method.getIARs())
+        //--- IAR: $iar ---
+        try {
+        //Resolving Left Hand Side
+#set($currentObjectType = $BOTName)
+        Object currentLHSObject = object;
+#foreach($lhsComponent in $method.getLeftHandSides($iar))
+#if($lhsComponent.getType().name().equals("BUSINESS_OBJECT"))
+                currentLHSObject = ($lhsComponent.getNameOnly())(StubHelper.findBusinessObject(ctx, (($currentObjectType)currentLHSObject).get$lhsComponent.getNameOnly()Id()));
+#set($currentObjectType = $lhsComponent.getNameOnly())
+#elseif($lhsComponent.getType().name().equals("ATTRIBUTE"))
+                currentLHSObject = (($currentObjectType)currentLHSObject).get$util.getStringWithFirstCap($lhsComponent.getNameOnly())();
+#elseif($lhsComponent.getType().name().equals("VALUE"))
+                curentLHSObject = $lhsComponent.getNameOnly();
+#end
+#end
+
+        //Resolving Right Hand Side
+#set($currentRHSObjectType = $BOTName)
+        Object currentRHSObject = object;
+#foreach($rhsComponent in $method.getRightHandSides($iar))
+#if($rhsComponent.getType().name().equals("BUSINESS_OBJECT"))
+                currentRHSObject = ($rhsComponent.getNameOnly())(StubHelper.findBusinessObject(ctx, (($currentRHSObjectType)currentRHSObject).get$rhsComponent.getNameOnly()Id()));
+#set($currentRHSObjectType = $rhsComponent.getNameOnly())
+#elseif($rhsComponent.getType().name().equals("ATTRIBUTE"))
+                currentRHSObject = (($currentRHSObjectType)currentRHSObject).get$util.getStringWithFirstCap($rhsComponent.getNameOnly())();
+#elseif($rhsComponent.getType().name().equals("VALUE"))
+                currentRHSObject = ${rhsComponent.getNameOnly()};
+#end
+#end
+
+        //Checking Condition
+#set($iarAllowed = $iar.getAllowed())
+#if($iarAllowed)
+#set($iarBooleanOperator = "")
+#set($iarOppositeBooleanOpeator = "!")
+#else
+#set($iarBooleanOperator = "!")
+#set($iarOppositeBooleanOpeator = "")
+#end
+        if(${iarBooleanOperator}currentLHSObject.equals(currentRHSObject))
+        System.out.println("IAR: OK");
+        else {
+        System.out.println("IAR: KO: " + currentLHSObject + " $iarOppositeBooleanOpeator= " + currentRHSObject);
+        throw new FailedEventHandlingException("IAR NOT OK");
+        }
+        } catch(FailedEventHandlingException e) {
+        throw e;
+        }
+
+#end
+#end
+
 #if($masters.size() > 0)
     //The $BOTName object will be saved with its current properties
     //Before changing state and (possibly) attributes, we check there was no change to the masters
@@ -165,6 +217,61 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
 #if($method.getEffectType().equals("END"))
   @Override
   public void $method.getName()($BOTName object, Context ctx) throws FailedEventHandlingException {
+#if($method.getIARs().size() > 0)
+    //IARs Checks
+#foreach($iar in $method.getIARs())
+        //--- IAR: $iar ---
+        try {
+        //Resolving Left Hand Side
+#set($currentObjectType = $BOTName)
+        Object currentLHSObject = object;
+#foreach($lhsComponent in $method.getLeftHandSides($iar))
+#if($lhsComponent.getType().name().equals("BUSINESS_OBJECT"))
+                currentLHSObject = ($lhsComponent.getNameOnly())(StubHelper.findBusinessObject(ctx, (($currentObjectType)currentLHSObject).get$lhsComponent.getNameOnly()Id()));
+#set($currentObjectType = $lhsComponent.getNameOnly())
+#elseif($lhsComponent.getType().name().equals("ATTRIBUTE"))
+                currentLHSObject = (($currentObjectType)currentLHSObject).get$util.getStringWithFirstCap($lhsComponent.getNameOnly())();
+#elseif($lhsComponent.getType().name().equals("VALUE"))
+                curentLHSObject = $lhsComponent.getNameOnly();
+#end
+#end
+
+        //Resolving Right Hand Side
+#set($currentRHSObjectType = $BOTName)
+        Object currentRHSObject = object;
+#foreach($rhsComponent in $method.getRightHandSides($iar))
+#if($rhsComponent.getType().name().equals("BUSINESS_OBJECT"))
+                currentRHSObject = ($rhsComponent.getNameOnly())(StubHelper.findBusinessObject(ctx, (($currentRHSObjectType)currentRHSObject).get$rhsComponent.getNameOnly()Id()));
+#set($currentRHSObjectType = $rhsComponent.getNameOnly())
+#elseif($rhsComponent.getType().name().equals("ATTRIBUTE"))
+                currentRHSObject = (($currentRHSObjectType)currentRHSObject).get$util.getStringWithFirstCap($rhsComponent.getNameOnly())();
+#elseif($rhsComponent.getType().name().equals("VALUE"))
+                currentRHSObject = ${rhsComponent.getNameOnly()};
+#end
+#end
+
+        //Checking Condition
+#set($iarAllowed = $iar.getAllowed())
+#if($iarAllowed)
+#set($iarBooleanOperator = "")
+#set($iarOppositeBooleanOpeator = "!")
+#else
+#set($iarBooleanOperator = "!")
+#set($iarOppositeBooleanOpeator = "")
+#end
+        if(${iarBooleanOperator}currentLHSObject.equals(currentRHSObject))
+        System.out.println("IAR: OK");
+        else {
+        System.out.println("IAR: KO: " + currentLHSObject + " $iarOppositeBooleanOpeator= " + currentRHSObject);
+        throw new FailedEventHandlingException("IAR NOT OK");
+        }
+        } catch(FailedEventHandlingException e) {
+        throw e;
+        }
+
+#end
+#end
+
     //Check if there are living  dependents before ending the object
     if(StubHelper.hasLivingDependents(ctx, object))
       throw new FailedEventHandlingException("$BOTName (" + object.getId() + ") has living dependents and therefore cannot be ended");
