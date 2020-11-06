@@ -3,6 +3,7 @@ package be.unamur.generator.iar.context
 import domain.IARPathElement
 import org.apache.velocity.VelocityContext
 
+@Suppress("UNCHECKED_CAST")
 class IARContext : VelocityContext() {
     init {
         this.put("iars", mutableListOf<IARPathElement>())

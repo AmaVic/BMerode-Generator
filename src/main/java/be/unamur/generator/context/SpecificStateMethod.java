@@ -3,7 +3,6 @@ package be.unamur.generator.context;
 import be.unamur.generator.iar.parser.IARComponentSplitter;
 import domain.IAR;
 import domain.IARPathElement;
-import javafx.scene.shape.PathElement;
 
 import java.util.*;
 
