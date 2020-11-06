@@ -12,12 +12,13 @@ import be.unamur.metamodel.Mermaidmodel;
 import org.xml.sax.SAXException;
 
 import java.io.File;
+import java.io.InputStream;
 
 import be.unamur.loader.exception.ModelParsingException;
 
 
 public class ModelParser {
-  private static final String METAMODEL_DEFINITION = ModelParser.class.getClassLoader().getResource("be.unamur.metamodel/mxp_1_6_schema_iar.xsd").getFile();
+  private static final InputStream METAMODEL_DEFINITION = ModelParser.class.getClassLoader().getResourceAsStream("be.unamur.metamodel/mxp_1_6_schema_iar.xsd");
 
   public static Mermaidmodel parseModel(String filePath) throws ModelParsingException {
     System.out.println(">> Parsing Model From File: " + filePath);
@@ -32,8 +33,9 @@ public class ModelParser {
     SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
     Schema schema = null;
     try {
-      schema = factory.newSchema(new StreamSource(new File(METAMODEL_DEFINITION)));
+      schema = factory.newSchema(new StreamSource(METAMODEL_DEFINITION));
     } catch (SAXException e) {
+      e.printStackTrace();
       throw new ModelParsingException("[ModelParser.parseModel(String)]: Could not Create Schema Factory");
     }
 

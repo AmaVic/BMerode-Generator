@@ -5,6 +5,10 @@ import be.unamur.generator.context.Util;
 import be.unamur.generator.exception.SolutionGenerationException;
 import be.unamur.metamodel.*;
 
+import io.grpc.netty.shaded.io.netty.util.internal.ResourcesUtil;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
@@ -13,20 +17,27 @@ import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+import org.apache.velocity.runtime.resource.loader.JarResourceLoader;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Enumeration;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 public class SolutionGenerator {
   private final String outputDirectory;
   private final VelocityEngine templateEngine;
+  private final String templatesFolder;
 
   private final String ENTITY_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "entity" + File.separator;
   private final String STATE_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "state" + File.separator;
@@ -36,10 +47,34 @@ public class SolutionGenerator {
 
   public SolutionGenerator(String outputDirectoryPath) {
     this.outputDirectory = outputDirectoryPath;
+    final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+    if(jarFile.isFile()) {
+
+    }
 
     this.templateEngine = new VelocityEngine();
-    this.templateEngine.setProperty("file.resource.loader.path", SolutionGenerator.class.getClassLoader().getResource("be.unamur.generator.templates").getPath());
     this.templateEngine.setProperty(RuntimeConstants.EVENTHANDLER_INCLUDE, IncludeRelativePath.class.getName());
+
+    if(jarFile.isFile()) {
+      String jarUrl = null;
+      try {
+        jarUrl = this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().toString();
+      } catch (URISyntaxException e) {
+        e.printStackTrace();
+      }
+      jarUrl = "jar:"+jarUrl;
+      System.out.println(jarUrl);
+
+      this.templatesFolder = "be.unamur.generator.templates";
+      this.templateEngine.setProperty("resource.loader", "jar");
+      this.templateEngine.setProperty("jar.resource.loader.class", JarResourceLoader.class.getName());
+      this.templateEngine.setProperty("jar.resource.loader.path", jarUrl);
+    } else {
+      this.templatesFolder = "";
+      this.templateEngine.setProperty("resource.loader", "classpath");
+      this.templateEngine.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+      this.templateEngine.setProperty("file.resource.loader.path", SolutionGenerator.class.getClassLoader().getResource("be.unamur.generator.templates").getPath());
+    }
 
     this.templateEngine.init();
   }
@@ -64,6 +99,62 @@ public class SolutionGenerator {
   }
 
   private void copyBoilerplateCode() throws SolutionGenerationException {
+    File outputDir = new File(this.outputDirectory);
+    recurisevelyDelete(outputDir);
+    outputDir.mkdir();
+
+    final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+
+    try {
+      if (jarFile.isFile()) {  // Run with JAR file
+        final JarFile jar = new JarFile(jarFile);
+        final Enumeration<JarEntry> entries = jar.entries(); //gives ALL entries in jar
+        while (entries.hasMoreElements()) {
+         JarEntry entry = entries.nextElement();
+         if(entry.getName().startsWith("BMerodeChaincodeStructure/") && entry.getName().length() > "BMerodeChaincodeStructure/".length()) {
+           String[] parts = StringUtils.split(entry.getName(),"/");
+           if(!parts[parts.length-1].contains("."))
+             continue;
+
+           String cleanEntryName = entry.getName().substring("BMerodeChaincodeStructure/".length());
+           InputStream is = jar.getInputStream(entry);
+           Path targetPath = Paths.get(this.outputDirectory).resolve(cleanEntryName);
+
+           FileUtils.copyInputStreamToFile(is, targetPath.toFile());
+           is.close();
+         }
+        }
+        jar.close();
+      } else {
+        Path sourceDir = Paths.get(this.getClass().getClassLoader().getResource("BMerodeChaincodeStructure").getPath());
+        AtomicBoolean success = new AtomicBoolean(true);
+
+        try {
+          Path finalSourceDir = sourceDir;
+          Files.walk(sourceDir)
+                  .forEach(sourcePath -> {
+                    try {
+                      Path targetPath = Paths.get(this.outputDirectory).resolve(finalSourceDir.relativize(sourcePath));
+                      Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
+                    } catch (IOException e) {
+                      success.set(false);
+                    }
+                  });
+        } catch (IOException e) {
+          throw new SolutionGenerationException("SolutionGenerator.copyBoilerplateCode(): " + e.toString());
+        }
+
+        if(!success.get()) {
+          throw new SolutionGenerationException("SolutionGenerator.copyBoilerplateCode(): failed");
+        }
+      }
+    } catch(IOException e) {
+      e.printStackTrace();
+      throw new SolutionGenerationException("Could not Copy Boilerplate Code");
+    }
+
+
+    /*
     Path sourceDir = Paths.get(this.getClass().getClassLoader().getResource("BMerodeChaincodeStructure").getPath());
     File outputDir = new File(this.outputDirectory);
 
@@ -71,13 +162,14 @@ public class SolutionGenerator {
 
     outputDir.mkdir();
 
-
     AtomicBoolean success = new AtomicBoolean(true);
+
     try {
+      Path finalSourceDir = sourceDir;
       Files.walk(sourceDir)
               .forEach(sourcePath -> {
                 try {
-                  Path targetPath = Paths.get(this.outputDirectory).resolve(sourceDir.relativize(sourcePath));
+                  Path targetPath = Paths.get(this.outputDirectory).resolve(finalSourceDir.relativize(sourcePath));
                   Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
                 } catch (IOException e) {
                   success.set(false);
@@ -89,7 +181,7 @@ public class SolutionGenerator {
 
     if(!success.get()) {
       throw new SolutionGenerationException("SolutionGenerator.copyBoilerplateCode(): failed");
-    }
+    } */
   }
 
   private void generateInputValidators(Mermaidmodel model) throws SolutionGenerationException {
@@ -101,7 +193,7 @@ public class SolutionGenerator {
     InputValidatorContext ctx = new InputValidatorContextBuilder(model, mo).build();
 
     String outputFileName = this.outputDirectory + File.separator + INPUT_VALIDATOR_FOLDER + mo.getName() + "InputValidator.java";
-    generateFile("inputValidator.vm", ctx, outputFileName);
+    generateFile("be.unamur.generator.templates/inputValidator.vm", ctx, outputFileName);
   }
 
   private void generateBOTEntities(Mermaidmodel model) throws SolutionGenerationException {
@@ -115,7 +207,7 @@ public class SolutionGenerator {
     BusinessObjectTypeContext ctx = new BusinessObjectTypeContextBuilder(bot, model).build();
 
     String outputFileName = this.outputDirectory + File.separator + ENTITY_FOLDER + bot.getName() + ".java";
-    generateFile("entity.vm", ctx, outputFileName);
+    generateFile("be.unamur.generator.templates/entity.vm", ctx, outputFileName);
   }
 
   private void generateBOTGeneralStates(Mermaidmodel model) throws SolutionGenerationException {
@@ -129,7 +221,7 @@ public class SolutionGenerator {
     StateContext ctx = new GeneralStateContextBuilder(model, bot).build();
 
     String outputFileName = this.outputDirectory + File.separator + STATE_FOLDER + File.separator + Util.getStringWithFirstLowerCap(bot.getName()) + File.separator + bot.getName() + "State.java";
-    generateFile("generalState.vm", ctx, outputFileName);
+    generateFile("be.unamur.generator.templates/generalState.vm", ctx, outputFileName);
   }
 
   private void generateAllSpecificStates(Mermaidmodel model) throws SolutionGenerationException {
@@ -151,21 +243,21 @@ public class SolutionGenerator {
       stateName = "allocated";
 
     String outputFileName = this.outputDirectory + File.separator + STATE_FOLDER + File.separator + Util.getStringWithFirstLowerCap(bot.getName()) + File.separator + bot.getName() + Util.getStringWithFirstCap(stateName) + "State.java";
-    generateFile("specificState.vm", ctx, outputFileName);
+    generateFile("be.unamur.generator.templates/specificState.vm", ctx, outputFileName);
   }
 
   private void generateEventsMapping(Mermaidmodel model) throws SolutionGenerationException {
     EventsMappingContext ctx = new EventsMappingContextBuilder(model).build();
 
     String outputFileName = this.outputDirectory + File.separator + EVENT_FOLDER + File.separator + "EventsMapping.java";
-    generateFile("eventsMapping.vm", ctx, outputFileName);
+    generateFile("be.unamur.generator.templates/eventsMapping.vm", ctx, outputFileName);
   }
 
   private void generateEPT(Mermaidmodel model) throws SolutionGenerationException {
     EPTContext ctx = new EPTContextBuilder(model).build();
     String outputFilePath = this.outputDirectory + File.separator + PERMISSIONS_FOLDER + File.separator + "EPT.java";
 
-    generateFile("ept.vm", ctx, outputFilePath);
+    generateFile("be.unamur.generator.templates/ept.vm", ctx, outputFilePath);
   }
 
   private void generateFile(String templateName, VelocityContext ctx, String outputFilePath) throws SolutionGenerationException {
