@@ -2,6 +2,7 @@ package be.unamur.generator.context;
 
 import be.unamur.metamodel.*;
 import be.unamur.metamodel.Util;
+import be.unamur.metamodel.extension.MerodeExtension;
 import domain.IAR;
 
 import java.util.*;
@@ -10,8 +11,8 @@ import java.util.stream.Collectors;
 public class SpecificStateContextBuilder extends GeneralStateContextBuilder {
   private SpecificStateContext specificCtx;
 
-  public SpecificStateContextBuilder(Mermaidmodel model, Metaobject object, String stateName) {
-    super(model, object);
+  public SpecificStateContextBuilder(Mermaidmodel model, MerodeExtension ext, Metaobject object, String stateName) {
+    super(model, ext, object);
     this.specificCtx = new SpecificStateContext();
     this.specificCtx.setStateName(stateName);
     this.specificCtx.setBOTName(this.object.getName());
@@ -40,10 +41,13 @@ public class SpecificStateContextBuilder extends GeneralStateContextBuilder {
         Metastate targetState = Util.findById(fsm.getMetastates().getMetastate(), transition.getTargetstateid());
         SpecificStateMethod m = new SpecificStateMethod("handle_" + event.getName(), mm.getType(), targetState.getName());
 
-        if(mtm.getIars() != null) {
-          List<IAR> iars = mtm.getIars().getIar().stream().map(elem -> new IAR(elem.getRule(), elem.isAllowed())).collect(Collectors.toList());
-          iars.forEach(m::addIAR);
-        }
+        this.ext.getIARS().getIAR().stream()
+                                   .filter(rule -> rule.getTransitionId().equals(transition.getId()) && rule.getMethodId().equals(mtm.getMethodid())) //Keep Only Relevant IARs
+                                   .map(rule -> new IAR(rule.getRule(), rule.isAllowed())) //Create Runtime IAR based on Meta IAR
+                                   .forEach(m::addIAR); //Add IAR to list of runtime IARs
+
+
+        System.out.println("Tr: " + transition.getId() + " " + transition.getName() + "; IAR ? " + m.getIARs().size());
 
         methodsSet.add(m);
       }

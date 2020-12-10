@@ -66,8 +66,6 @@ public class Metaobject implements Identifiable {
     protected String name;
     @XmlAttribute(name = "abstract", required = true)
     protected boolean _abstract;
-    @XmlAttribute(name = "isParticipant")
-    protected Boolean isParticipant;
 
     /**
      * Obtient la valeur de la propriété metadescription.
@@ -257,33 +255,4 @@ public class Metaobject implements Identifiable {
     public void setAbstract(boolean value) {
         this._abstract = value;
     }
-
-    /**
-     * Obtient la valeur de la propriété isParticipant.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
-     */
-    public boolean isIsParticipant() {
-        if (isParticipant == null) {
-            return false;
-        } else {
-            return isParticipant;
-        }
-    }
-
-    /**
-     * Définit la valeur de la propriété isParticipant.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
-     */
-    public void setIsParticipant(Boolean value) {
-        this.isParticipant = value;
-    }
-
 }

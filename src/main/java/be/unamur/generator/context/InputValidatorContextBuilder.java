@@ -2,16 +2,20 @@ package be.unamur.generator.context;
 
 import be.unamur.metamodel.*;
 import be.unamur.metamodel.Util;
+import be.unamur.extension.MetaObjectExtension;
+import be.unamur.metamodel.extension.MerodeExtension;
 
 public class InputValidatorContextBuilder implements ContextBuilder {
     private InputValidatorContext ctx;
     private Metaobject mo;
     private Metamodel model;
+    private MerodeExtension ext;
 
-    public InputValidatorContextBuilder(Metamodel model, Metaobject mo) {
+    public InputValidatorContextBuilder(Metamodel model, Metaobject mo, MerodeExtension ext) {
         this.ctx  = new InputValidatorContext();
         this.model = model;
         this.mo  = mo;
+        this.ext = ext;
     }
 
     @Override
@@ -23,7 +27,7 @@ public class InputValidatorContextBuilder implements ContextBuilder {
             this.ctx.addInputParameter(attr);
         }
 
-        if(this.mo.isIsParticipant())
+        if(MetaObjectExtension.INSTANCE.isParticipant(this.mo, this.ext))
             this.ctx.addInputParameter(new Attribute("String", "publicKey"));
 
         //Add Masters Ids

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="ParticipantType">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute type="xs:integer" name="objectTypeId" use="required"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="Authorization">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute type="xs:integer" name="eventId" use="required"/>
+                    <xs:attribute type="xs:integer" name="participantTypeId" use="required"/>
+                    <xs:attribute type="xs:boolean" name="allowed" use="optional" default="true"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="IAR">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute type="xs:integer" name="transitionId" use="required"/>
+                    <xs:attribute type="xs:integer" name="methodId" use="required" />
+                    <xs:attribute type="xs:string" name="rule" use="required"/>
+                    <xs:attribute type="xs:boolean" name="allowed" use="optional" default="true"/>
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ParticipantTypes">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ParticipantType" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="EPT">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="Authorization" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="IARS">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="IAR" maxOccurs="unbounded" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="MerodeExtension">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="ParticipantTypes" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="EPT" minOccurs="1" maxOccurs="1"/>
+                <xs:element ref="IARS" minOccurs="1" maxOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="name"/>
+            <xs:attribute type="xs:float" name="version"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

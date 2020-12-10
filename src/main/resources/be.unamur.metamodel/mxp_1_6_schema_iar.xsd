@@ -14,7 +14,6 @@
     <xs:element name="metamodel">
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="mxp:ept"/>
                 <xs:element ref="mxp:datatypes" minOccurs="0"/>
                 <xs:element ref="mxp:metaobjects"/>
                 <xs:element ref="mxp:metaevents"/>
@@ -24,33 +23,6 @@
                 <xs:element ref="mxp:metamethods"/>
             </xs:sequence>
             <xs:attribute name="lastid" type="xs:integer" use="required"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="ept">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:permission"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="permission">
-        <xs:complexType>
-            <xs:attribute name="ownerobjectid" type="xs:integer" use="required" />
-            <xs:attribute name="ownereventid" type="xs:integer" use="required" />
-            <xs:attribute name="allowed" type="xs:boolean" use="optional" default="false" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="iars">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" ref="mxp:iar"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="iar">
-        <xs:complexType>
-            <xs:attribute name="rule" type="xs:string" use="required" />
-            <xs:attribute name="allowed" type="xs:boolean" use="required" />
         </xs:complexType>
     </xs:element>
     <xs:element name="datatypes">
@@ -199,9 +171,6 @@
     </xs:element>
     <xs:element name="metatransitionmethod">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="mxp:iars" minOccurs="0" maxOccurs="1"/>
-            </xs:sequence>
             <xs:attribute name="methodid" type="xs:integer" use="required"/>
             <xs:attribute name="safeid" type="xs:integer" use="optional"/>
             <xs:attribute name="methodname" type="xs:string" use="optional"/>

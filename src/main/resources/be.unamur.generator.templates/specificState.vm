@@ -70,7 +70,7 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
 #elseif($lhsComponent.getType().name().equals("ATTRIBUTE"))
                 currentLHSObject = (($currentObjectType)currentLHSObject).get$util.getStringWithFirstCap($lhsComponent.getNameOnly())();
 #elseif($lhsComponent.getType().name().equals("VALUE"))
-                curentLHSObject = $lhsComponent.getNameOnly();
+                currentLHSObject = $lhsComponent.getNameOnly();
 #end
 #end
 
@@ -145,7 +145,7 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
 #elseif($lhsComponent.getType().name().equals("ATTRIBUTE"))
                 currentLHSObject = (($currentObjectType)currentLHSObject).get$util.getStringWithFirstCap($lhsComponent.getNameOnly())();
 #elseif($lhsComponent.getType().name().equals("VALUE"))
-                curentLHSObject = $lhsComponent.getNameOnly();
+                currentLHSObject = $lhsComponent.getNameOnly();
 #end
 #end
 
@@ -232,7 +232,7 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
 #elseif($lhsComponent.getType().name().equals("ATTRIBUTE"))
                 currentLHSObject = (($currentObjectType)currentLHSObject).get$util.getStringWithFirstCap($lhsComponent.getNameOnly())();
 #elseif($lhsComponent.getType().name().equals("VALUE"))
-                curentLHSObject = $lhsComponent.getNameOnly();
+                currentLHSObject = $lhsComponent.getNameOnly();
 #end
 #end
 

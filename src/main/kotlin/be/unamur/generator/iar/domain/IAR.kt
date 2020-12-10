@@ -10,9 +10,10 @@ data class IAR(val rule: String, val allowed: Boolean) {
         this.rightHandSide = bothSides[1].trim()
     }
 
+    /*
     companion object {
         fun fromMetamodelIAR(metaIAR: be.unamur.metamodel.Iar): IAR {
             return IAR(metaIAR.rule, metaIAR.isAllowed)
         }
-    }
+    }*/
 }

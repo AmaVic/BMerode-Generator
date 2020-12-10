@@ -32,45 +32,17 @@ import javax.xml.bind.annotation.XmlType;
  * 
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "iars"
-})
+
 @XmlRootElement(name = "metatransitionmethod", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Metatransitionmethod {
 
-    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
-    protected Iars iars;
     @XmlAttribute(name = "methodid", required = true)
     protected BigInteger methodid;
     @XmlAttribute(name = "safeid")
     protected BigInteger safeid;
     @XmlAttribute(name = "methodname")
     protected String methodname;
-
-    /**
-     * Obtient la valeur de la propriété iars.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Iars }
-     *     
-     */
-    public Iars getIars() {
-        return iars;
-    }
-
-    /**
-     * Définit la valeur de la propriété iars.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Iars }
-     *     
-     */
-    public void setIars(Iars value) {
-        this.iars = value;
-    }
 
     /**
      * Obtient la valeur de la propriété methodid.

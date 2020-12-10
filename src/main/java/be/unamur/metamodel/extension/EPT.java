@@ -1,5 +1,5 @@
 
-package be.unamur.metamodel;
+package be.unamur.metamodel.extension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5}permission" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element ref="{}Authorization" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -31,41 +31,41 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "permission"
+    "authorization"
 })
-@XmlRootElement(name = "ept", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
-public class Ept {
+@XmlRootElement(name = "EPT")
+public class EPT {
 
-    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
-    protected List<Permission> permission;
+    @XmlElement(name = "Authorization")
+    protected List<Authorization> authorization;
 
     /**
-     * Gets the value of the permission property.
+     * Gets the value of the authorization property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the permission property.
+     * This is why there is not a <CODE>set</CODE> method for the authorization property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getPermission().add(newItem);
+     *    getAuthorization().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Permission }
+     * {@link Authorization }
      * 
      * 
      */
-    public List<Permission> getPermission() {
-        if (permission == null) {
-            permission = new ArrayList<Permission>();
+    public List<Authorization> getAuthorization() {
+        if (authorization == null) {
+            authorization = new ArrayList<Authorization>();
         }
-        return this.permission;
+        return this.authorization;
     }
 
 }

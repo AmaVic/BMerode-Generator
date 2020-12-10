@@ -152,22 +152,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Ept }
-     * 
-     */
-    public Ept createEpt() {
-        return new Ept();
-    }
-
-    /**
-     * Create an instance of {@link Permission }
-     * 
-     */
-    public Permission createPermission() {
-        return new Permission();
-    }
-
-    /**
      * Create an instance of {@link Datatypes }
      * 
      */

@@ -39,10 +39,6 @@ public class CollaborationContract implements ContractInterface {
   public  CollaborationContract() {
   }
 
-  public static void main(String[] args) {
-    System.out.println("Hello There!");
-  }
-
   @Transaction(intent = Transaction.TYPE.SUBMIT)
   public void init(Context ctx, String participantsHandlerPK) {
     String currentSetup = ctx.getStub().getStringState("BMERODE.COLLABORATION_SETUP");

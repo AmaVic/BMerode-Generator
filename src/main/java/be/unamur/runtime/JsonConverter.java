@@ -29,7 +29,6 @@ public class JsonConverter {
         String fullJson = bo.toJsonString();
         HashMap<String, Object> jsonObject = (HashMap<String, Object>) genson.deserialize(fullJson, Map.class);
 
-
         //ObjectType
         jsonObject.remove("@class");
         jsonObject.put("businessObjectType", bo.getClass().getSimpleName());

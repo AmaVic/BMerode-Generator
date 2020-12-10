@@ -5,6 +5,7 @@ import be.unamur.generator.context.Util;
 import be.unamur.generator.exception.SolutionGenerationException;
 import be.unamur.metamodel.*;
 
+import be.unamur.metamodel.extension.MerodeExtension;
 import io.grpc.netty.shaded.io.netty.util.internal.ResourcesUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
@@ -48,9 +49,6 @@ public class SolutionGenerator {
   public SolutionGenerator(String outputDirectoryPath) {
     this.outputDirectory = outputDirectoryPath;
     final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
-    if(jarFile.isFile()) {
-
-    }
 
     this.templateEngine = new VelocityEngine();
     this.templateEngine.setProperty(RuntimeConstants.EVENTHANDLER_INCLUDE, IncludeRelativePath.class.getName());
@@ -79,22 +77,22 @@ public class SolutionGenerator {
     this.templateEngine.init();
   }
 
-  public void generate(Mermaidmodel model) throws SolutionGenerationException {
+  public void generate(Mermaidmodel model, MerodeExtension ext) throws SolutionGenerationException {
     System.out.println("===== Starting Generation =====");
     System.out.println("--- Preparing Boilerplate Code  ---");
     copyBoilerplateCode();
     System.out.println("--- Generating Entities Classes ---");
-    generateBOTEntities(model);
+    generateBOTEntities(model, ext);
     System.out.println("--- Generating General State Classes ---");
-    generateBOTGeneralStates(model);
+    generateBOTGeneralStates(model, ext);
     System.out.println("--- Generating Specific State Classes ---");
-    generateAllSpecificStates(model);
+    generateAllSpecificStates(model, ext);
     System.out.println("--- Generating Events Mapping ---");
     generateEventsMapping(model);
     System.out.println("--- Generating Input Validators ---");
-    generateInputValidators(model);
+    generateInputValidators(model, ext);
     System.out.println("--- Generating Permissions Handlers ---");
-    generateEPT(model);
+    generateEPT(model, ext);
     System.out.println("===== Generation Complete =====");
   }
 
@@ -137,6 +135,7 @@ public class SolutionGenerator {
                       Path targetPath = Paths.get(this.outputDirectory).resolve(finalSourceDir.relativize(sourcePath));
                       Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
                     } catch (IOException e) {
+                      e.printStackTrace();
                       success.set(false);
                     }
                   });
@@ -145,7 +144,7 @@ public class SolutionGenerator {
         }
 
         if(!success.get()) {
-          throw new SolutionGenerationException("SolutionGenerator.copyBoilerplateCode(): failed");
+          throw new SolutionGenerationException("SolutionGenerator.copyBoilerplateCode(): failed: ");
         }
       }
     } catch(IOException e) {
@@ -184,60 +183,60 @@ public class SolutionGenerator {
     } */
   }
 
-  private void generateInputValidators(Mermaidmodel model) throws SolutionGenerationException {
+  private void generateInputValidators(Mermaidmodel model, MerodeExtension ext) throws SolutionGenerationException {
     for(Metaobject mo: model.getMetamodel().getMetaobjects().getMetaobject())
-      generateInputValidators(model.getMetamodel(), mo);
+      generateInputValidators(model.getMetamodel(), mo, ext);
   }
 
-  private void generateInputValidators(Metamodel model, Metaobject mo) throws SolutionGenerationException {
-    InputValidatorContext ctx = new InputValidatorContextBuilder(model, mo).build();
+  private void generateInputValidators(Metamodel model, Metaobject mo, MerodeExtension ext) throws SolutionGenerationException {
+    InputValidatorContext ctx = new InputValidatorContextBuilder(model, mo, ext).build();
 
     String outputFileName = this.outputDirectory + File.separator + INPUT_VALIDATOR_FOLDER + mo.getName() + "InputValidator.java";
     generateFile("be.unamur.generator.templates/inputValidator.vm", ctx, outputFileName);
   }
 
-  private void generateBOTEntities(Mermaidmodel model) throws SolutionGenerationException {
+  private void generateBOTEntities(Mermaidmodel model, MerodeExtension ext) throws SolutionGenerationException {
     for(Metaobject mo : model.getMetamodel().getMetaobjects().getMetaobject()) {
-      generateBOTEntity(mo, model);
+      generateBOTEntity(mo, model, ext);
       System.out.println(">> Generated Entity for " + mo.getName());
     }
   }
 
-  private void generateBOTEntity(Metaobject bot, Mermaidmodel model) throws SolutionGenerationException {
-    BusinessObjectTypeContext ctx = new BusinessObjectTypeContextBuilder(bot, model).build();
+  private void generateBOTEntity(Metaobject bot, Mermaidmodel model, MerodeExtension ext) throws SolutionGenerationException {
+    BusinessObjectTypeContext ctx = new BusinessObjectTypeContextBuilder(bot, model, ext).build();
 
     String outputFileName = this.outputDirectory + File.separator + ENTITY_FOLDER + bot.getName() + ".java";
     generateFile("be.unamur.generator.templates/entity.vm", ctx, outputFileName);
   }
 
-  private void generateBOTGeneralStates(Mermaidmodel model) throws SolutionGenerationException {
+  private void generateBOTGeneralStates(Mermaidmodel model, MerodeExtension ext) throws SolutionGenerationException {
     for(Metaobject mo : model.getMetamodel().getMetaobjects().getMetaobject()) {
-      generateBOTGeneralState(mo, model);
+      generateBOTGeneralState(mo, model, ext);
       System.out.println(">> Generated General State for " + mo.getName());
     }
   }
 
-  private void generateBOTGeneralState(Metaobject bot, Mermaidmodel model) throws SolutionGenerationException {
-    StateContext ctx = new GeneralStateContextBuilder(model, bot).build();
+  private void generateBOTGeneralState(Metaobject bot, Mermaidmodel model, MerodeExtension ext) throws SolutionGenerationException {
+    StateContext ctx = new GeneralStateContextBuilder(model, ext, bot).build();
 
     String outputFileName = this.outputDirectory + File.separator + STATE_FOLDER + File.separator + Util.getStringWithFirstLowerCap(bot.getName()) + File.separator + bot.getName() + "State.java";
     generateFile("be.unamur.generator.templates/generalState.vm", ctx, outputFileName);
   }
 
-  private void generateAllSpecificStates(Mermaidmodel model) throws SolutionGenerationException {
+  private void generateAllSpecificStates(Mermaidmodel model, MerodeExtension ext) throws SolutionGenerationException {
     for(Metaobject o : model.getMetamodel().getMetaobjects().getMetaobject())
-      generateBOTSpecificStates(o, model);
+      generateBOTSpecificStates(o, model, ext);
   }
 
-  private void generateBOTSpecificStates(Metaobject bot, Mermaidmodel model) throws SolutionGenerationException {
+  private void generateBOTSpecificStates(Metaobject bot, Mermaidmodel model, MerodeExtension ext) throws SolutionGenerationException {
     Metafsm fsm = be.unamur.metamodel.Util.getActiveFSM(bot);
     for(Metastate state : fsm.getMetastates().getMetastate())
-      generateBOTSpecificState(bot, model, state.getName());
+      generateBOTSpecificState(bot, model, ext, state.getName());
     System.out.println(">> Generated Specific States for " + bot.getName());
   }
 
-  private void generateBOTSpecificState(Metaobject bot, Mermaidmodel model, String stateName) throws SolutionGenerationException {
-    SpecificStateContext ctx = new SpecificStateContextBuilder(model, bot, stateName).build();
+  private void generateBOTSpecificState(Metaobject bot, Mermaidmodel model, MerodeExtension ext, String stateName) throws SolutionGenerationException {
+    SpecificStateContext ctx = new SpecificStateContextBuilder(model, ext, bot, stateName).build();
 
     if(stateName.equals("initial"))
       stateName = "allocated";
@@ -253,8 +252,8 @@ public class SolutionGenerator {
     generateFile("be.unamur.generator.templates/eventsMapping.vm", ctx, outputFileName);
   }
 
-  private void generateEPT(Mermaidmodel model) throws SolutionGenerationException {
-    EPTContext ctx = new EPTContextBuilder(model).build();
+  private void generateEPT(Mermaidmodel model, MerodeExtension ext) throws SolutionGenerationException {
+    EPTContext ctx = new EPTContextBuilder(model, ext).build();
     String outputFilePath = this.outputDirectory + File.separator + PERMISSIONS_FOLDER + File.separator + "EPT.java";
 
     generateFile("be.unamur.generator.templates/ept.vm", ctx, outputFilePath);

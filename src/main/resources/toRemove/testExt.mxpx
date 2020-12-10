@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MerodeExtension>
+    <ParticipantTypes>
+        <ParticipantType objectTypeId="0"/> <!-- Customer is a Participant -->
+    </ParticipantTypes>
+    <EPT>
+        <Authorization eventId="28" participantTypeId="1" allowed="true"/> <!-- Customer can Create Customer -->
+    </EPT>
+    <IARS>
+        <IAR transitionId="25" methodId="27" rule="val:true === val:true" allowed="true"/> <!-- Customer can only end its own Orders -->
+    </IARS>
+</MerodeExtension>

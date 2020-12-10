@@ -1,5 +1,5 @@
 
-package be.unamur.metamodel;
+package be.unamur.metamodel.extension;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element ref="{http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5}iar" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element ref="{}IAR" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,11 +33,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "iar"
 })
-@XmlRootElement(name = "iars", namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
-public class Iars {
+@XmlRootElement(name = "IARS")
+public class IARS {
 
-    @XmlElement(namespace = "http://merode.econ.kuleuven.ac.be/mermaid/mxp/1.5")
-    protected List<Iar> iar;
+    @XmlElement(name = "IAR")
+    protected List<IAR> iar;
 
     /**
      * Gets the value of the iar property.
@@ -51,19 +51,19 @@ public class Iars {
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getIar().add(newItem);
+     *    getIAR().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Iar }
+     * {@link IAR }
      * 
      * 
      */
-    public List<Iar> getIar() {
+    public List<IAR> getIAR() {
         if (iar == null) {
-            iar = new ArrayList<Iar>();
+            iar = new ArrayList<IAR>();
         }
         return this.iar;
     }
