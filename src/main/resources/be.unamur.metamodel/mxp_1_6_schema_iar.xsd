@@ -72,13 +72,11 @@
     <xs:element name="metamultiplepropagationconstraint">
         <xs:complexType>
         	<xs:sequence>
-        		<xs:element maxOccurs="2" minOccurs="0"
-        			ref="mxp:metapath" />
-        		<xs:element name="metaMPCkind" type="mxp:metaMPCkind"></xs:element>
-        		
+        		<xs:element maxOccurs="2" minOccurs="0" ref="mxp:metapath" />
+                <xs:element name="metaMPCkind" type="mxp:metaMPCkind" minOccurs="0"/>
         	</xs:sequence>
         	<xs:attribute name="id" type="xs:integer" use="required" />
-        	<xs:attribute name="type" type="xs:string" use="optional" default="EQUAL_TO"></xs:attribute>
+            <xs:attribute name="type" type="xs:string" use="optional" default="EQUAL_TO"/>
         </xs:complexType>
     </xs:element>
     <xs:element name="metapath">
