@@ -23,6 +23,10 @@ class ResolveOperation(pathElement: IARPathElement) {
             IARPathElementType.VALUE -> {
                 operationStringBuilder.append("Return Value as Such: ${pathElement.nameOnly}")
             }
+
+            IARPathElementType.SENDER -> {
+                operationStringBuilder.append("Return Sender")
+            }
         }
 
         this.operationString = operationStringBuilder.toString()

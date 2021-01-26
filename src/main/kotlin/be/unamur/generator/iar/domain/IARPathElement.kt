@@ -7,6 +7,8 @@ data class IARPathElement(val element: String,
                                                             IARPathElementType.BUSINESS_OBJECT
                                                         else if(element.substring(0, 4) == "val:")
                                                             IARPathElementType.VALUE
+                                                        else if(element.substring(0, 6) == "sender")
+                                                            IARPathElementType.SENDER
                                                         else
                                                             IARPathElementType.ATTRIBUTE
 ) {
