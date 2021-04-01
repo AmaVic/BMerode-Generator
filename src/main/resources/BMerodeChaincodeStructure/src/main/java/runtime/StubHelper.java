@@ -7,6 +7,7 @@ import org.hyperledger.fabric.shim.ledger.KeyValue;
 import org.hyperledger.fabric.shim.ledger.QueryResultsIterator;
 import runtime.exception.BusinessObjectNotFoundException;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -53,9 +54,19 @@ public class StubHelper {
     String fullBoState = JsonConverter.fromRecordJsonToFullJson(key, boState);
 
     BusinessObject boToReturn = null;
+    Method fromJsonMethod = null;
     try {
-      boToReturn = BusinessObject.fromJson(fullBoState);
+      fromJsonMethod = Class.forName("entity." + key.substring(0, key.indexOf("#"))).getDeclaredMethod("fromJson", String.class);
+    } catch (NoSuchMethodException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    try {
+      boToReturn = (BusinessObject) fromJsonMethod.invoke(null, fullBoState);
     } catch(Exception e) {
+      e.printStackTrace();
       throw new RuntimeException("[StubHelper.findBusinessObject(Context, String)]: Could not load Business Object (" + key + ") from JSON");
     }
 

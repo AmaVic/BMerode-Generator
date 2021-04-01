@@ -63,7 +63,7 @@ class GenerateCommand: CliktCommand() {
             return
         }
 
-        extension?.ept?.authorization?.forEach{
+        /*extension?.ept?.authorization?.forEach{
             System.out.println("EPT Rule: ${it.eventId}; ${it.participantTypeId}; ${it.isAllowed}")
         }
 
@@ -73,9 +73,7 @@ class GenerateCommand: CliktCommand() {
 
         extension?.iars?.iar?.forEach {
             System.out.println("IAR: ${it.transitionId}; ${it.methodId}; ${it.rule}; ${it.isAllowed}")
-        }
-
-
+        }*/
 
         val gen = SolutionGenerator(outputPath?.toAbsolutePath().toString());
         try {

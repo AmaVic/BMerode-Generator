@@ -25,7 +25,8 @@ public class RuntimeEpt implements Iterable<Permission>{
     }
 
     System.out.println("Permission not found --> Return default (denied)");
-    return new Permission(businessObjectName, businessEventName, false);
+    //TODO put denied as default
+    return new Permission(businessObjectName, businessEventName, true);
   }
 
   @Override
