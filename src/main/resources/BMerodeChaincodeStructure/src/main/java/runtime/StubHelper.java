@@ -28,8 +28,24 @@ public class StubHelper {
     for(KeyModification modif: historyForKey) {
       String fullState = JsonConverter.fromRecordJsonToFullJson(key, modif.getStringValue());
       BusinessObject boToFetch = null;
+      Method fromJsonMethod = null;
+
       try {
-        boToFetch = BusinessObject.fromJson(fullState);
+        fromJsonMethod = Class.forName("entity." + key.substring(0, key.indexOf("#"))).getDeclaredMethod("fromJson", String.class);
+      } catch (NoSuchMethodException e) {
+        e.printStackTrace();
+      } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+      }
+
+      try {
+        boToFetch = (BusinessObject) fromJsonMethod.invoke(null, fullState);
+      } catch(Exception e) {
+        e.printStackTrace();
+        throw new RuntimeException("[StubHelper.findBusinessObject(Context, String)]: Could not load Business Object (" + key + ") from JSON");
+      }
+
+      try {
         String dataJson = JsonConverter.toRecordJsonData(boToFetch);
         Map<String, Object> jsonObject = Util.getJsonObject(dataJson);
         jsonObject.put("transactionId", modif.getTxId());
@@ -42,7 +58,6 @@ public class StubHelper {
     }
 
     return history;
-
   }
 
   public static BusinessObject findBusinessObject(Context ctx, String key) throws BusinessObjectNotFoundException {
