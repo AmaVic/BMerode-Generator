@@ -6,9 +6,7 @@ import be.unamur.generator.exception.SolutionGenerationException;
 import be.unamur.metamodel.*;
 
 import be.unamur.metamodel.extension.MerodeExtension;
-import io.grpc.netty.shaded.io.netty.util.internal.ResourcesUtil;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;

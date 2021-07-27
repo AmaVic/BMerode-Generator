@@ -29,6 +29,7 @@ dependencies {
     implementation group: 'com.owlike', name: 'genson', version: '1.6'
     implementation group: 'com.owlike', name: 'genson-java-datetime', version: '1.6'
     implementation group: 'com.github.ajalt', name: 'clikt', version: '2.8.0'
+    implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.69'
 
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
