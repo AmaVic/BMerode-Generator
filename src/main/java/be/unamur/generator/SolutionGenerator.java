@@ -236,8 +236,12 @@ public class SolutionGenerator {
   private void generateBOTSpecificState(Metaobject bot, Mermaidmodel model, MerodeExtension ext, String stateName) throws SolutionGenerationException {
     SpecificStateContext ctx = new SpecificStateContextBuilder(model, ext, bot, stateName).build();
 
-    if(stateName.equals("initial"))
+    if(stateName.toUpperCase().equals("INITIAL")) {
+      ctx.setStateName("allocated");
       stateName = "allocated";
+    }
+
+    //System.out.println("Generating State: " + stateName + " for object type " + bot.getName());
 
     String outputFileName = this.outputDirectory + File.separator + STATE_FOLDER + File.separator + Util.getStringWithFirstLowerCap(bot.getName()) + File.separator + bot.getName() + Util.getStringWithFirstCap(stateName) + "State.java";
     generateFile("be.unamur.generator.templates/specificState.vm", ctx, outputFileName);

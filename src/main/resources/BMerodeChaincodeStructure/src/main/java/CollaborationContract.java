@@ -20,6 +20,8 @@ import runtime.BusinessObject;
 import runtime.JsonConverter;
 import runtime.StubHelper;
 import runtime.exception.BusinessEventNotFoundException;
+import org.bouncycastle.util.encoders.Base64;
+
 
 import java.util.ArrayList;
 

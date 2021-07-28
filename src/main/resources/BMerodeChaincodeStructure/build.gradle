@@ -22,6 +22,7 @@ dependencies {
     implementation group: 'com.owlike', name: 'genson', version: '1.6'
     implementation group: 'com.owlike', name: 'genson-java-datetime', version: '1.6'
     implementation group: 'com.github.java-json-tools', name: 'json-schema-validator', version: '2.2.14'
+    implementation group: 'org.bouncycastle', name: 'bcprov-jdk15on', version: '1.69'
 
     testImplementation 'org.junit.jupiter:junit-jupiter:5.4.2'
     testImplementation 'org.assertj:assertj-core:3.11.1'
