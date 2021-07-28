@@ -60,7 +60,7 @@ public class DependencyNodeBuilder {
 
                 if(dpd.getId().equals(this.BONode.getBOT().getId())) {
                     //System.out.println("Direct Dependency Added For " + this.BONode.getBOT().getName() + ": " + master.getName());
-                    this.BONode.addDirectMaster(master);
+                    this.BONode.addDirectMaster(master, dependency.getName());
                 }
             }
         }

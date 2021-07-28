@@ -6,6 +6,7 @@ public class DependencyNode {
     private Metaobject bot;
     private DependencyNode directMaster;
     private boolean last;
+    private String dependencyName;
 
     public DependencyNode(Metaobject bot) {
         this.bot = bot;
@@ -13,14 +14,16 @@ public class DependencyNode {
         this.last = true;
     }
 
-    public void addDirectMaster(Metaobject master) {
+    public void addDirectMaster(Metaobject master, String dependencyName) {
         this.directMaster = new DependencyNode(master);
         this.last = false;
+        this.dependencyName = dependencyName;
     }
 
     public Metaobject getBOT() { return this.bot; }
     public DependencyNode next() { return this.directMaster; }
     public boolean isLast() { return this.last; }
+    public String getDependencyName() { return this.dependencyName; }
 
     @Override
     public String toString() {

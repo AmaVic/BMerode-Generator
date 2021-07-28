@@ -37,26 +37,27 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
 #foreach($master in $masters)
 #set($masterName = $master.getName())
     //$util.getStringWithFirstCap($masterName)
-    if(!StubHelper.exists(ctx, object.get${util.getStringWithFirstCap($masterName)}Id()))
-      throw new FailedEventHandlingException("Master with id " + object.get$util.getStringWithFirstCap($masterName)Id() + " does not exist");
+    if(!StubHelper.exists(ctx, object.get${util.getStringWithFirstCap($masterName)}Id_${master.getDependencyName()}()))
+      throw new FailedEventHandlingException("Master with id " + object.get$util.getStringWithFirstCap($masterName)Id_${master.getDependencyName()}() + " does not exist");
 
-    //Retrieve Master ($master.getName())
-    $util.getStringWithFirstCap($masterName) $util.getStringWithFirstLowerCap($masterName) = ($util.getStringWithFirstCap($masterName))StubHelper.findBusinessObject(ctx, object.get$util.getStringWithFirstCap($masterName)Id());
+    //Retrieve Master ($master.getName()_$master.getDependencyName())
+    $util.getStringWithFirstCap($masterName) $util.getStringWithFirstLowerCap($masterName)_$master.getDependencyName() = ($util.getStringWithFirstCap($masterName))StubHelper.findBusinessObject(ctx, object.get$util.getStringWithFirstCap($masterName)Id_$master.getDependencyName()());
 
 #if($master.isLimitedToOne())
     //Master $master.getName() can only have one dependent of type $BOTName. Checking if one already exists
-    if(StubHelper.hasLivingDependentsOfType(ctx, $util.getStringWithFirstLowerCap($masterName), object))
-      throw new FailedEventHandlingException("Master with id " + object.get$util.getStringWithFirstCap($masterName)Id() + " already has a living dependent of type $BOTName (limited to one)");
+    if(StubHelper.hasLivingDependentsOfType(ctx, $util.getStringWithFirstLowerCap($masterName)_$master.getDependencyName(), object))
+      throw new FailedEventHandlingException("Master with id " + object.get$util.getStringWithFirstCap($masterName)Id_$master.getDependencyName()() + " already has a living dependent of type $BOTName (limited to one)");
 #end
 #end
 #end
 
-#if($mpcPresent)
+##Disabled MPC in Wim Version
+##if($mpcPresent)
     //Checking Multiple Propagation Constraints
-#foreach($mpcCheck in $mpcChecks)
-    $mpcCheck
-#end
-#end
+##foreach($mpcCheck in $mpcChecks)
+##    $mpcCheck
+###end
+###end
 #if($method.getIARs().size() > 0)
     //IARs Checks
 #foreach($iar in $method.getIARs())
@@ -120,8 +121,9 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
 #foreach($master in $masters)
 #set($masterName = $master.getName())
     //$util.getStringWithFirstCap($masterName)
-##    $util.getStringWithFirstCap($masterName) $util.getStringWithFirstLowerCap($masterName) = ($util.getStringWithFirstCap($masterName))StubHelper.findBusinessObject(ctx, object.get$util.getStringWithFirstCap($masterName)Id());
-    ${util.getStringWithFirstLowerCap($masterName)}.getCurrentState().$method.getName()($util.getStringWithFirstLowerCap($masterName), ctx);
+##    $util.getStringWithFirstCap($masterName) $util.getStringWithFirstLowerCap($masterName)_${master.getDependencyName()} = ($util.getStringWithFirstCap($masterName))StubHelper.findBusinessObject(ctx, object.get$util.getStringWithFirstCap($masterName)Id_${master.getDependencyName()}());
+    ${util.getStringWithFirstLowerCap($masterName)}_${master.getDependencyName()}.getCurrentState().$method.getName()($util.getStringWithFirstLowerCap($masterName)_${master.getDependencyName()}, ctx);
+
 #end
 #end
   }
@@ -193,7 +195,7 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
     $BOTName currentLedgerObject = ($BOTName)StubHelper.findBusinessObject(ctx, object.getId());
 #foreach($master in $masters)
 #set($masterName = $master.getName())
-    if(!object.get$util.getStringWithFirstCap($masterName)Id().equals(currentLedgerObject.get$util.getStringWithFirstCap($masterName)Id()))
+    if(!object.get$util.getStringWithFirstCap($masterName)Id_${master.getDependencyName()}().equals(currentLedgerObject.get$util.getStringWithFirstCap($masterName)Id_${master.getDependencyName()}()))
       throw new FailedEventHandlingException("The master of a Business Object (" + object.getId() + ") cannot be changed");
 #end
 #end
@@ -206,8 +208,8 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
 #foreach($master in $masters)
 #set($masterName = $master.getName())
     //$util.getStringWithFirstCap($masterName)
-    $util.getStringWithFirstCap($masterName) $util.getStringWithFirstLowerCap($masterName) = ($util.getStringWithFirstCap($masterName))StubHelper.findBusinessObject(ctx, object.get$util.getStringWithFirstCap($masterName)Id());
-    ${util.getStringWithFirstLowerCap($masterName)}.getCurrentState().$method.getName()($util.getStringWithFirstLowerCap($masterName), ctx);
+    $util.getStringWithFirstCap($masterName) $util.getStringWithFirstLowerCap($masterName)_${master.getDependencyName()} = ($util.getStringWithFirstCap($masterName))StubHelper.findBusinessObject(ctx, object.get$util.getStringWithFirstCap($masterName)Id_${master.getDependencyName()}());
+    ${util.getStringWithFirstLowerCap($masterName)}_${master.getDependencyName()}.getCurrentState().$method.getName()($util.getStringWithFirstLowerCap($masterName)_${master.getDependencyName()}, ctx);
 #end
 #end
   }
@@ -295,8 +297,8 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
 #foreach($master in $masters)
 #set($masterName = $master.getName())
     //$util.getStringWithFirstCap($masterName)
-    $util.getStringWithFirstCap($masterName) $util.getStringWithFirstLowerCap($masterName) = ($util.getStringWithFirstCap($masterName))StubHelper.findBusinessObject(ctx, object.get$util.getStringWithFirstCap($masterName)Id());
-    ${util.getStringWithFirstLowerCap($masterName)}.getCurrentState().$method.getName()($util.getStringWithFirstLowerCap($masterName), ctx);
+    $util.getStringWithFirstCap($masterName) $util.getStringWithFirstLowerCap($masterName)_${master.getDependencyName()} = ($util.getStringWithFirstCap($masterName))StubHelper.findBusinessObject(ctx, object.get$util.getStringWithFirstCap($masterName)Id_${master.getDependencyName()}());
+    ${util.getStringWithFirstLowerCap($masterName)}_${master.getDependencyName()}.getCurrentState().$method.getName()($util.getStringWithFirstLowerCap($masterName)_${master.getDependencyName()}, ctx);
 #end
 #end
   }

@@ -35,9 +35,9 @@ public class SpecificStateContext extends StateContext {
   }
 
   @SuppressWarnings("unchecked")
-  public void addMasterBotRef(Metaobject master, boolean limitedToOne) {
+  public void addMasterBotRef(Metaobject master, boolean limitedToOne, String depdencyName) {
     ArrayList<Master> masterRefs = this.get("masters") == null ? new ArrayList<>() : (ArrayList<Master>)this.get("masters");
-    masterRefs.add(new Master(Util.getStringWithFirstLowerCap(master.getName()), limitedToOne));
+    masterRefs.add(new Master(Util.getStringWithFirstLowerCap(master.getName()), limitedToOne, depdencyName));
 
     this.put("masters",  masterRefs);
   }

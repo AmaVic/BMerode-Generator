@@ -1,10 +1,12 @@
 package be.unamur.generator.context;
 
+import be.unamur.metamodel.Metadependency;
 import be.unamur.metamodel.Metamodel;
 import be.unamur.metamodel.Metamultiplepropagationconstraint;
 import be.unamur.metamodel.Metaobject;
 
 import java.math.BigInteger;
+import java.util.stream.Collectors;
 
 public class MPCStringGenerator {
     public static String generateMPCCheckCode(Metamodel metamodel, Metaobject mo, Metamultiplepropagationconstraint mpc) {
