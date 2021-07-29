@@ -52,12 +52,12 @@ public class $BOTName${util.getStringWithFirstCap($stateName)}State extends $nam
 #end
 
 ##Disabled MPC in Wim Version
-##if($mpcPresent)
+#if($mpcPresent)
     //Checking Multiple Propagation Constraints
-##foreach($mpcCheck in $mpcChecks)
-##    $mpcCheck
-###end
-###end
+#foreach($mpcCheck in $mpcChecks)
+    $mpcCheck
+#end
+#end
 #if($method.getIARs().size() > 0)
     //IARs Checks
 #foreach($iar in $method.getIARs())

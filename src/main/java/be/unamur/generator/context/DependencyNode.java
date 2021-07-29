@@ -25,6 +25,8 @@ public class DependencyNode {
     public boolean isLast() { return this.last; }
     public String getDependencyName() { return this.dependencyName; }
 
+    public void setDependencyName(String name) {  this.dependencyName = name; }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(this.getBOT().getName());

@@ -40,45 +40,48 @@ public class MPCStringGenerator {
         sb.append("    Supplier<BusinessObject> ").append(supplierName).append(mpcId).append("Supplier").append(" = () -> {\n");
         sb.append("      //Fetching " + next.getBOT().getName()).append("\n");
         sb.append("      ");
-        sb.append(next.getBOT().getName()).append(" mpc_").append(Util.getStringWithFirstLowerCap(next.getBOT().getName())).append(" = null;\n");
+        sb.append(next.getBOT().getName()).append(" mpc_").append(Util.getStringWithFirstLowerCap(next.getBOT().getName())).append("_").append(rootDependencyNode.getDependencyName()).append(" = null;\n");
         sb.append("      try {\n");
-        sb.append("        mpc_").append(Util.getStringWithFirstLowerCap(next.getBOT().getName()));
+        sb.append("        mpc_").append(Util.getStringWithFirstLowerCap(next.getBOT().getName())).append("_").append(rootDependencyNode.getDependencyName());
         sb.append(" = (").append(next.getBOT().getName()).append(") ").append("StubHelper.findBusinessObject(ctx, object.get");
-        sb.append(next.getBOT().getName()).append("Id()");
+        sb.append(next.getBOT().getName()).append("Id_").append(rootDependencyNode.getDependencyName()).append("()");
         sb.append(");\n");
         sb.append("      } catch(BusinessObjectNotFoundException e) { \n");
         sb.append("        throw new FailedEventHandlingException(\"Could not check MPC:\" + e); \n");
         sb.append("      }\n");
 
+        DependencyNode last = rootDependencyNode;
         while(!next.isLast()) {
             sb.append("\n");
             DependencyNode current = next;
             next = next.next();
+            //current.setDependencyName(rootDependencyNode.getDependencyName());
 
             //sb.append("\n \n");
-            sb.append(getIndirectBusinessObject(current, next));
+            sb.append(getIndirectBusinessObject(current, next, last));
 
             if(!next.isLast())
                 sb.append("\n");
+            last = current;
         }
 
         sb.append("\n\n");
-        sb.append("      return mpc_" + Util.getStringWithFirstLowerCap(next.getBOT().getName())).append(";\n");
+        sb.append("      return mpc_" + Util.getStringWithFirstLowerCap(next.getBOT().getName())).append("_").append(last.getDependencyName()).append(";\n");
         sb.append("    };");
 
         return sb.toString();
     }
 
-    private static String getIndirectBusinessObject(DependencyNode previousDn, DependencyNode dn) {
+    private static String getIndirectBusinessObject(DependencyNode previousDn, DependencyNode dn, DependencyNode previouslyFetched) {
         StringBuilder sb = new StringBuilder();
 
         sb.append("      //Fetching " + dn.getBOT().getName()).append("\n");
         sb.append("      ");
-        sb.append(dn.getBOT().getName()).append(" mpc_").append(Util.getStringWithFirstLowerCap(dn.getBOT().getName())).append(" = null;\n");
+        sb.append(dn.getBOT().getName()).append(" mpc_").append(Util.getStringWithFirstLowerCap(dn.getBOT().getName())).append("_").append(previousDn.getDependencyName()).append(" = null;\n");
         sb.append("      try {\n");
-        sb.append("      mpc_").append(Util.getStringWithFirstLowerCap(dn.getBOT().getName()));
-        sb.append(" = (").append(dn.getBOT().getName()).append(") StubHelper.findBusinessObject(ctx, mpc_").append(Util.getStringWithFirstLowerCap(previousDn.getBOT().getName())).append(".");
-        sb.append("get").append(dn.getBOT().getName()).append("Id()");
+        sb.append("      mpc_").append(Util.getStringWithFirstLowerCap(dn.getBOT().getName())).append("_").append(previousDn.getDependencyName());
+        sb.append(" = (").append(dn.getBOT().getName()).append(") StubHelper.findBusinessObject(ctx, mpc_").append(Util.getStringWithFirstLowerCap(previousDn.getBOT().getName())).append("_").append(previouslyFetched.getDependencyName()).append(".");
+        sb.append("get").append(dn.getBOT().getName()).append("Id_").append(previousDn.getDependencyName()).append("()");
         sb.append(");\n");
         sb.append("      } catch(BusinessObjectNotFoundException e) { \n");
         sb.append("        throw new FailedEventHandlingException(\"Could not check MPC:\" + e); \n");

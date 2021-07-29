@@ -53,7 +53,7 @@ public class DependencyNodeBuilder {
 
                 if (!dependency.getDependent().equals(this.BONode.getBOT().getId()))
                     continue;
-                //System.out.println(dependency.getName());
+
                 Metaobject master = Util.findById(metamodel.getMetaobjects().getMetaobject(), dependency.getMaster());
                 Metaobject dpd = Util.findById(metamodel.getMetaobjects().getMetaobject(), dependency.getDependent());
 
