@@ -53,14 +53,14 @@ public class DependencyNodeBuilder {
 
                 if (!dependency.getDependent().equals(this.BONode.getBOT().getId()))
                     continue;
-                //System.out.println(dependency.getName());
+
                 Metaobject master = Util.findById(metamodel.getMetaobjects().getMetaobject(), dependency.getMaster());
                 Metaobject dpd = Util.findById(metamodel.getMetaobjects().getMetaobject(), dependency.getDependent());
 
 
                 if(dpd.getId().equals(this.BONode.getBOT().getId())) {
                     //System.out.println("Direct Dependency Added For " + this.BONode.getBOT().getName() + ": " + master.getName());
-                    this.BONode.addDirectMaster(master);
+                    this.BONode.addDirectMaster(master, dependency.getName());
                 }
             }
         }

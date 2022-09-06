@@ -27,8 +27,8 @@ public class BusinessObjectTypeContext extends VelocityContext {
     this.put("attributes", attributes);
   }
 
-  public void addMasterIdAttribute(Metaobject master) {
-    MasterRefAttribute masterRef = new MasterRefAttribute(master);
+  public void addMasterIdAttribute(Metaobject master, String dependencyName) {
+    MasterRefAttribute masterRef = new MasterRefAttribute(master, dependencyName);
     this.addAttribute(masterRef);
   }
 

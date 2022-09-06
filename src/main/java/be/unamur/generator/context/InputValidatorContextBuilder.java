@@ -37,7 +37,7 @@ public class InputValidatorContextBuilder implements ContextBuilder {
 
             Metaobject master = Util.findById(model.getMetaobjects().getMetaobject(), dependency.getMaster());
 
-            Attribute attr = new MasterRefAttribute(master);
+            Attribute attr = new MasterRefAttribute(master, dependency.getName());
             this.ctx.addInputParameter(attr);
         }
 

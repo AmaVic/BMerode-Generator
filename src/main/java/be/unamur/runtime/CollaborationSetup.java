@@ -5,8 +5,10 @@ import com.owlike.genson.GensonBuilder;
 import com.owlike.genson.annotation.JsonCreator;
 import com.owlike.genson.annotation.JsonIgnore;
 import com.owlike.genson.annotation.JsonProperty;
-import org.hyperledger.fabric.contract.Context;
 import be.unamur.runtime.exception.CollaborationSetupException;
+
+import org.hyperledger.fabric.contract.Context;
+
 
 public class CollaborationSetup {
   private boolean setupFinalized;

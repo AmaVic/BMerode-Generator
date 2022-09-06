@@ -4,6 +4,8 @@ import com.owlike.genson.Genson;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.time.LocalDateTime;
+
 
 public class ${botName}InputValidator {
   private static final Genson genson = new Genson();

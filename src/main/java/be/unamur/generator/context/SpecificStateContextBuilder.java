@@ -73,7 +73,7 @@ public class SpecificStateContextBuilder extends GeneralStateContextBuilder {
       //@TODO: For now: no difference between mandatory/optional
       boolean limitedToOne = dependencyType.substring(dependencyType.indexOf("_")+1, dependencyType.length()).equals("1");
 
-      this.specificCtx.addMasterBotRef(master, limitedToOne);
+      this.specificCtx.addMasterBotRef(master, limitedToOne, dependency.getName());
       this.specificCtx.addMasterImport(master);
     }
 

@@ -38,7 +38,7 @@ public class BusinessObjectTypeContextBuilder implements ContextBuilder {
 
       Metaobject master = Util.findById(model.getMetamodel().getMetaobjects().getMetaobject(), dependency.getMaster());
 
-      this.ctx.addMasterIdAttribute(master);
+      this.ctx.addMasterIdAttribute(master, dependency.getName());
     }
 
 
