@@ -47,7 +47,7 @@ public class SpecificStateContextBuilder extends GeneralStateContextBuilder {
                                    .forEach(m::addIAR); //Add IAR to list of runtime IARs
 
 
-        System.out.println("Tr: " + transition.getId() + " " + transition.getName() + "; IAR ? " + m.getIARs().size());
+        //System.out.println("Tr: " + transition.getId() + " " + transition.getName() + "; IAR ? " + m.getIARs().size());
 
         methodsSet.add(m);
       }
