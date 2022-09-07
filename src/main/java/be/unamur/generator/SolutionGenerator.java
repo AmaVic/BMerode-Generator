@@ -196,7 +196,7 @@ public class SolutionGenerator {
   private void generateBOTEntities(Mermaidmodel model, MerodeExtension ext) throws SolutionGenerationException {
     for(Metaobject mo : model.getMetamodel().getMetaobjects().getMetaobject()) {
       generateBOTEntity(mo, model, ext);
-      System.out.println(">> Generated Entity for " + mo.getName());
+      //System.out.println(">> Generated Entity for " + mo.getName());
     }
   }
 
@@ -210,7 +210,7 @@ public class SolutionGenerator {
   private void generateBOTGeneralStates(Mermaidmodel model, MerodeExtension ext) throws SolutionGenerationException {
     for(Metaobject mo : model.getMetamodel().getMetaobjects().getMetaobject()) {
       generateBOTGeneralState(mo, model, ext);
-      System.out.println(">> Generated General State for " + mo.getName());
+      //System.out.println(">> Generated General State for " + mo.getName());
     }
   }
 
@@ -230,7 +230,7 @@ public class SolutionGenerator {
     Metafsm fsm = be.unamur.metamodel.Util.getActiveFSM(bot);
     for(Metastate state : fsm.getMetastates().getMetastate())
       generateBOTSpecificState(bot, model, ext, state.getName());
-    System.out.println(">> Generated Specific States for " + bot.getName());
+    //System.out.println(">> Generated Specific States for " + bot.getName());
   }
 
   private void generateBOTSpecificState(Metaobject bot, Mermaidmodel model, MerodeExtension ext, String stateName) throws SolutionGenerationException {
