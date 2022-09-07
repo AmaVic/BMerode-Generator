@@ -1,5 +1,6 @@
 package runtime;
 
+import org.hyperledger.fabric.shim.ChaincodeException;
 import permissions.EPT;
 import runtime.BusinessObject;
 import runtime.CollaborationSetup;
@@ -61,7 +62,8 @@ public class BusinessEvent {
       System.out.println("=====> Failed to Execute Method " + handlingMethod.getName() + "; Reason: \n " + e.getMessage());
       throw new FailedEventHandlingException("[BusinessEvent.handleCreatingEvent(Context, String)]: Could not invoke event handling method: \n" + e.getMessage());
     } catch(InvocationTargetException e) {
-      throw new FailedEventHandlingException(e.getCause().getMessage());
+      String msg = "Failed to Create new " + this.ownerBOT.getSimpleName() + " using event " + this.name + ": " + e.getCause().getMessage();
+      throw new FailedEventHandlingException(msg);
     }
 
     System.out.println("=====> Method " + handlingMethod.getName() + " Successfully Executed");
@@ -89,10 +91,11 @@ public class BusinessEvent {
     try {
       handlingMethod.invoke(builtFromJson.getCurrentState(), builtFromJson, ctx);
     } catch (IllegalAccessException e) {
-      System.out.println("=====> Failed to Execute Method " + handlingMethod.getName() + "; Reason: \n " + e.getMessage());
+      System.out.println("=====> Failed to Execute Method " + handlingMethod.getName() + " on BO: " + builtFromJson.toJsonString() + "; Reason: \n " + e.getMessage());
       throw new FailedEventHandlingException("[BusinessEvent.handleEndingEvent(Context, String)]: Could not invoke event handling method: \n" + e.getMessage());
     } catch(InvocationTargetException e) {
-      throw new FailedEventHandlingException(e.getCause().getMessage());
+      String msg = "Failed to invoke event handling method " + handlingMethod.getName() + " on the BO: " + builtFromJson.toJsonString() + "(reason: " + e.getCause().getMessage() + ")";
+      throw new FailedEventHandlingException(msg);
     }
 
     System.out.println("=====> Method " + handlingMethod.getName() + " Successfully Executed");
@@ -113,14 +116,20 @@ public class BusinessEvent {
     rejectIfUnallowedInSetupPhase(ctx, builtFromJson);
     PermissionsHandler.validateEPTPermissions(ctx, this.name, EPT.getInstance());
 
-    Method handlingMethod = this.getHandlingMethod(builtFromJson);
+    Method handlingMethod;
+    try {
+      handlingMethod = this.getHandlingMethod(builtFromJson);
+    } catch(FailedEventHandlingException e) {
+      throw new ChaincodeException("Transition " + "ME_" + this.name + " is not available from current state. Object on which method is invoked (current state): " + builtFromJson.toJsonString());
+    }
     System.out.println("=====> Method to Execute Retrieved: " + handlingMethod.getName());
     try {
       handlingMethod.invoke(builtFromJson.getCurrentState(), builtFromJson, ctx);
     } catch (IllegalAccessException e) {
       throw new FailedEventHandlingException(e.getMessage());
     } catch(InvocationTargetException e) {
-      throw new FailedEventHandlingException(e.getCause().getMessage());
+      String msg = "Failed to invoke event handling method " + handlingMethod.getName() + " on the BO: " + builtFromJson.toJsonString() + "(reason: " + e.getCause().getMessage() + ")";
+      throw new FailedEventHandlingException(msg);
     }
 
     System.out.println("=====> Method " + handlingMethod.getName() + " Successfully Executed");
@@ -132,7 +141,7 @@ public class BusinessEvent {
     try {
       return bo.getCurrentState().getClass().getDeclaredMethod(methodName, this.ownerBOT, Context.class);
     } catch (NoSuchMethodException e) {
-      throw new FailedEventHandlingException("[BusinessEvent.getHandlingMethod(BusinessObject)]: Could not find event handling function");
+      throw new FailedEventHandlingException("Transition " + this.name + " not available for BOT in its current state: " + bo.toJsonString());
     }
   }
 
