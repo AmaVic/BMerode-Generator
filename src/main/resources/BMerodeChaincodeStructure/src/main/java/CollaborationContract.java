@@ -42,9 +42,7 @@ import static org.hyperledger.fabric.shim.ResponseUtils.newErrorResponse;
                         url = "https://xyz.me")))
 @Default
 public class CollaborationContract implements ContractInterface {
-
-  public  CollaborationContract() {
-  }
+  public  CollaborationContract() {}
 
   private Logger logger = LoggerFactory.getLogger(CollaborationContract.class);
 
@@ -80,6 +78,12 @@ public class CollaborationContract implements ContractInterface {
     ctx.getStub().putStringState("BMERODE.COLLABORATION_SETUP", setup.toJsonString());
   }
 
+  @Transaction(intent = Transaction.TYPE.EVALUATE)
+  public boolean isInitialized(Context ctx) {
+    String currentSetup = ctx.getStub().getStringState("BMERODE.COLLABORATION_SETUP");
+    return (currentSetup != null && currentSetup.length() != 0);
+  }
+
   @Transaction(intent = Transaction.TYPE.SUBMIT)
   public void markCollaborationAsReady(Context ctx) {
     if(!PermissionsHandler.setupAllowed(ctx))
@@ -93,12 +97,12 @@ public class CollaborationContract implements ContractInterface {
 
   @Transaction(intent = Transaction.TYPE.EVALUATE)
   public String getBusinessObject(Context ctx, String id) {
-    logCaller(ctx);
+    //logCaller(ctx);
     BusinessObject bo = null;
     try {
-      StubHelper.findBusinessObject(ctx, id);
+      bo = StubHelper.findBusinessObject(ctx, id);
     } catch(Exception e) {
-      throw new ChaincodeException(e.getClass().getSimpleName() + ": " + e.getMessage());
+      throw new ChaincodeException("Failed to Retrieve BO: " + e.getClass().getSimpleName() + ": " + e.getMessage());
     }
 
     return JsonConverter.toRecordJson(bo);

@@ -1,6 +1,7 @@
 package runtime;
 
 import org.hyperledger.fabric.shim.ChaincodeException;
+
 import permissions.EPT;
 import runtime.BusinessObject;
 import runtime.CollaborationSetup;
@@ -51,6 +52,9 @@ public class BusinessEvent {
 
   private BusinessObject handleCreatingEvent(Context ctx, String jsonPayload) throws FailedEventHandlingException {
     BusinessObject builtFromJson = this.buildObjectFromJson(jsonPayload);
+    CollaborationSetup setup = CollaborationSetup.load(ctx);
+    int nextIdNr = setup.getLastId(builtFromJson.getClass().getSimpleName()) + 1;
+    builtFromJson.setId(builtFromJson.getClass().getSimpleName() + "#" + nextIdNr);
     rejectIfUnallowedInSetupPhase(ctx, builtFromJson);
     PermissionsHandler.validateEPTPermissions(ctx, this.name, EPT.getInstance());
     System.out.println("=====> Object Build from JSON: " + builtFromJson.toJsonString());
@@ -58,6 +62,8 @@ public class BusinessEvent {
     System.out.println("=====> Method to Execute Retrieved: " + handlingMethod.getName());
     try {
       handlingMethod.invoke(builtFromJson.getCurrentState(), builtFromJson, ctx);
+      setup.nextId(builtFromJson.getClass().getSimpleName());
+      setup.save(ctx);
     } catch (IllegalAccessException e) {
       System.out.println("=====> Failed to Execute Method " + handlingMethod.getName() + "; Reason: \n " + e.getMessage());
       throw new FailedEventHandlingException("[BusinessEvent.handleCreatingEvent(Context, String)]: Could not invoke event handling method: \n" + e.getMessage());
