@@ -8,6 +8,8 @@ import com.owlike.genson.ext.javadatetime.JavaDateTimeBundle;
 
 import java.util.*;
 
+import org.hyperledger.fabric.contract.Context;
+
 public abstract class BusinessObject {
   @JsonIgnore
   protected final static Genson genson = new GensonBuilder().withBundle(new JavaDateTimeBundle()).useClassMetadata(true).useRuntimeType(true).create();
@@ -19,7 +21,6 @@ public abstract class BusinessObject {
   }
 
   public BusinessObject() {
-    this.id = this.getClass().getSimpleName() + "#" + UUID.randomUUID().toString();
   }
 
   public BusinessObject(BusinessObject original) {

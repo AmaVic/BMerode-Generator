@@ -1,6 +1,7 @@
 package runtime;
 
 import com.owlike.genson.Genson;
+
 import org.hyperledger.fabric.contract.Context;
 import org.hyperledger.fabric.shim.ledger.KeyModification;
 import org.hyperledger.fabric.shim.ledger.KeyValue;
@@ -17,6 +18,7 @@ public class StubHelper {
 
     return buffer != null && buffer.length != 0;
   }
+
 
   public static ArrayList<String> findBusinessObjectHistory(Context ctx, String key) throws BusinessObjectNotFoundException {
     if(!exists(ctx, key))
@@ -52,7 +54,7 @@ public class StubHelper {
         jsonObject.put("transactionTimestamp", modif.getTimestamp());
         history.add(g.serialize(jsonObject));
       } catch(Exception e) {
-        throw new RuntimeException("StubHelper.findBusinessObjectHistory: Could not load particula history version of the business object with key: " + key);
+        throw new RuntimeException("StubHelper.findBusinessObjectHistory: Could not load particular history version of the business object with key: " + key);
       }
 
     }
@@ -67,6 +69,7 @@ public class StubHelper {
     String boState = ctx.getStub().getStringState(key);
     System.out.println("Record Json: " + boState);
     String fullBoState = JsonConverter.fromRecordJsonToFullJson(key, boState);
+    System.out.println("Full BO State: " + fullBoState);
 
     BusinessObject boToReturn = null;
     Method fromJsonMethod = null;
@@ -80,6 +83,7 @@ public class StubHelper {
 
     try {
       boToReturn = (BusinessObject) fromJsonMethod.invoke(null, fullBoState);
+      System.out.println("BO to Return: " + boToReturn.toJsonString());
     } catch(Exception e) {
       e.printStackTrace();
       throw new RuntimeException("[StubHelper.findBusinessObject(Context, String)]: Could not load Business Object (" + key + ") from JSON");
