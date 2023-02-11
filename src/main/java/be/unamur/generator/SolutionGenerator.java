@@ -43,6 +43,7 @@ public class SolutionGenerator {
   private final String EVENT_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "event" + File.separator;
   private final String INPUT_VALIDATOR_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "inputValidator" + File.separator;
   private final String PERMISSIONS_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "permissions" + File.separator;
+  private final String RUNTIME_FOLDER = "src" + File.separator + "main" + File.separator + "java" + File.separator + "runtime" + File.separator;
 
   public SolutionGenerator(String outputDirectoryPath) {
     this.outputDirectory = outputDirectoryPath;
@@ -79,6 +80,8 @@ public class SolutionGenerator {
     System.out.println("===== Starting Generation =====");
     System.out.println("--- Preparing Boilerplate Code  ---");
     copyBoilerplateCode();
+    System.out.println("--- Generating Collaboration Setup ---");
+    generateCollaborationSetup(model.getMetamodel());
     System.out.println("--- Generating Entities Classes ---");
     generateBOTEntities(model, ext);
     System.out.println("--- Generating General State Classes ---");
@@ -92,6 +95,13 @@ public class SolutionGenerator {
     System.out.println("--- Generating Permissions Handlers ---");
     generateEPT(model, ext);
     System.out.println("===== Generation Complete =====");
+  }
+
+  private void generateCollaborationSetup(Metamodel metamodel) throws SolutionGenerationException {
+    CollaborationSetupContext ctx = new CollaborationSetupContextBuilder(metamodel).build();
+
+    String outputFileName = this.outputDirectory + File.separator + RUNTIME_FOLDER + File.separator + "CollaborationSetup.java";
+    generateFile("be.unamur.generator.templates/collaborationSetup.vm", ctx, outputFileName);
   }
 
   private void copyBoilerplateCode() throws SolutionGenerationException {
