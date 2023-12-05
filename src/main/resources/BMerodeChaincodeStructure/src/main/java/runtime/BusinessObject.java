@@ -40,8 +40,17 @@ public abstract class BusinessObject {
   }
 
   public static BusinessObject fromJson(String json) {
-    return genson.deserialize(json, BusinessObject.class);
+    Class<?> clazz = null; 
+    HashMap<String, Object> jsonMap = genson.deserialize(json, HashMap.class);
+    try {
+      clazz = Class.forName(jsonMap.get("@class").toString());
+    } catch(ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    return (BusinessObject) genson.deserialize(json, clazz);
   }
+
 
   public abstract State getCurrentState();
 
