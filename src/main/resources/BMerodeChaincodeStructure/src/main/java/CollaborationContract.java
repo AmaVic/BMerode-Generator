@@ -113,7 +113,7 @@ public class CollaborationContract implements ContractInterface {
     logCaller(ctx);
     ArrayList<String> boVersions = null;
     try {
-      StubHelper.findBusinessObjectHistory(ctx, id);
+      boVersions = StubHelper.findBusinessObjectHistory(ctx, id);
     } catch(Exception e) {
       throw new ChaincodeException(e.getClass().getSimpleName() + ": " + e.getMessage());
     }
