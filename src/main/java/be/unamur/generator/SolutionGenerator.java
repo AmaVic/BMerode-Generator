@@ -119,8 +119,8 @@ public class SolutionGenerator {
          JarEntry entry = entries.nextElement();
          if(entry.getName().startsWith("BMerodeChaincodeStructure/") && entry.getName().length() > "BMerodeChaincodeStructure/".length()) {
            String[] parts = StringUtils.split(entry.getName(),"/");
-           if(!parts[parts.length-1].contains("."))
-             continue;
+           //if(!parts[parts.length-1].contains("."))
+           //  continue;
 
            String cleanEntryName = entry.getName().substring("BMerodeChaincodeStructure/".length());
            InputStream is = jar.getInputStream(entry);
