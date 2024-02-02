@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'be.unamur'
-version '0.1'
+version '0.5-dev'
 
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
