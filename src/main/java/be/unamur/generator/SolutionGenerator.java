@@ -23,12 +23,12 @@ import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
+import java.nio.file.attribute.PosixFilePermission;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -119,8 +119,10 @@ public class SolutionGenerator {
          JarEntry entry = entries.nextElement();
          if(entry.getName().startsWith("BMerodeChaincodeStructure/") && entry.getName().length() > "BMerodeChaincodeStructure/".length()) {
            String[] parts = StringUtils.split(entry.getName(),"/");
-           //if(!parts[parts.length-1].contains("."))
-           //  continue;
+
+           if(!parts[parts.length-1].contains(".") && !entry.getName().equals("BMerodeChaincodeStructure/gradlew")) {
+             continue;
+           }
 
            String cleanEntryName = entry.getName().substring("BMerodeChaincodeStructure/".length());
            InputStream is = jar.getInputStream(entry);
@@ -160,35 +162,25 @@ public class SolutionGenerator {
       throw new SolutionGenerationException("Could not Copy Boilerplate Code");
     }
 
-
-    /*
-    Path sourceDir = Paths.get(this.getClass().getClassLoader().getResource("BMerodeChaincodeStructure").getPath());
-    File outputDir = new File(this.outputDirectory);
-
-    recurisevelyDelete(outputDir);
-
-    outputDir.mkdir();
-
-    AtomicBoolean success = new AtomicBoolean(true);
-
+    //Grant execute permission to gradlew
     try {
-      Path finalSourceDir = sourceDir;
-      Files.walk(sourceDir)
-              .forEach(sourcePath -> {
-                try {
-                  Path targetPath = Paths.get(this.outputDirectory).resolve(finalSourceDir.relativize(sourcePath));
-                  Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);
-                } catch (IOException e) {
-                  success.set(false);
-                }
-              });
+      grantExecutePermission(this.outputDirectory + File.separator + "gradlew");
     } catch (IOException e) {
-      throw new SolutionGenerationException("SolutionGenerator.copyBoilerplateCode(): " + e.toString());
+      throw new SolutionGenerationException("Could not Grant Execute Permission to gradlew (" + e.toString() + ")");
     }
+  }
 
-    if(!success.get()) {
-      throw new SolutionGenerationException("SolutionGenerator.copyBoilerplateCode(): failed");
-    } */
+  public static void grantExecutePermission(String filePath) throws IOException {
+    Path path = FileSystems.getDefault().getPath(filePath);
+
+    // Get the existing file permissions
+    Set<PosixFilePermission> permissions = new HashSet<>(Files.getPosixFilePermissions(path));
+
+    // Add the execute permission if it's not already present
+    permissions.add(PosixFilePermission.OWNER_EXECUTE);
+
+    // Set the updated file permissions
+    Files.setPosixFilePermissions(path, permissions);
   }
 
   private void generateInputValidators(Mermaidmodel model, MerodeExtension ext) throws SolutionGenerationException {
