@@ -25,7 +25,7 @@ Demonstration available in video.
 ```
 If the build is successful, you should be able to deploy the chaincode onto a Hyperledger Fabric network.
 
-Once the chaincode is deployed and ready to be used, it is possible to interact with using any existing tool to interact with Hyperledger Fabric chaincode. To test the produced chaincode (based on the BMerode model), the [ChaincodeTestr](https://github.com/AmaVic/ChaincodeTestr) tool can be used.
+To test the produced chaincode (based on the BMerode model), the [ChaincodeTestr](https://github.com/AmaVic/ChaincodeTestr) tool can be used.
 
 ## MXP File
 The `path_to_mxp_file` is the (relative or absolute) path to the Merode model (.mxp file).
