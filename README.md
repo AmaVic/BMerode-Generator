@@ -1,4 +1,6 @@
 # Overview
+[![Build](https://github.com/AmaVic/BMerode-Generator/actions/workflows/gradle-java.yml/badge.svg)](https://github.com/AmaVic/BMerode-Generator/actions/workflows/gradle-java.yml)
+
 This tool enables automated generation of Hyperledger Fabric chaincode based on BMerode models.
 BMerode is an extension and adaptation of the [Merode](http://merode.econ.kuleuven.ac.be/) approach for the design and implementation of enterprise information systems.
 
