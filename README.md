@@ -7,12 +7,25 @@ The principles behind the BMerode approach are described in the paper below:
 Amaral de Sousa, V., Burnay, C., Snoeck, M. (2020). B-MERODE: A Model-Driven Engineering and Artifact-Centric Approach to Generate Blockchain-Based Information Systems. In: Dustdar, S., Yu, E., Salinesi, C., Rieu, D., Pant, V. (eds) Advanced Information Systems Engineering. CAiSE 2020. Lecture Notes in Computer Science, vol 12127. Springer, Cham. https://doi.org/10.1007/978-3-030-49435-3_8
 
 # Usage
+Demonstration available in video.
+
+[![BMerode Chaincode Generator Demonstration](https://img.youtube.com/vi/rdUwocWaw1k/0.jpg)](https://www.youtube.com/watch?v=rdUwocWaw1k)
+
+
 1. Download `BMerode-Generator.zip` from the latest [release](https://github.com/AmaVic/BMerode-Generator/releases/tag/v0.5-dev).
 2. Unzip the file, open a terminal and get into the `bin` subdirectory.
 3. Run the following command to generate the chaincode:
 ```bash
 ./BMerode-Generator -m path_to_mxp_file -e path_to_extension_file -o path_to_destination_directory
 ```
+
+4. (Optional) Compilation Check: once the command is successfully executed, the chaincode source code (ready to be compiled, packaged and deployed) is in the destination directory. To make sure that the chaincode is compilable, you can get into the destination folder in your terminal, and run:
+```bash
+./gradlew build
+```
+If the build is successful, you should be able to deploy the chaincode onto a Hyperledger Fabric network.
+
+Once the chaincode is deployed and ready to be used, it is possible to interact with using any existing tool to interact with Hyperledger Fabric chaincode. To test the produced chaincode (based on the BMerode model), the [ChaincodeTestr](https://github.com/AmaVic/ChaincodeTestr) tool can be used.
 
 ## MXP File
 The `path_to_mxp_file` is the (relative or absolute) path to the Merode model (.mxp file).
@@ -26,7 +39,7 @@ for download is a .mxp file, which is actually a .zip archive. Before being able
 4. Open the file with the text/code editor of your choice, and remove the `masterrole` and `dependentrole` tags in the file.
 
 ## Extension File
-The `path_to_extension_file` is the (relative or absolute) path to the BMerode extension (.mxpx file). Currently, this file must be written manually. Below is a simple example of extension file:
+The `path_to_extension_file` is the (relative or absolute) path to the BMerode extension (.mxpx file). Currently, this file must be written manually. Below is a minimal example of extension file:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <MerodeExtension>
