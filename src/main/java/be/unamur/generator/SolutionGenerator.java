@@ -60,7 +60,7 @@ public class SolutionGenerator {
         e.printStackTrace();
       }
       jarUrl = "jar:"+jarUrl;
-      System.out.println(jarUrl);
+      //System.out.println(jarUrl);
 
       this.templatesFolder = "be.unamur.generator.templates";
       this.templateEngine.setProperty("resource.loader", "jar");
