@@ -59,6 +59,3 @@ The `ParticipantTypes` tag is used specify which business object types (defined 
 The `objectTypeId` of the existing business object types can be found in the .mxp file.
 
 The `EPT` and `IARS` tags are used to specify permissions at the participant type and instance level. They are however undocumented as of now and can be left empty.
-
-# License
-B-MERODE Code Generator © 2023 by Victor Amaral De Sousa is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
