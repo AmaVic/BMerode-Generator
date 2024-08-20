@@ -6,7 +6,7 @@ BMerode is an extension and adaptation of the [Merode](http://merode.econ.kuleuv
 
 The principles behind the BMerode approach are described in the paper below:
 
-Amaral de Sousa, V., Burnay, C., Snoeck, M. (2020). B-MERODE: A Model-Driven Engineering and Artifact-Centric Approach to Generate Blockchain-Based Information Systems. In: Dustdar, S., Yu, E., Salinesi, C., Rieu, D., Pant, V. (eds) Advanced Information Systems Engineering. CAiSE 2020. Lecture Notes in Computer Science, vol 12127. Springer, Cham. https://doi.org/10.1007/978-3-030-49435-3_8
+[Amaral de Sousa, V., Burnay, C. & Snoeck, M. Artifact-Centric Modeling and Implementation of Blockchain-Enabled Business Processes. Bus Inf Syst Eng (2024). https://doi.org/10.1007/s12599-024-00885-4](https://rdcu.be/dPJwI).
 
 # Usage
 Demonstration available in video.
